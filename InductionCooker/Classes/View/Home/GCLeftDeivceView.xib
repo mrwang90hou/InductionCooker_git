@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="539-lD-0Dt" customClass="GCLeftDeivceView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="563"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ob6-rc-M0D">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="90"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uqh-fR-fFO">
+                            <rect key="frame" x="0.0" y="0.0" width="187.5" height="90"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XM2-XU-NaA">
+                                    <rect key="frame" x="0.0" y="0.0" width="94" height="90"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kyV-Fh-ZAQ" customClass="GCImageTopButton">
+                                            <rect key="frame" x="6" y="24" width="82" height="43"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <state key="normal" title="电源" image="btn_openkey_normal">
+                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <state key="selected" image="btn_openkey_selected"/>
+                                            <state key="highlighted" image="btn_openkey_pressed"/>
+                                            <connections>
+                                                <action selector="powerButtonClick:" destination="539-lD-0Dt" eventType="touchUpInside" id="yMz-xj-b0q"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BkI-UA-AFA">
+                                    <rect key="frame" x="94" y="0.0" width="93.5" height="90"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="center" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qb6-5a-EBJ" customClass="GCImageTopButton">
+                                            <rect key="frame" x="12" y="24" width="68" height="43"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <state key="normal" title="预约" image="btn_reservation_normal">
+                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <state key="disabled" image="btn_reservation_disabled"/>
+                                            <state key="highlighted" image="btn_reservation_pressed"/>
+                                            <connections>
+                                                <action selector="reservationButtonClick:" destination="539-lD-0Dt" eventType="touchUpInside" id="KLx-zd-0qz"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="BkI-UA-AFA" secondAttribute="bottom" id="5Xa-BC-CS3"/>
+                                <constraint firstAttribute="bottom" secondItem="XM2-XU-NaA" secondAttribute="bottom" id="A2X-PA-YIF"/>
+                                <constraint firstItem="BkI-UA-AFA" firstAttribute="leading" secondItem="XM2-XU-NaA" secondAttribute="trailing" id="GnH-hd-0ll"/>
+                                <constraint firstItem="XM2-XU-NaA" firstAttribute="leading" secondItem="uqh-fR-fFO" secondAttribute="leading" id="PRw-sQ-cF2"/>
+                                <constraint firstItem="XM2-XU-NaA" firstAttribute="top" secondItem="uqh-fR-fFO" secondAttribute="top" id="Pr1-uG-Dbi"/>
+                                <constraint firstItem="BkI-UA-AFA" firstAttribute="top" secondItem="uqh-fR-fFO" secondAttribute="top" id="WeV-rW-OVh"/>
+                                <constraint firstAttribute="trailing" secondItem="BkI-UA-AFA" secondAttribute="trailing" id="eSg-uQ-2Et"/>
+                                <constraint firstItem="BkI-UA-AFA" firstAttribute="leading" secondItem="XM2-XU-NaA" secondAttribute="trailing" id="uvE-5r-3fb"/>
+                                <constraint firstItem="BkI-UA-AFA" firstAttribute="width" secondItem="XM2-XU-NaA" secondAttribute="width" id="yyw-hI-Bl4"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1iA-uW-kL3">
+                            <rect key="frame" x="187.5" y="0.0" width="187.5" height="90"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="paC-IR-gIM">
+                                    <rect key="frame" x="0.0" y="0.0" width="94" height="90"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RXY-uc-SJs" customClass="GCImageTopButton">
+                                            <rect key="frame" x="0.0" y="24" width="97" height="43"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <state key="normal" title="取消预约" image="btn_cancel_normal">
+                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <state key="highlighted" image="btn_cancel_pressed"/>
+                                            <connections>
+                                                <action selector="unReservationButtonClick:" destination="539-lD-0Dt" eventType="touchUpInside" id="djk-H7-WjL"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NdW-lL-KTq">
+                                    <rect key="frame" x="94" y="0.0" width="93.5" height="90"/>
+                                    <subviews>
+                                        <button opaque="NO" tag="555" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tcN-ig-Yar" customClass="GCImageTopButton">
+                                            <rect key="frame" x="0.0" y="24" width="97" height="43"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <state key="normal" title="设备切换" image="btn_device_switching_normal">
+                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <state key="highlighted" image="btn_device_switching_pressed"/>
+                                            <connections>
+                                                <action selector="changDeviceClick:" destination="539-lD-0Dt" eventType="touchUpInside" id="1WN-zV-I3D"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="paC-IR-gIM" firstAttribute="top" secondItem="1iA-uW-kL3" secondAttribute="top" id="63W-dV-THP"/>
+                                <constraint firstItem="NdW-lL-KTq" firstAttribute="leading" secondItem="paC-IR-gIM" secondAttribute="trailing" id="AbD-Q5-0r3"/>
+                                <constraint firstItem="NdW-lL-KTq" firstAttribute="top" secondItem="1iA-uW-kL3" secondAttribute="top" id="Pdw-bG-mBg"/>
+                                <constraint firstAttribute="bottom" secondItem="NdW-lL-KTq" secondAttribute="bottom" id="Uie-2B-NWO"/>
+                                <constraint firstItem="paC-IR-gIM" firstAttribute="leading" secondItem="1iA-uW-kL3" secondAttribute="leading" id="WX5-2O-bpV"/>
+                                <constraint firstAttribute="trailing" secondItem="NdW-lL-KTq" secondAttribute="trailing" id="hMP-fD-REA"/>
+                                <constraint firstAttribute="bottom" secondItem="paC-IR-gIM" secondAttribute="bottom" id="lrc-2Q-Lq0"/>
+                                <constraint firstItem="NdW-lL-KTq" firstAttribute="leading" secondItem="paC-IR-gIM" secondAttribute="trailing" id="wXK-qI-erK"/>
+                                <constraint firstItem="NdW-lL-KTq" firstAttribute="width" secondItem="paC-IR-gIM" secondAttribute="width" id="zMe-m5-vCy"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="uqh-fR-fFO" firstAttribute="top" secondItem="ob6-rc-M0D" secondAttribute="top" id="1ap-DS-CyP"/>
+                        <constraint firstItem="1iA-uW-kL3" firstAttribute="width" secondItem="uqh-fR-fFO" secondAttribute="width" id="EXr-BN-KsK"/>
+                        <constraint firstItem="1iA-uW-kL3" firstAttribute="leading" secondItem="uqh-fR-fFO" secondAttribute="trailing" id="Kmf-ZK-x75"/>
+                        <constraint firstItem="1iA-uW-kL3" firstAttribute="leading" secondItem="uqh-fR-fFO" secondAttribute="trailing" id="N7B-IW-724"/>
+                        <constraint firstAttribute="bottom" secondItem="1iA-uW-kL3" secondAttribute="bottom" id="VNY-zx-JvL"/>
+                        <constraint firstItem="uqh-fR-fFO" firstAttribute="leading" secondItem="ob6-rc-M0D" secondAttribute="leading" id="Vho-hD-9h5"/>
+                        <constraint firstItem="1iA-uW-kL3" firstAttribute="top" secondItem="ob6-rc-M0D" secondAttribute="top" id="dvV-gr-FF0"/>
+                        <constraint firstAttribute="trailing" secondItem="1iA-uW-kL3" secondAttribute="trailing" id="gkE-nK-6cE"/>
+                        <constraint firstAttribute="bottom" secondItem="uqh-fR-fFO" secondAttribute="bottom" id="hRj-eO-CYP"/>
+                        <constraint firstAttribute="width" secondItem="ob6-rc-M0D" secondAttribute="height" multiplier="25:6" id="vvn-N3-Ssh"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iN0-l3-epB">
+                    <rect key="frame" x="0.0" y="90" width="375" height="473"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iOX-5m-NKL" customClass="GCModenButton">
+                            <rect key="frame" x="57" y="20" width="55" height="78"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <state key="normal" title="煲粥" image="btn_soup_normal">
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <state key="disabled" image="btn_soup_disabled"/>
+                            <state key="selected" image="btn_moden_left_1_selected"/>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cjV-zP-xch" customClass="GCModenButton">
+                            <rect key="frame" x="56" y="118" width="55" height="78"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <state key="normal" title="煲汤" image="btn_porridge_normal">
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <state key="disabled" image="btn_porridge_disabled"/>
+                            <state key="selected" image="btn_moden_left_2_selected"/>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nbE-Vj-3Hj" customClass="GCModenButton">
+                            <rect key="frame" x="56" y="215" width="55" height="78"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <state key="normal" title="煮饭" image="btn_rice_normal">
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <state key="disabled" image="btn_rice_disabled"/>
+                            <state key="selected" image="btn_moden_left_3_selected"/>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ym5-YQ-fV8" customClass="GCModenButton">
+                            <rect key="frame" x="56" y="313" width="55" height="78"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <state key="normal" title="烧水" image="btn_water_normal">
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <state key="disabled" image="btn_water_disabled"/>
+                            <state key="selected" image="btn_moden_left_4_selected"/>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cWI-s9-Td6" customClass="GCModenButton">
+                            <rect key="frame" x="255" y="313" width="55" height="78"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <state key="normal" title="保温" image="btn_r_temperature_normal">
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <state key="disabled" image="btn_temperature_disabled"/>
+                            <state key="selected" image="btn_moden_left_8_selected"/>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aHt-Qr-apJ" customClass="GCModenButton">
+                            <rect key="frame" x="255" y="215" width="55" height="78"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <state key="normal" title="烤炸" image="btn_baked_fried_normal">
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <state key="disabled" image="btn_baked_fried_disabled"/>
+                            <state key="selected" image="btn_moden_left_7_selected"/>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d5B-We-6XB" customClass="GCModenButton">
+                            <rect key="frame" x="255" y="118" width="55" height="78"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <state key="normal" title="煎炒" image="btn_fried_normal">
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <state key="disabled" image="btn_fried__disabled"/>
+                            <state key="selected" image="btn_moden_left_6_selected"/>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZL4-I2-8uo" customClass="GCModenButton">
+                            <rect key="frame" x="255" y="20" width="55" height="78"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <state key="normal" title="火锅" image="brn_hotpot__normal">
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <state key="disabled" image="brn_hotpot_disabled"/>
+                            <state key="selected" image="btn_moden_left_5_selected"/>
+                        </button>
+                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UAC-lg-050">
+                            <rect key="frame" x="188" y="26" width="1" height="388"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" heightSizable="YES"/>
+                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" red="0.94117647058823528" green="0.94117647058823528" blue="0.94117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </view>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T04-sO-unS">
+                    <rect key="frame" x="0.0" y="523" width="375" height="40"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_iconparting_line" translatesAutoresizingMaskIntoConstraints="NO" id="hZv-oF-2zb">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="fd1-hP-7ah"/>
+                            </constraints>
+                        </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="azt-vz-atw">
+                            <rect key="frame" x="0.0" y="1" width="375" height="39"/>
+                            <state key="normal" image="home_btn_icon_upper"/>
+                            <connections>
+                                <action selector="showStallViewButtonClick:" destination="539-lD-0Dt" eventType="touchUpInside" id="XrU-Ix-tRR"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="azt-vz-atw" firstAttribute="leading" secondItem="T04-sO-unS" secondAttribute="leading" id="7xS-Zi-rbs"/>
+                        <constraint firstItem="hZv-oF-2zb" firstAttribute="top" secondItem="T04-sO-unS" secondAttribute="top" id="BJj-fQ-W7I"/>
+                        <constraint firstAttribute="trailing" secondItem="hZv-oF-2zb" secondAttribute="trailing" id="CMI-3f-8pf"/>
+                        <constraint firstAttribute="bottom" secondItem="azt-vz-atw" secondAttribute="bottom" id="Iaz-SI-1By"/>
+                        <constraint firstItem="azt-vz-atw" firstAttribute="top" secondItem="hZv-oF-2zb" secondAttribute="bottom" id="ahY-Zr-8u7"/>
+                        <constraint firstAttribute="width" secondItem="T04-sO-unS" secondAttribute="height" multiplier="375:40" id="hP4-fQ-1eN"/>
+                        <constraint firstAttribute="trailing" secondItem="azt-vz-atw" secondAttribute="trailing" id="kcF-7e-ZNW"/>
+                        <constraint firstItem="hZv-oF-2zb" firstAttribute="leading" secondItem="T04-sO-unS" secondAttribute="leading" id="pzn-F5-fje"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottom" id="2t6-Rw-8n8"/>
+                <constraint firstAttribute="trailing" secondItem="T04-sO-unS" secondAttribute="trailing" id="9AQ-hR-Dgi"/>
+                <constraint firstItem="iN0-l3-epB" firstAttribute="top" secondItem="ob6-rc-M0D" secondAttribute="bottom" id="Dc8-zi-oNL"/>
+                <constraint firstAttribute="trailing" secondItem="ob6-rc-M0D" secondAttribute="trailing" id="Dtf-Zc-TJM"/>
+                <constraint firstAttribute="bottom" secondItem="T04-sO-unS" secondAttribute="bottom" id="ZSc-0K-CUp"/>
+                <constraint firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailing" id="alE-fY-LjC"/>
+                <constraint firstItem="iN0-l3-epB" firstAttribute="leading" secondItem="539-lD-0Dt" secondAttribute="leading" id="cdV-ro-cgi"/>
+                <constraint firstItem="ob6-rc-M0D" firstAttribute="leading" secondItem="539-lD-0Dt" secondAttribute="leading" id="etw-Cm-iWc"/>
+                <constraint firstItem="T04-sO-unS" firstAttribute="leading" secondItem="539-lD-0Dt" secondAttribute="leading" id="tEZ-iv-FIT"/>
+                <constraint firstItem="ob6-rc-M0D" firstAttribute="top" secondItem="539-lD-0Dt" secondAttribute="top" id="wMU-bM-zm3"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="bottomView" destination="T04-sO-unS" id="ueH-9J-qUj"/>
+                <outlet property="button_0" destination="iOX-5m-NKL" id="rFW-5f-4KJ"/>
+                <outlet property="button_1" destination="cjV-zP-xch" id="ruG-RD-saP"/>
+                <outlet property="button_2" destination="nbE-Vj-3Hj" id="yFR-tN-F6u"/>
+                <outlet property="button_3" destination="ym5-YQ-fV8" id="7nS-fr-f1X"/>
+                <outlet property="button_4" destination="ZL4-I2-8uo" id="3MD-HJ-F04"/>
+                <outlet property="button_5" destination="d5B-We-6XB" id="7IN-3V-Wlh"/>
+                <outlet property="button_6" destination="aHt-Qr-apJ" id="wN2-MV-sVm"/>
+                <outlet property="button_7" destination="cWI-s9-Td6" id="Tpf-MJ-5tm"/>
+                <outlet property="disReservatonBt" destination="RXY-uc-SJs" id="ZCf-cI-Eck"/>
+                <outlet property="modenView" destination="iN0-l3-epB" id="R7f-zi-KgU"/>
+                <outlet property="poweBt" destination="kyV-Fh-ZAQ" id="sGd-EW-Gvf"/>
+                <outlet property="reservationBt" destination="Qb6-5a-EBJ" id="HjX-0g-3Qf"/>
+            </connections>
+            <point key="canvasLocation" x="-819.5" y="-54.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="brn_hotpot__normal" width="61" height="66"/>
+        <image name="brn_hotpot_disabled" width="61" height="66"/>
+        <image name="btn_baked_fried_disabled" width="61" height="66"/>
+        <image name="btn_baked_fried_normal" width="61" height="66"/>
+        <image name="btn_cancel_normal" width="50" height="50"/>
+        <image name="btn_cancel_pressed" width="50" height="50"/>
+        <image name="btn_device_switching_normal" width="50" height="50"/>
+        <image name="btn_device_switching_pressed" width="50" height="50"/>
+        <image name="btn_fried__disabled" width="61" height="66"/>
+        <image name="btn_fried_normal" width="61" height="66"/>
+        <image name="btn_moden_left_1_selected" width="71" height="71"/>
+        <image name="btn_moden_left_2_selected" width="71" height="71"/>
+        <image name="btn_moden_left_3_selected" width="71" height="71"/>
+        <image name="btn_moden_left_4_selected" width="71" height="71"/>
+        <image name="btn_moden_left_5_selected" width="71" height="71"/>
+        <image name="btn_moden_left_6_selected" width="71" height="71"/>
+        <image name="btn_moden_left_7_selected" width="71" height="71"/>
+        <image name="btn_moden_left_8_selected" width="71" height="71"/>
+        <image name="btn_openkey_normal" width="50" height="50"/>
+        <image name="btn_openkey_pressed" width="39" height="43"/>
+        <image name="btn_openkey_selected" width="50" height="50"/>
+        <image name="btn_porridge_disabled" width="61" height="66"/>
+        <image name="btn_porridge_normal" width="61" height="66"/>
+        <image name="btn_r_temperature_normal" width="61" height="66"/>
+        <image name="btn_reservation_disabled" width="50" height="50"/>
+        <image name="btn_reservation_normal" width="50" height="50"/>
+        <image name="btn_reservation_pressed" width="50" height="50"/>
+        <image name="btn_rice_disabled" width="61" height="66"/>
+        <image name="btn_rice_normal" width="61" height="66"/>
+        <image name="btn_soup_disabled" width="61" height="66"/>
+        <image name="btn_soup_normal" width="61" height="66"/>
+        <image name="btn_temperature_disabled" width="61" height="66"/>
+        <image name="btn_water_disabled" width="61" height="66"/>
+        <image name="btn_water_normal" width="61" height="66"/>
+        <image name="home_btn_icon_upper" width="21" height="11"/>
+        <image name="home_iconparting_line" width="1" height="1"/>
+    </resources>
+</document>

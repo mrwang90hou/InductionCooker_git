@@ -1,0 +1,52 @@
+//
+//  GEPrefixHeader.pch
+//  goockr_cat_eye
+//
+//  Created by 蔡敏权 on 16/9/4.
+//  Copyright © 2016年 蔡敏权. All rights reserved.
+//
+
+#ifndef GEPrefixHeader_pch
+#define GEPrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+
+#import <UIKit/UIKit.h>
+
+#import "Common.h"
+#import "GCGlobalStyle.h"
+
+#import "MQBarButtonItemTool.h"
+#import "RHSocketConnection.h"
+#import "GCAgreementHelper.h"
+#import "MQHudTool.h"
+#import "GCHttpDataTool.h"
+#import "GCUser.h"
+#import "GCSokectDataDeal.h"
+#import "GCSubDevice.h"
+#import "SIAlertView.h"
+#import "MQSaveLoadTool.h"
+#import "GCDiscoverView.h"
+
+
+#define NTES_USE_CLEAR_BAR - (BOOL)useClearBar{return YES;}
+
+#define NTES_FORBID_INTERACTIVE_POP - (BOOL)forbidInteractivePop{return YES;}
+
+
+// ...表示宏定义的可变参数
+// __VA_ARGS__:表示函数里面的可变参数
+#ifdef DEBUG // 调试
+
+#define GCLog(...) NSLog(__VA_ARGS__)
+
+#else // 发布
+
+#define GCLog(...)
+
+#endif
+
+
+#endif /* GEPrefixHeader_pch */

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GCReservationStartViewController">
+            <connections>
+                <outlet property="pickView" destination="Bw6-vZ-HtR" id="Mcm-a4-KId"/>
+                <outlet property="topView" destination="a1Q-fx-uVt" id="Npa-Vv-BGT"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a1Q-fx-uVt">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="71"/>
+                    <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="a1Q-fx-uVt" secondAttribute="height" multiplier="375:71" id="aFR-zI-Tsy"/>
+                    </constraints>
+                </view>
+                <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bw6-vZ-HtR">
+                    <rect key="frame" x="0.0" y="71" width="375" height="216"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="bQp-Gc-xld"/>
+                        <outlet property="delegate" destination="-1" id="U9W-d0-Lbs"/>
+                    </connections>
+                </pickerView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="Bw6-vZ-HtR" secondAttribute="trailing" id="7jr-In-HJs"/>
+                <constraint firstItem="Bw6-vZ-HtR" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="IRt-vj-Peh"/>
+                <constraint firstItem="a1Q-fx-uVt" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Rm3-hF-9Ut"/>
+                <constraint firstItem="a1Q-fx-uVt" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="WOT-Vt-4ga"/>
+                <constraint firstAttribute="trailing" secondItem="a1Q-fx-uVt" secondAttribute="trailing" id="bim-RW-5Ls"/>
+                <constraint firstItem="Bw6-vZ-HtR" firstAttribute="top" secondItem="a1Q-fx-uVt" secondAttribute="bottom" id="lTi-k5-t2b"/>
+            </constraints>
+            <point key="canvasLocation" x="-288" y="74"/>
+        </view>
+    </objects>
+</document>

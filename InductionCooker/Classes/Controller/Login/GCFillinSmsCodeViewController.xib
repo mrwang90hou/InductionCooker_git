@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GCFillinSmsCodeViewController">
+            <connections>
+                <outlet property="phoneLabel" destination="7Wt-pE-ucP" id="7N3-4h-z4K"/>
+                <outlet property="smsCode_bt" destination="vHT-FA-iPT" id="HU7-bB-MwZ"/>
+                <outlet property="smsCode_tf" destination="NiP-xD-uEe" id="vH3-Ir-vAJ"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q6p-jb-aDa" userLabel="smsView">
+                    <rect key="frame" x="15" y="48" width="345" height="50"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="inputbox_1" translatesAutoresizingMaskIntoConstraints="NO" id="f5O-d6-uOW">
+                            <rect key="frame" x="0.0" y="0.0" width="345" height="50"/>
+                        </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vHT-FA-iPT">
+                            <rect key="frame" x="240" y="0.0" width="100" height="50"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="vHT-FA-iPT" secondAttribute="height" multiplier="2:1" id="1eO-7Y-yjx"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <state key="normal" title="获取动态密码">
+                                <color key="titleColor" red="1" green="0.46666666670000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="getSmsCodeButtonClick:" destination="-1" eventType="touchUpInside" id="tSs-2g-Pjy"/>
+                            </connections>
+                        </button>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="动态密码" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="NiP-xD-uEe">
+                            <rect key="frame" x="10" y="14.5" width="215" height="20"/>
+                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                        </textField>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="f5O-d6-uOW" firstAttribute="leading" secondItem="Q6p-jb-aDa" secondAttribute="leading" id="53T-jh-pML"/>
+                        <constraint firstItem="f5O-d6-uOW" firstAttribute="top" secondItem="Q6p-jb-aDa" secondAttribute="top" id="AYG-np-r72"/>
+                        <constraint firstItem="vHT-FA-iPT" firstAttribute="leading" secondItem="NiP-xD-uEe" secondAttribute="trailing" constant="15" id="G4L-cn-QvQ"/>
+                        <constraint firstItem="vHT-FA-iPT" firstAttribute="top" secondItem="Q6p-jb-aDa" secondAttribute="top" id="Tzd-aU-c6R"/>
+                        <constraint firstAttribute="bottom" secondItem="vHT-FA-iPT" secondAttribute="bottom" id="Uvi-iD-GvE"/>
+                        <constraint firstAttribute="bottom" secondItem="f5O-d6-uOW" secondAttribute="bottom" id="WBU-7f-Lae"/>
+                        <constraint firstAttribute="trailing" secondItem="vHT-FA-iPT" secondAttribute="trailing" constant="5" id="Xos-du-7Sg"/>
+                        <constraint firstAttribute="width" secondItem="Q6p-jb-aDa" secondAttribute="height" multiplier="69:10" id="cCa-rt-fa9"/>
+                        <constraint firstItem="NiP-xD-uEe" firstAttribute="centerY" secondItem="Q6p-jb-aDa" secondAttribute="centerY" id="icB-dk-yDr"/>
+                        <constraint firstAttribute="trailing" secondItem="f5O-d6-uOW" secondAttribute="trailing" id="mld-pF-N38"/>
+                        <constraint firstItem="NiP-xD-uEe" firstAttribute="leading" secondItem="Q6p-jb-aDa" secondAttribute="leading" constant="10" id="uBa-Ly-8Hz"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="手机号码188888888888" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Wt-pE-ucP">
+                    <rect key="frame" x="15" y="15" width="192" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="7Wt-pE-ucP" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="15" id="EGc-Eq-OFC"/>
+                <constraint firstItem="Q6p-jb-aDa" firstAttribute="top" secondItem="7Wt-pE-ucP" secondAttribute="bottom" constant="12" id="LQH-UA-H5T"/>
+                <constraint firstItem="7Wt-pE-ucP" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="awU-6o-xQx"/>
+                <constraint firstAttribute="trailing" secondItem="Q6p-jb-aDa" secondAttribute="trailing" constant="15" id="x2g-Ln-OuJ"/>
+                <constraint firstItem="Q6p-jb-aDa" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="zNO-Za-2a4"/>
+            </constraints>
+            <point key="canvasLocation" x="-728" y="72"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="inputbox_1" width="345" height="50"/>
+    </resources>
+</document>

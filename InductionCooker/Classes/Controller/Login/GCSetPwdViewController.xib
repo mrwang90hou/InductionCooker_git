@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GCSetPwdViewController">
+            <connections>
+                <outlet property="again_tf" destination="6XM-jz-5vq" id="ZZE-IN-8FM"/>
+                <outlet property="pwd_tf" destination="xW6-0A-WJs" id="bo9-OB-9zw"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wyJ-A3-mNt" userLabel="phoneView">
+                    <rect key="frame" x="15" y="40" width="345" height="50"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="inputbox_1" translatesAutoresizingMaskIntoConstraints="NO" id="4Ub-zi-XA7">
+                            <rect key="frame" x="0.0" y="0.0" width="345" height="50"/>
+                        </imageView>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="xW6-0A-WJs">
+                            <rect key="frame" x="89.5" y="15.5" width="255.5" height="20"/>
+                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                        </textField>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="新  密  码:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rb8-s0-Xbw">
+                            <rect key="frame" x="10" y="14.5" width="74.5" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="rb8-s0-Xbw" firstAttribute="leading" secondItem="wyJ-A3-mNt" secondAttribute="leading" constant="10" id="EaP-sH-XMG"/>
+                        <constraint firstAttribute="bottom" secondItem="4Ub-zi-XA7" secondAttribute="bottom" id="JEy-4s-ocW"/>
+                        <constraint firstAttribute="trailing" secondItem="xW6-0A-WJs" secondAttribute="trailing" id="LYg-Qh-BQL"/>
+                        <constraint firstItem="4Ub-zi-XA7" firstAttribute="leading" secondItem="wyJ-A3-mNt" secondAttribute="leading" id="M0g-hu-Wbq"/>
+                        <constraint firstItem="xW6-0A-WJs" firstAttribute="leading" secondItem="rb8-s0-Xbw" secondAttribute="trailing" constant="5" id="Oek-bB-T6h"/>
+                        <constraint firstItem="4Ub-zi-XA7" firstAttribute="top" secondItem="wyJ-A3-mNt" secondAttribute="top" id="cQT-HD-1iZ"/>
+                        <constraint firstItem="xW6-0A-WJs" firstAttribute="centerY" secondItem="rb8-s0-Xbw" secondAttribute="centerY" id="l71-gL-ZhA"/>
+                        <constraint firstItem="rb8-s0-Xbw" firstAttribute="centerY" secondItem="wyJ-A3-mNt" secondAttribute="centerY" id="luu-qm-zGk"/>
+                        <constraint firstAttribute="trailing" secondItem="4Ub-zi-XA7" secondAttribute="trailing" id="mfK-i8-6Ad"/>
+                        <constraint firstAttribute="width" secondItem="wyJ-A3-mNt" secondAttribute="height" multiplier="69:10" id="vWt-9Z-mSN"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i2n-6r-xND" userLabel="againpwd">
+                    <rect key="frame" x="15" y="110" width="345" height="50"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="inputbox_1" translatesAutoresizingMaskIntoConstraints="NO" id="vI1-uv-ns2">
+                            <rect key="frame" x="0.0" y="0.0" width="345" height="50"/>
+                        </imageView>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="6XM-jz-5vq">
+                            <rect key="frame" x="89" y="15.5" width="256" height="20"/>
+                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                        </textField>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="确认密码:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rkE-SA-jmy">
+                            <rect key="frame" x="10" y="14.5" width="74" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="vI1-uv-ns2" firstAttribute="top" secondItem="i2n-6r-xND" secondAttribute="top" id="15w-xk-XgZ"/>
+                        <constraint firstItem="6XM-jz-5vq" firstAttribute="leading" secondItem="rkE-SA-jmy" secondAttribute="trailing" constant="5" id="4eK-GF-OX2"/>
+                        <constraint firstAttribute="trailing" secondItem="vI1-uv-ns2" secondAttribute="trailing" id="6Nm-2S-67g"/>
+                        <constraint firstItem="rkE-SA-jmy" firstAttribute="centerY" secondItem="i2n-6r-xND" secondAttribute="centerY" id="ChV-ho-cvc"/>
+                        <constraint firstItem="vI1-uv-ns2" firstAttribute="leading" secondItem="i2n-6r-xND" secondAttribute="leading" id="G3d-bR-vvN"/>
+                        <constraint firstAttribute="trailing" secondItem="6XM-jz-5vq" secondAttribute="trailing" id="SSQ-93-ukk"/>
+                        <constraint firstAttribute="bottom" secondItem="vI1-uv-ns2" secondAttribute="bottom" id="WLc-el-FTe"/>
+                        <constraint firstItem="6XM-jz-5vq" firstAttribute="centerY" secondItem="rkE-SA-jmy" secondAttribute="centerY" id="Z8N-de-WsA"/>
+                        <constraint firstItem="rkE-SA-jmy" firstAttribute="leading" secondItem="i2n-6r-xND" secondAttribute="leading" constant="10" id="ayE-fy-4nq"/>
+                        <constraint firstAttribute="width" secondItem="i2n-6r-xND" secondAttribute="height" multiplier="69:10" id="zTQ-28-Ji3"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="i2n-6r-xND" firstAttribute="top" secondItem="wyJ-A3-mNt" secondAttribute="bottom" constant="20" id="FuM-gv-xZb"/>
+                <constraint firstItem="i2n-6r-xND" firstAttribute="leading" secondItem="wyJ-A3-mNt" secondAttribute="leading" id="MCW-E1-Ba5"/>
+                <constraint firstItem="wyJ-A3-mNt" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="40" id="br6-EM-J4b"/>
+                <constraint firstItem="wyJ-A3-mNt" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="hLA-Bx-uE9"/>
+                <constraint firstItem="i2n-6r-xND" firstAttribute="trailing" secondItem="wyJ-A3-mNt" secondAttribute="trailing" id="hUx-24-bwv"/>
+                <constraint firstAttribute="trailing" secondItem="wyJ-A3-mNt" secondAttribute="trailing" constant="15" id="lZQ-Dd-sIl"/>
+            </constraints>
+            <point key="canvasLocation" x="24.5" y="52.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="inputbox_1" width="345" height="50"/>
+    </resources>
+</document>

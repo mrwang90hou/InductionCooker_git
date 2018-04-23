@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="GCNotificationCell" id="KGk-i7-Jjw" customClass="GCNotificationCell">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="70"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="69.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="notice_icon_avatar_default" translatesAutoresizingMaskIntoConstraints="NO" id="Bg1-U3-REZ">
+                        <rect key="frame" x="10" y="8" width="53.5" height="53.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="Bg1-U3-REZ" secondAttribute="height" multiplier="53:53" id="zeW-LK-TlH"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="有人在限用时间内打开电磁炉" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R3f-bs-lWA">
+                        <rect key="frame" x="73.5" y="8" width="330.5" height="27"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2017.06.08  16:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W9I-B3-uOm">
+                        <rect key="frame" x="73.5" y="35" width="330.5" height="26.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cVB-IP-PE2">
+                        <rect key="frame" x="10" y="67.5" width="404" height="1"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="uKL-lZ-bYh"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="R3f-bs-lWA" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="7O9-ZW-1l5"/>
+                    <constraint firstItem="W9I-B3-uOm" firstAttribute="top" secondItem="R3f-bs-lWA" secondAttribute="bottom" id="7bA-OP-FVQ"/>
+                    <constraint firstAttribute="trailing" secondItem="R3f-bs-lWA" secondAttribute="trailing" constant="10" id="Hdy-BM-Njb"/>
+                    <constraint firstAttribute="bottom" secondItem="Bg1-U3-REZ" secondAttribute="bottom" constant="8" id="SJB-OZ-Sci"/>
+                    <constraint firstItem="R3f-bs-lWA" firstAttribute="height" secondItem="Bg1-U3-REZ" secondAttribute="height" multiplier="0.5" id="UgM-y4-UJT"/>
+                    <constraint firstItem="W9I-B3-uOm" firstAttribute="height" secondItem="R3f-bs-lWA" secondAttribute="height" id="XoX-5Q-S5d"/>
+                    <constraint firstAttribute="trailing" secondItem="W9I-B3-uOm" secondAttribute="trailing" constant="10" id="ZTs-iD-fCJ"/>
+                    <constraint firstItem="cVB-IP-PE2" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="aYr-Wg-tzE"/>
+                    <constraint firstItem="R3f-bs-lWA" firstAttribute="leading" secondItem="Bg1-U3-REZ" secondAttribute="trailing" constant="10" id="ccy-6f-HjB"/>
+                    <constraint firstItem="Bg1-U3-REZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="d8B-bN-c9N"/>
+                    <constraint firstItem="W9I-B3-uOm" firstAttribute="leading" secondItem="R3f-bs-lWA" secondAttribute="leading" id="lJH-Ce-gID"/>
+                    <constraint firstAttribute="trailing" secondItem="cVB-IP-PE2" secondAttribute="trailing" id="nNG-2Z-gfS"/>
+                    <constraint firstItem="Bg1-U3-REZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="qMT-Yb-9DX"/>
+                    <constraint firstAttribute="bottom" secondItem="cVB-IP-PE2" secondAttribute="bottom" constant="1" id="tsm-ch-cam"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="dateLabel" destination="W9I-B3-uOm" id="EXQ-1M-ygz"/>
+                <outlet property="headImageView" destination="Bg1-U3-REZ" id="EZ3-MU-Fev"/>
+                <outlet property="titleLabel" destination="R3f-bs-lWA" id="4Fy-jq-LMr"/>
+            </connections>
+            <point key="canvasLocation" x="-223.5" y="28.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="notice_icon_avatar_default" width="50" height="50"/>
+    </resources>
+</document>

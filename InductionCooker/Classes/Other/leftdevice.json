@@ -1,0 +1,151 @@
+{"value":[
+          {
+          "modenId": 0,
+          "type": "煲粥",
+          "aotuWork": true,
+          "isTiming": false,
+          "defaultTime": 0,
+          "timeCancel": false,
+          "reservation": true,
+          "stalls": [],
+          "showTemperature":false,
+          "defaultStalls": []
+          },
+          {
+          "modenId": 1,
+          "type": "煲汤",
+          "aotuWork": true,
+          "isTiming": false,
+          "defaultTime": 0,
+          "timeCancel": false,
+          "reservation": true,
+          "showTemperature":false,
+          "stalls": [],
+          "defaultStalls": []
+          },
+          {
+          "modenId": 2,
+          "type": "煮饭",
+          "aotuWork": true,
+          "isTiming": false,
+          "defaultTime": 0,
+          "timeCancel": false,
+          "reservation": true,
+          "showTemperature":false,
+          "stalls": [ ],
+          "defaultStalls": []
+          },
+          {
+          "modenId": 3,
+          "type": "烧水",
+          "aotuWork": true,
+          "isTiming": false,
+          "defaultTime": 0,
+          "timeCancel": true,
+          "reservation": true,
+          "showTemperature":false,
+          "stalls": [],
+          "defaultStalls": [
+                            {
+                            "0": 1600
+                            }
+                            ]
+          },
+          {
+          "modenId": 4,
+          "type": "火锅",
+          "aotuWork": false,
+          "isTiming": true,
+          "defaultTime": 0,
+          "timeCancel": true,
+          "reservation": false,
+          "showTemperature":false,
+          "stalls": [
+                     100,
+                     200,
+                     400,
+                     600,
+                     800,
+                     1000,
+                     1200,
+                     1400,
+                     1600,
+                     1800,
+                     2000,
+                     2200
+                     ],
+          "defaultStalls": [
+                            {
+                            "0": 1600
+                            }
+                            ]
+          },
+          {
+          "modenId": 5,
+          "type": "煎炒",
+          "aotuWork": false,
+          "isTiming": true,
+          "defaultTime": 0,
+          "timeCancel": true,
+          "reservation": false,
+          "showTemperature":true,
+          "stalls": [
+                     100,
+                     200,
+                     400,
+                     600,
+                     800,
+                     1000,
+                     1200,
+                     1400,
+                     1600,
+                     1800,
+                     2000,
+                     2200
+                     ],
+          "defaultStalls": [
+                            {
+                            "0": 1600
+                            }
+                            ]
+          },
+          {
+          "modenId": 6,
+          "type": "烤炸",
+          "aotuWork": false,
+          "isTiming": true,
+          "defaultTime": 0,
+          "timeCancel": true,
+          "reservation": false,
+          "showTemperature":true,
+          "stalls": [
+                     100,
+                     600,
+                     1200,
+                     1600,
+                     2200
+                     ],
+          "defaultStalls": [
+                            {
+                            "0": 1600
+                            }
+                            ]
+          },
+          {
+          "modenId": 7,
+          "type": "保温",
+          "aotuWork": true,
+          "isTiming": true,
+          "defaultTime": 7200,
+          "timeCancel": false,
+          "reservation": false,
+          "showTemperature":false,
+          "stalls": [],
+          "defaultStalls": [
+                            {
+                            "7200": 100
+                            }
+                            ]
+          }
+          ]
+}

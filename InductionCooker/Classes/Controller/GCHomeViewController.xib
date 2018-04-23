@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GCHomeViewController">
+            <connections>
+                <outlet property="controllerView" destination="1yB-cV-hz6" id="3SO-CY-uhH"/>
+                <outlet property="topView" destination="byY-OD-5JN" id="YKu-nC-vz9"/>
+                <outlet property="topViewMarginTop" destination="smW-tY-7jq" id="he5-g0-6h0"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="byY-OD-5JN">
+                    <rect key="frame" x="0.0" y="25" width="375" height="55"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="55" id="q6U-OC-V3R"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RIF-5a-mp9">
+                    <rect key="frame" x="0.0" y="80" width="375" height="0.0"/>
+                    <subviews>
+                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EZ1-w5-8ea">
+                            <rect key="frame" x="0.0" y="0.0" width="187.5" height="0.0"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2xF-tB-nH1" customClass="GCImageTopButton">
+                                    <rect key="frame" x="40" y="-36" width="82" height="43"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                    <state key="normal" title="电源" image="btn_openkey_normal">
+                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <state key="selected" image="btn_openkey_selected"/>
+                                    <state key="highlighted" image="btn_openkey_pressed"/>
+                                    <connections>
+                                        <action selector="rootButtonClick:" destination="-1" eventType="touchUpInside" id="Lb6-T3-SMX"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </view>
+                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gJm-Qk-KNe">
+                            <rect key="frame" x="187.5" y="0.0" width="187.5" height="0.0"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="center" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rmc-sg-3LR" customClass="GCImageTopButton">
+                                    <rect key="frame" x="0.0" y="-34" width="68" height="43"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                    <state key="normal" title="预约" image="btn_reservation_normal">
+                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <state key="disabled" image="btn_reservation_disabled"/>
+                                    <state key="highlighted" image="btn_reservation_pressed"/>
+                                    <connections>
+                                        <action selector="reservationButtonClick:" destination="-1" eventType="touchUpInside" id="vYg-cX-xMT"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BYA-78-lme" customClass="GCImageTopButton">
+                                    <rect key="frame" x="70" y="-34" width="97" height="43"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                    <state key="normal" title="取消预约" image="btn_cancel_normal">
+                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <state key="highlighted" image="btn_cancel_pressed"/>
+                                    <connections>
+                                        <action selector="unreservationButtonClick:" destination="-1" eventType="touchUpInside" id="i2J-q0-BTX"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="EZ1-w5-8ea" firstAttribute="top" secondItem="RIF-5a-mp9" secondAttribute="top" id="HQ2-GV-wWW"/>
+                        <constraint firstItem="gJm-Qk-KNe" firstAttribute="leading" secondItem="EZ1-w5-8ea" secondAttribute="trailing" id="L6j-NV-o69"/>
+                        <constraint firstItem="gJm-Qk-KNe" firstAttribute="top" secondItem="RIF-5a-mp9" secondAttribute="top" id="UXE-v7-Wkw"/>
+                        <constraint firstItem="EZ1-w5-8ea" firstAttribute="leading" secondItem="RIF-5a-mp9" secondAttribute="leading" id="Waj-nu-TkQ"/>
+                        <constraint firstAttribute="bottom" secondItem="gJm-Qk-KNe" secondAttribute="bottom" id="Wke-H1-Jm2"/>
+                        <constraint firstAttribute="bottom" secondItem="EZ1-w5-8ea" secondAttribute="bottom" id="YJr-CL-Dva"/>
+                        <constraint firstAttribute="height" id="Z1i-zz-urd"/>
+                        <constraint firstItem="gJm-Qk-KNe" firstAttribute="width" secondItem="EZ1-w5-8ea" secondAttribute="width" id="ZqT-Mc-6sa"/>
+                        <constraint firstItem="gJm-Qk-KNe" firstAttribute="leading" secondItem="EZ1-w5-8ea" secondAttribute="trailing" id="Zwx-Z2-22N"/>
+                        <constraint firstAttribute="trailing" secondItem="gJm-Qk-KNe" secondAttribute="trailing" id="y0O-nE-icc"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1yB-cV-hz6">
+                    <rect key="frame" x="0.0" y="80" width="375" height="587"/>
+                </view>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lck-Jx-aZj">
+                    <rect key="frame" x="0.0" y="576.5" width="375" height="41.5"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_iconparting_line" translatesAutoresizingMaskIntoConstraints="NO" id="lMY-SF-Q3d">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="w7M-tK-diS"/>
+                            </constraints>
+                        </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1B1-gO-eyB">
+                            <rect key="frame" x="167.5" y="1" width="40" height="40.5"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="40" id="Nlk-AP-jzH"/>
+                            </constraints>
+                            <state key="normal" image="home_btn_icon_upper"/>
+                            <connections>
+                                <action selector="openModenViewButtonClick:" destination="-1" eventType="touchUpInside" id="bwx-vp-t15"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="lMY-SF-Q3d" firstAttribute="top" secondItem="Lck-Jx-aZj" secondAttribute="top" id="831-To-4hX"/>
+                        <constraint firstItem="lMY-SF-Q3d" firstAttribute="leading" secondItem="Lck-Jx-aZj" secondAttribute="leading" id="BFd-g4-HNA"/>
+                        <constraint firstAttribute="trailing" secondItem="lMY-SF-Q3d" secondAttribute="trailing" id="JEm-eg-a9e"/>
+                        <constraint firstAttribute="width" secondItem="Lck-Jx-aZj" secondAttribute="height" multiplier="9:1" id="Mm1-7M-Xal"/>
+                        <constraint firstItem="1B1-gO-eyB" firstAttribute="top" secondItem="lMY-SF-Q3d" secondAttribute="bottom" id="R2F-IK-xw0"/>
+                        <constraint firstItem="1B1-gO-eyB" firstAttribute="centerX" secondItem="Lck-Jx-aZj" secondAttribute="centerX" id="vnb-vL-atZ"/>
+                        <constraint firstAttribute="bottom" secondItem="1B1-gO-eyB" secondAttribute="bottom" id="zYT-ni-yim"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="Lck-Jx-aZj" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="0dK-9b-BXx"/>
+                <constraint firstAttribute="bottom" secondItem="Lck-Jx-aZj" secondAttribute="bottom" constant="49" id="105-qi-x7q"/>
+                <constraint firstAttribute="trailing" secondItem="Lck-Jx-aZj" secondAttribute="trailing" id="3Tm-7C-0dP"/>
+                <constraint firstAttribute="trailing" secondItem="1yB-cV-hz6" secondAttribute="trailing" id="6nZ-OW-OwL"/>
+                <constraint firstItem="RIF-5a-mp9" firstAttribute="top" secondItem="byY-OD-5JN" secondAttribute="bottom" id="BuU-Lp-EFW"/>
+                <constraint firstAttribute="trailing" secondItem="RIF-5a-mp9" secondAttribute="trailing" id="IZm-r4-e2E"/>
+                <constraint firstAttribute="bottom" secondItem="1yB-cV-hz6" secondAttribute="bottom" id="boy-yi-lm6"/>
+                <constraint firstItem="byY-OD-5JN" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="bq7-Kt-IMc"/>
+                <constraint firstAttribute="trailing" secondItem="byY-OD-5JN" secondAttribute="trailing" id="dKJ-M6-25z"/>
+                <constraint firstItem="RIF-5a-mp9" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="kKU-8Z-9zL"/>
+                <constraint firstItem="1yB-cV-hz6" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="mxz-I2-7uj"/>
+                <constraint firstItem="1yB-cV-hz6" firstAttribute="top" secondItem="RIF-5a-mp9" secondAttribute="bottom" id="oGG-97-F2j"/>
+                <constraint firstItem="byY-OD-5JN" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="25" id="smW-tY-7jq"/>
+            </constraints>
+            <point key="canvasLocation" x="-1557" y="-391"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="btn_cancel_normal" width="39" height="43"/>
+        <image name="btn_cancel_pressed" width="39" height="43"/>
+        <image name="btn_openkey_normal" width="39" height="43"/>
+        <image name="btn_openkey_pressed" width="39" height="43"/>
+        <image name="btn_openkey_selected" width="39" height="43"/>
+        <image name="btn_reservation_disabled" width="39" height="43"/>
+        <image name="btn_reservation_normal" width="39" height="43"/>
+        <image name="btn_reservation_pressed" width="39" height="43"/>
+        <image name="home_btn_icon_upper" width="21" height="11"/>
+        <image name="home_iconparting_line" width="1" height="1"/>
+    </resources>
+</document>
