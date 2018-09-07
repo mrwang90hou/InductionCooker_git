@@ -149,7 +149,7 @@
         
         result = [self.database executeQuery:sqlStr];
         
-        NSLog(@"路径和参数%@%@",sqlStr,value);
+        NSLog(@"查询【通知】结果列表：路径和参数 %@%@",sqlStr,value);
         
         while (result.next) {
             

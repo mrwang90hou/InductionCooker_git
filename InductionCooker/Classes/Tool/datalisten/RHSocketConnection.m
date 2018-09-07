@@ -211,7 +211,7 @@ static  RHSocketConnection *tool;
     }
     
     [self.hud addHudWithTitle:@"正在连接产品..." onWindow:myWindow];
-    
+    NSLog(@"[RHSocketConnection]正在连接产品...");
     self.connectCount++;
     
     

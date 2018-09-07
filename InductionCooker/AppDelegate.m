@@ -17,7 +17,8 @@
 #import "SIAlertView.h"
 #import "GCDataBasicManager.h"
 
-
+#import "NSDictionary+Category.h"
+//#import "JRSwizzle.h"
 @interface AppDelegate ()
 
 @property (nonatomic,strong) RHSocketConnection *listenSockect;
@@ -63,6 +64,10 @@
     [self getDeviceListWithShowTip:NO];
 
     [self addObserver];
+    
+    
+    
+//    [NSDictionary jr_swizzleMethod:@selector(description) withMethod:@selector(my_description) error:nil];
     
     return YES;
 }

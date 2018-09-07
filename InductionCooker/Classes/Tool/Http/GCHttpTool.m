@@ -80,8 +80,11 @@
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
-        
-        NSLog(@"获取到的数据为：%@",responseObject);
+        NSData *mJsonData = [NSJSONSerialization dataWithJSONObject:responseObject options:NSJSONWritingPrettyPrinted error:nil];
+        NSLog(@"获取到的数据为：\n%@", [[NSString alloc] initWithData:mJsonData encoding:NSUTF8StringEncoding]);
+//        NSDictionary *mResult = [NSJSONSerialization JSONObjectWithData:mJsonData options:NSJSONReadingMutableContainers error:nil];
+        //        NSLog(@"获取到的数据为：%@",[responseObject description]);
+//        NSLog(@"获取到的数据为：%@",[mResult description]);
 
         
         if ([responseObject[@"result"] intValue]!=0)
@@ -209,7 +212,20 @@
 
     
 }
-
+//responseObject是接口返回来的Unicode数据
+//NSLog(@" %@",[self transformDic:responseObject]);
+- (NSString *)transformDic:(NSDictionary *)dic {
+    if (![dic count]) {
+        return nil;
+    }
+    NSString *tempStr1 =
+    [[dic description] stringByReplacingOccurrencesOfString:@"\"u" withString:@"\"U"];
+    NSString *tempStr2 = [tempStr1 stringByReplacingOccurrencesOfString:@""  withString:@"\""];
+    NSString *tempStr3 = [[@"" stringByAppendingString:tempStr2] stringByAppendingString:@""];
+     NSData *tempData = [tempStr3 dataUsingEncoding:NSUTF8StringEncoding];
+     NSString *str = [NSPropertyListSerialization propertyListWithData:tempData options:NSPropertyListImmutable format:NULL error:NULL];
+     return str;
+ }
 
 
 

@@ -18,4 +18,5 @@
 
 - (NSString*)dictionaryToJson;
 
+- (NSString*)my_description;
 @end

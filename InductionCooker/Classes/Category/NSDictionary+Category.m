@@ -73,8 +73,12 @@
     return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
 }
 
-
-
+//字典Unicode 转 中文
+- (NSString*)my_description {
+    NSString *desc = [self my_description];
+    desc = [NSString stringWithCString:[desc cStringUsingEncoding:NSUTF8StringEncoding] encoding:NSNonLossyASCIIStringEncoding];
+    return desc;
+}
 
 
 
