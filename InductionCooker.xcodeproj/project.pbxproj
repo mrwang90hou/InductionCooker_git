@@ -1368,7 +1368,7 @@
 				TargetAttributes = {
 					6C6E95771EDFA599003A9446 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = CJ6W4Z749T;
+						DevelopmentTeam = NLQX8R2PJC;
 						ProvisioningStyle = Automatic;
 					};
 					6C6E95901EDFA599003A9446 = {
@@ -1772,7 +1772,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = CJ6W4Z749T;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = InductionCooker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1791,7 +1791,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = CJ6W4Z749T;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = InductionCooker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

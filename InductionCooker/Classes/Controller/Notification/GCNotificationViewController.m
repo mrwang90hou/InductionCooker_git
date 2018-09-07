@@ -36,7 +36,6 @@
 
 
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
@@ -74,10 +73,31 @@
 - (void) getData{
     
    // [GCUser getInstance].device.error=100;
-
-    NSArray  *dataSoucre=[[GCDataBasicManager shareManager] selecteFromTable:KErrorTableName name:nil];
+//    NSMutableArray *array  = [NSMutableArray array];;
+//    NSString *state=@"1";
+//    NSString *date=@"2018.09.06 18:30:40";
+//    NSString *text=@"有人在限定时间内打开电磁炉！";
+//    NSString *msgId=@"id";
+//    NSDictionary *dict=@{
+//                         @"msgId":msgId,
+//                         @"notiState":state,
+//                         @"text":text,
+//                         @"date":date
+//                         };
+//    GCNotificationCellMd *model = [GCNotificationCellMd createModelWithDict:dict];
+//
+//    [array addObject:model];
+//    NSArray *dataSoucre = [NSArray new];
+//    dataSoucre = [array mutableCopy];
     
-   self.dataSoucre = (NSMutableArray *)[[dataSoucre reverseObjectEnumerator] allObjects];
+    
+    NSArray *dataSoucre=[[GCDataBasicManager shareManager] selecteFromTable:KErrorTableName name:nil];
+    
+    
+    self.dataSoucre = (NSMutableArray *)[[dataSoucre reverseObjectEnumerator] allObjects];
+    
+    
+    
     
 }
 

@@ -41,7 +41,7 @@
 {
     //[self.rightItem setTintColor:[UIColor redColor]];
     
-
+    [super viewDidAppear:animated];
     
 }
 

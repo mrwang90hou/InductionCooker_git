@@ -146,7 +146,7 @@
 +(void)bindingWithDict:(NSDictionary *)dict success:(void (^)(id))success failure:(void (^)(MQError *))failure
 {
     NSString *urlString=[NSString stringWithFormat:@"%@%@",KHttpHeader,KHttpBindingDevice];
-    
+    NSLog(@"urlString = %@",urlString);
     
     [GCHttpTool Post:urlString parameters:dict success:^(id responseObject) {
         
@@ -154,6 +154,8 @@
         
     } failure:^(MQError *error) {
         
+        NSLog(@"error.code = %d , error.msg = %@",error.code,error.msg);
+//        [ hud hudUpdataTitile:@"绑定产品成功" hideTime:KHudSuccessShowShortTime];
         failure(error);
         
     }];

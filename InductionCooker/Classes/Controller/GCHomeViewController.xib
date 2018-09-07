@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -153,14 +153,14 @@
         </view>
     </objects>
     <resources>
-        <image name="btn_cancel_normal" width="39" height="43"/>
-        <image name="btn_cancel_pressed" width="39" height="43"/>
-        <image name="btn_openkey_normal" width="39" height="43"/>
+        <image name="btn_cancel_normal" width="50" height="50"/>
+        <image name="btn_cancel_pressed" width="50" height="50"/>
+        <image name="btn_openkey_normal" width="50" height="50"/>
         <image name="btn_openkey_pressed" width="39" height="43"/>
-        <image name="btn_openkey_selected" width="39" height="43"/>
-        <image name="btn_reservation_disabled" width="39" height="43"/>
-        <image name="btn_reservation_normal" width="39" height="43"/>
-        <image name="btn_reservation_pressed" width="39" height="43"/>
+        <image name="btn_openkey_selected" width="50" height="50"/>
+        <image name="btn_reservation_disabled" width="50" height="50"/>
+        <image name="btn_reservation_normal" width="50" height="50"/>
+        <image name="btn_reservation_pressed" width="50" height="50"/>
         <image name="home_btn_icon_upper" width="21" height="11"/>
         <image name="home_iconparting_line" width="1" height="1"/>
     </resources>
