@@ -221,6 +221,9 @@ static  RHSocketConnection *tool;
     
     if (error) {
         RHSocketLog(@"[RHSocketConnection] connectWithHost error: %@", error.description);
+        
+        NSLog(@"[RHSocketConnection] connectWithHost error: %@", error.description);
+        
         if (_delegate && [_delegate respondsToSelector:@selector(didDisconnectWithError:)]) {
             [_delegate didDisconnectWithError:error];
         }
@@ -267,7 +270,7 @@ static  RHSocketConnection *tool;
 - (void)writeData:(NSData *)data timeout:(NSTimeInterval)timeout tag:(long)tag
 {
     NSDictionary *d=[NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-    GCLog(@"输出数据  %@", d);
+//    GCLog(@"输出数据  （writeData1）%@", d);
     
     NSDictionary *dict=@{
                          KDataKey:data,
@@ -286,8 +289,8 @@ static  RHSocketConnection *tool;
 
 - (void)writeData:(NSData *)data timeout:(NSTimeInterval)timeout tag:(long)tag ReceiveBlock:(ReceiveBlock)block
 {
-  //  NSDictionary *d=[NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-   // GCLog(@"输出数据  %@", d);
+    NSDictionary *d=[NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+//    GCLog(@"输出数据 （writeData2） %@", d);
     
     NSDictionary *dict=@{
                          KDataKey:data,
@@ -311,7 +314,7 @@ static  RHSocketConnection *tool;
  
     NSError *error;
     NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&error];
-    //GCLog(@"socket发出数据%@   超时时间:%f",weatherDic,timeout);
+//    GCLog(@"socket发出数据%@   超时时间:%f",weatherDic,timeout);
     
     
      [_asyncSocket writeData:data withTimeout:timeout tag:tag];
@@ -447,8 +450,6 @@ static  RHSocketConnection *tool;
     //保持心跳
     [self keepHeartbeat];
     
-    
-    
    // [self writeData:[GCSokectDataDeal getInitData] timeout:-1 tag:0];
     
 }
@@ -468,7 +469,7 @@ static  RHSocketConnection *tool;
     NSDictionary *result=[NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
     
     
-    RHSocketLog(@"[RHSocketConnection] didReadData %@",result);
+    RHSocketLog(@"[RHSocketConnection] didReadData （result）%@",result);
     
     
     
@@ -499,10 +500,33 @@ static  RHSocketConnection *tool;
     
     
     if (result==nil) {
+        
+        NSLog(@"❌❌❌❌❌❌❌❌❌❌❌❌result is nil ❌❌❌❌❌❌❌❌❌❌❌❌");
         return;
     }
     
+    //新的连接状态判断的方法（取消 code 数值的判断！）
+    if ([[result allKeys] containsObject:KSokectOrder]) {
+        RHSocketLog(@"[RHSocketConnection] didReadData （result）%@",result);
+
+    }else{
+//        NSLog(@"👏👏👏👏👏👏👏👏👏👏👏👏👏👏👏Device Connect successful👏👏👏👏👏👏👏👏👏👏👏👏👏👏👏");
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"conectionStatus" object:@{@"code":@(1)}];
+        
+        
+        return;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
     if (result[KSokectOrder]==nil) {
+//        NSLog(@"❌❌❌❌❌❌❌❌❌❌❌❌result[KSokectOrder] is nil ❌❌❌❌❌❌❌❌❌❌❌❌");
         return;
     }
 
@@ -518,15 +542,15 @@ static  RHSocketConnection *tool;
     
     @try {
         
-         code=[orderDict[@"code"] intValue];
-        
+        code=[orderDict[@"code"] intValue];
+//        NSLog(@"orderDict[code] = %@",orderDict[@"code"]);
     } @catch (NSException *exception) {
         
         return;
         
     }
 
-    //        如果连接状态改变，UI做相应改变
+    //如果连接状态改变，UI做相应改变
     GCUser * user = [GCUser getInstance];
     if (user.device.code != code) {
         user.device.code = code;
@@ -548,7 +572,13 @@ static  RHSocketConnection *tool;
                
             }
                 break;
-                
+            case -3:
+            {   //msg = "unbind device";
+//                [[NSNotificationCenter defaultCenter] postNotificationName:KNotiDeviceDisconnectFormServe object:nil];
+//                [GCDiscoverView showWithTip:@"电磁炉已解除与您手机的绑定状态,您将无法控制电磁炉,请检查绑定状态!"];
+//                self.isDeviceDisconnect=NO;
+            }
+                break;
             default:
                 break;
         }
@@ -570,17 +600,10 @@ static  RHSocketConnection *tool;
             {
                 self.textView.text=[s stringByAppendingString:self.textView.text];
             }
-            
-            
         }
-        
-        
         self.isDeviceDisconnect=YES;
         
         switch (code) {
-            
-            
-            
             case 5:
             {
                 NSDictionary *dict=@{
@@ -748,7 +771,7 @@ static  RHSocketConnection *tool;
         
         if (ws.writeCount%10==0) {
             
-             //GCLog(@"查询状态");
+//             GCLog(@"查询状态");
             
              [ws writeData:[GCSokectDataDeal getDataWithdevice:0] timeout:-1 tag:10];
              [ws writeData:[GCSokectDataDeal getDataWithdevice:1] timeout:-1 tag:12];

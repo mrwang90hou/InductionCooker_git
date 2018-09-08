@@ -58,7 +58,7 @@
 #pragma mark -用户交互方法
 - (void) rightButtonClick
 {
-    
+//    [self.hud isShow];
     if (self.oldPwd_tf.text.length==0||self.pwd_tf.text.length==0||self.again_tf.text.length==0) {
         
         [self.hud addTipHudWithTitle:@"请填写本页面的所有项"];
@@ -99,7 +99,7 @@
     } failure:^(MQError *error) {
         
         
-        [self.hud hudUpdataTitile:error.msg hideTime:KHudSuccessShowShortTime ];
+        [self.hud hudUpdataTitile:error.msg hideTime:KHudSuccessShowShortTime];
         
     }];
     
@@ -108,6 +108,11 @@
 - (void) leftButtonClick
 {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:YES];
 }
 
 
