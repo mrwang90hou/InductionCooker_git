@@ -57,12 +57,12 @@
     [moreNav.tabBarItem setSelectedImage:[UIImage originalImageWithName:@"tab_icon_more_selected"]];
 
     
-    GCTestViewController *testVc=[[GCTestViewController alloc] initWithNibName:@"GCTestViewController" bundle:nil];
+//    GCTestViewController *testVc=[[GCTestViewController alloc] initWithNibName:@"GCTestViewController" bundle:nil];
     
     
-//    self.viewControllers =@[homeNav,notiNav,moreNav];
+    self.viewControllers =@[homeNav,notiNav,moreNav];
     
-    self.viewControllers =@[homeNav,notiNav,moreNav,testVc];
+//    self.viewControllers =@[homeNav,notiNav,moreNav,testVc];
 
     //[self.tabBar setBackgroundImage:[UIImage imageNamed:@"tab_bg"]];
     //self.tabBar.backgroundColor=UIColorFromRGB(KMainColor);

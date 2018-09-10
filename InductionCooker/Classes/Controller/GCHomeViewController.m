@@ -144,6 +144,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectSokectServeStateChange:) name:KNotiConnectSokectServeState object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(conectionStatus) name:@"conectionStatus" object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(conectionStatus:) name:@"conectionStatus" object:nil];
 }
 
 - (void) getData{
@@ -209,7 +210,6 @@
     self.deviceNameLabel.text=@"";
     self.deviceNameLabel.textColor=[UIColor blackColor];
     
-    
    
 
     GCRightDeivceView *rightView=[GCRightDeivceView loadViewFromXib];
@@ -257,6 +257,7 @@
 
 -(void)conectionStatus
 {
+//    NSLog(@"conectionStatus!!!");
     int code = [GCUser getInstance].device.code;
     if ([GCUser getInstance].device.deviceId == nil) {
         self.wifiConnectView.hidden = YES;
@@ -274,8 +275,36 @@
         self.leftView.isConection = YES;
         self.rightView.isConection = YES;
     }
+    
 }
 
+-(void)conectionStatus:(NSNotification *)noti
+{
+//    NSLog(@"conectionStatus:(NSNotification *)noti!!!");
+    int code = [GCUser getInstance].device.code;
+    if ([GCUser getInstance].device.deviceId == nil) {
+        self.wifiConnectView.hidden = YES;
+        code = -1;
+    }else
+        self.wifiConnectView.hidden = NO;
+    
+    if (code == -1) {
+        [self.wifiConnectView setWifiConnectLabelTitleWithIndex:0];
+        self.leftView.isConection = NO;
+        self.rightView.isConection = NO;
+    }else
+    {
+        [self.wifiConnectView setWifiConnectLabelTitleWithIndex:1];
+        self.leftView.isConection = YES;
+        self.rightView.isConection = YES;
+    }
+    //加载更新开关机动态
+    NSDictionary *data=[noti userInfo];
+//    NSLog(@"NSDictionary = %@",data);
+    int deviceId=[data[@"isLeft"] intValue];
+    int power=[data[@"isOpen"] intValue];
+    [self updatePowerWithDevice:deviceId State:power];
+}
 
 - (void) removeDeviceView
 {
@@ -415,9 +444,7 @@
     
     GCImageTopButton *bt=sender;
     
-    
     if (bt.selected) {
-        
         
         [[RHSocketConnection getInstance] writeData:[GCSokectDataDeal getRootBytesWithDeviceId:(int)self.segmentControl.selectIndex status:0] timeout:-1 tag:KTagPowerOff ReceiveBlock:^(NSData *data, long tag) {
             
@@ -526,8 +553,6 @@
     GCModen *moden=self.segmentControl.selectIndex==0?[GCUser getInstance].device.leftDevice.selModen:[GCUser getInstance].device.rightDevice.selModen;
     
   
-    
-    
 }
 
 
@@ -594,16 +619,17 @@
 }
 
 
-#pragma mark -监听数据变化
-- (void) receiveNoti:(NSNotification *)noti
+#pragma mark -监听数据变化1
+- (void) receiveNoti1:(NSNotification *)noti
 {
     //NSDictionary *dict=[noti userInfo];
     
     //从soap 信息中解析出CusotmerDetail 对象
     @try
     {
-        
         NSDictionary *data=[noti userInfo][@"data"];
+        
+        NSLog(@"NSDictionary = %@",data);
         
         int deviceId=[data[@"deviceId"] intValue];
         
@@ -674,13 +700,104 @@
     }@catch (NSException * e) {
         
         return;
-        
     }
-    
-    
-    
-    
 }
+#pragma mark -监听数据变化2
+- (void) receiveNoti:(NSNotification *)noti
+{
+    //NSDictionary *dict=[noti userInfo];
+    
+    //从soap 信息中解析出CusotmerDetail 对象
+    @try
+    {
+        //        NSDictionary *data=[noti userInfo][@"data"];
+        NSDictionary *data=[noti userInfo];
+        
+        NSLog(@"NSDictionary = %@",data);
+        
+        int deviceId=[data[@"isLeft"] intValue];
+        
+        //        if (deviceId==0) {
+        //
+        //            [GCUser getInstance].device.leftDevice.powerState=1;
+        //
+        //        }else{
+        //            [GCUser getInstance].device.rightDevice.powerState=1;
+        //        }
+        
+        //  self.root_bt.selected=self.segmentControl.selectIndex==deviceId?YES:NO;
+        if (true) {
+            
+             int power=[data[@"isOpen"] intValue];
+             [self updatePowerWithDevice:deviceId State:power];
+        }
+        
+        
+        
+        
+        
+        switch ([data[@"code"] intValue]) {
+                
+            case (1)://状态查询
+            {
+                [self updateStateWithBytes:data];
+            }
+                break;
+                
+            case (2)://开机回复
+            {
+                
+                // int power=[data[@"power"] intValue];
+                
+                // [self updatePowerWithDevice:deviceId State:power];
+            }
+                break;
+                
+            case (3)://模式设定回复
+            {
+                
+                int moden=[data[@"moden"] intValue];
+                
+                [self updateModenWithiDevoceId:deviceId moden:moden];
+                
+                
+            }
+                break;
+                
+            case (4)://档位设置回复
+            {
+                
+                int stalls=[data[@"stall"] intValue];
+                int mod=[data[@"moden"] intValue];
+                
+                
+                [self updateStallsWithiDevoceId:deviceId moden:mod stalls:stalls];
+            }
+                
+                break;
+            case (9)://收到故障报警
+            {
+                
+                [self deviceErrorWithDict:data];
+            }
+                
+                break;
+                
+                
+            default:
+                break;
+        }
+        
+        
+        
+    }@catch (NSException * e) {
+        
+        return;
+    }
+}
+
+
+
 
 - (void) receiveNotiDeivceDisconnect
 {
@@ -733,9 +850,9 @@
  @param device 炉号
  @param state 开关机状态
  */
-- (void) updatePowerWithDevice:(int)device State:(int)state
+- (void) updatePowerWithDevice0:(int)device State:(int)state
 {
-    
+//    NSLog(@"updatePowerWithDevice");
     if(self.segmentControl.selectIndex==device&&state==1)
     {
        // self.root_bt.selected=YES;
@@ -776,16 +893,56 @@
     
 }
 
+- (void) updatePowerWithDevice:(int)device State:(int)state
+{
+//    NSLog(@"updatePowerWithDevice");
+    if(device==1&&state==1)
+    {
+        NSLog(@"1    1");
+        [self.segmentControl updateItemWithIndex:0 title:@"已开机"];
+    }
+    if(device==0&&state==1)
+    {
+        NSLog(@"0    1");
+        [self.segmentControl updateItemWithIndex:1 title:@"已开机"];
+    }
+    if (device==1&&state==0) {
+        NSLog(@"1    0");
+        [self.segmentControl updateItemWithIndex:0 title:@"    "];
+        //self.bottomView.hidden=[GCUser getInstance].device.leftDevice.selModen?NO:YES;
+    }
+    if(device==0&&state==0)
+    {
+        NSLog(@"0    0");
+        [self.segmentControl updateItemWithIndex:1 title:@"    "];
+        //self.bottomView.hidden=[GCUser getInstance].device.rightDevice.selModen?NO:YES;
+    }
+    
+    
+    if (device==1) {
+//        [self.segmentControl updateItemWithIndex:1 title:@"已开机"];
+        [GCUser getInstance].device.leftDevice.powerState=state;
+        [self.leftView powerState:state hasReservation:NO monden:-1];
+    }else{
+//        [self.segmentControl updateItemWithIndex:0 title:@"已开机"];
+        [GCUser getInstance].device.rightDevice.powerState=state;
+        [self.rightView powerState:state hasReservation:NO monden:-1];
+    }
+    
+    
+
+}
+
+
 
 /**
  状态更新
  
  @param dict bytes description
  */
-- (void) updateStateWithBytes:(NSDictionary *)dict
+- (void) updateStateWithBytes0:(NSDictionary *)dict
 {
 
-    
     int deviceId=0;
     
     int moden=0;
@@ -827,7 +984,7 @@
         self.rightDeviceLastData=statusStr;
     }
 
-   // GCLog(@"查询到的模式%d   查询到的档位%d",moden,stall);
+    GCLog(@"查询到的模式%d   查询到的档位%d",moden,stall);
     GCSubDevice *subDevice=deviceId==0?[GCUser getInstance].device.leftDevice:[GCUser getInstance].device.rightDevice;
     
     GCModen *selModen=subDevice.selModen;
@@ -896,6 +1053,119 @@
     
     
 }
+//状态查询
+- (void) updateStateWithBytes:(NSDictionary *)dict
+{
+    
+    int deviceId=0;
+    
+    int moden=0;
+    
+    int power=0;
+    
+    int stall=0;
+    
+    BOOL reservation=NO;
+    
+    @try {
+        deviceId=[dict[@"deviceId"] intValue];
+        
+        moden=[dict[@"moden"] intValue];
+        
+        power=[dict[@"power"] intValue];
+        
+        stall=[dict[@"stall"] intValue];
+        
+        reservation=[dict[@"reservation"] boolValue];
+        
+    } @catch (NSException *exception) {
+        
+        return;
+    }
+    
+    
+    //数据过滤
+    NSString *lastStr=deviceId==0?self.leftDeviceLastData:self.rightDeviceLastData;
+    NSString *statusStr=[dict dictionaryToJson];
+    
+    if ([statusStr isEqualToString:lastStr]) {
+        // return;
+    }
+    
+    if (deviceId==0) {
+        self.leftDeviceLastData=statusStr;
+    }else{
+        self.rightDeviceLastData=statusStr;
+    }
+    
+    GCLog(@"查询到的模式%d   查询到的档位%d",moden,stall);
+    GCSubDevice *subDevice=deviceId==0?[GCUser getInstance].device.leftDevice:[GCUser getInstance].device.rightDevice;
+    
+    GCModen *selModen=subDevice.selModen;
+    
+    subDevice.powerState=power;
+    
+    subDevice.hasReservation=reservation;
+    
+    
+    if (power==1) {
+        
+        deviceId==0?[self.leftView powerState:YES hasReservation:reservation monden:moden]:[self.rightView powerState:YES hasReservation:reservation monden:moden];
+        
+        if (moden!=selModen.modenId%100||selModen==nil) {
+            
+            subDevice.selModen=deviceId==0?[self.leftView updateModen:moden]:[self.rightView updateModen:moden];
+            
+            NSDictionary *dict=@{
+                                 @"stalls":[NSNumber numberWithInt:stall],
+                                 @"deviceId":[NSNumber numberWithInt:deviceId],
+                                 @"moden":[NSNumber numberWithInt:moden]
+                                 };
+            [[NSNotificationCenter defaultCenter] postNotificationName:KNotiDevoceStallsChange object:nil userInfo:dict];
+            
+            
+        }else{
+            
+            if(subDevice.selModen.currentStall!=stall)
+            {
+                subDevice.selModen.currentStall=stall;
+                NSDictionary *dict=@{
+                                     @"stalls":[NSNumber numberWithInt:stall],
+                                     @"deviceId":[NSNumber numberWithInt:deviceId],
+                                     @"moden":[NSNumber numberWithInt:moden]
+                                     };
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:KNotiDevoceStallsChange object:nil userInfo:dict];
+                
+            }
+        }
+        
+    }else if(power==0)
+    {
+        deviceId==0?[self.leftView powerState:NO hasReservation:reservation monden:-1]:[self.rightView powerState:NO hasReservation:reservation monden:-1];
+    }
+    
+    //不分左右炉刷新
+    [self.segmentControl updateItemWithIndex:deviceId title:[GCAgreementHelper getPowerWhithDeivce:deviceId moden:moden stalls:stall]];
+    
+    
+    if (power==0&&deviceId==0) {
+        
+        
+        [self.segmentControl updateItemWithIndex:0 title:@"     "];
+        [GCUser getInstance].device.leftDevice.selModen=nil;
+        
+    }else if(power==0&&deviceId==1)
+    {
+        [self.segmentControl updateItemWithIndex:1 title:@"     "];
+        [GCUser getInstance].device.rightDevice.selModen=nil;
+    }
+    
+    
+    
+    
+}
+
 
 
 /**

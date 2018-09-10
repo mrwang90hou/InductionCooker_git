@@ -45,6 +45,13 @@
 
 @property (nonatomic,weak) UITextView *textView;
 
+//////////
+@property (nonatomic,strong) NSMutableArray *nounStatus;
+//@property (nonatomic,copy) BOOL bl=true;
+//@property (nonatomic, assign, getter=true) BOOL bl;
+
+
+
 @end
 
 @implementation RHSocketConnection
@@ -104,6 +111,10 @@ static  RHSocketConnection *tool;
         _isDeviceDisconnect=YES;
         
        // [self debugView];
+        
+        
+        NSArray *array=[NSArray arrayWithObjects:@"111",@"222", nil];
+        self.nounStatus = [array mutableCopy];
         
     }
     return self;
@@ -290,7 +301,7 @@ static  RHSocketConnection *tool;
 - (void)writeData:(NSData *)data timeout:(NSTimeInterval)timeout tag:(long)tag ReceiveBlock:(ReceiveBlock)block
 {
     NSDictionary *d=[NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-//    GCLog(@"输出数据 （writeData2） %@", d);
+    GCLog(@"输出数据 （writeData2） %@", d);
     
     NSDictionary *dict=@{
                          KDataKey:data,
@@ -361,6 +372,7 @@ static  RHSocketConnection *tool;
 
 
 #pragma mark -
+
 #pragma mark GCDAsyncSocketDelegate method
 
 - (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err
@@ -463,13 +475,10 @@ static  RHSocketConnection *tool;
     //继续读取sokect
     [sock readDataWithTimeout:-1 tag:tag];
     
-    
-    
-
     NSDictionary *result=[NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
     
     
-    RHSocketLog(@"[RHSocketConnection] didReadData （result）%@",result);
+//    RHSocketLog(@"[RHSocketConnection] didReadData （result）%@",result);
     
     
     
@@ -498,9 +507,8 @@ static  RHSocketConnection *tool;
 //    
 //    NSString *s1= [NSString stringWithCString:data encoding:enc];
     
-    
+#pragma mark -bug🙅‍♂️🙅‍♂️🙅‍♂️🙅‍♂️🙅‍♂️
     if (result==nil) {
-        
         NSLog(@"❌❌❌❌❌❌❌❌❌❌❌❌result is nil ❌❌❌❌❌❌❌❌❌❌❌❌");
         return;
     }
@@ -508,27 +516,74 @@ static  RHSocketConnection *tool;
     //新的连接状态判断的方法（取消 code 数值的判断！）
     if ([[result allKeys] containsObject:KSokectOrder]) {
         RHSocketLog(@"[RHSocketConnection] didReadData （result）%@",result);
-
-    }else{
+        return;
+    }else{      //如果 code 参数不存在，则返回连接状态
 //        NSLog(@"👏👏👏👏👏👏👏👏👏👏👏👏👏👏👏Device Connect successful👏👏👏👏👏👏👏👏👏👏👏👏👏👏👏");
         [[NSNotificationCenter defaultCenter] postNotificationName:@"conectionStatus" object:@{@"code":@(1)}];
+        //如果双炉不为关机状态
+//        if (<#condition#>) {
+//            <#statements#>
+//        }
+//
         
-        
-        return;
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"conectionStatus" object:nil userInfo:result];
+//        [[NSNotificationCenter defaultCenter] postNotificationName:KNotiDevoceStateChange object:nil userInfo:result];
+//        return;
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    if (result[KSokectOrder]==nil) {
-//        NSLog(@"❌❌❌❌❌❌❌❌❌❌❌❌result[KSokectOrder] is nil ❌❌❌❌❌❌❌❌❌❌❌❌");
-        return;
+    //定义存储先前的状态
+    //test 用例
+    //(1)左炉开关状态发生变化
+//    int i = 1;
+//    if (bl) {
+//        NSArray *array=[NSArray arrayWithObjects:@"111",@"222", nil];
+//        self.nounStatus = [array mutableCopy];
+//        i++;
+//    }
+    NSString *nounNumberStr = [result[@"isLeft"] stringValue];
+    NSString *nounStatusStr = [result[@"isOpen"] stringValue];
+//    NSLog(@"nounNumberStr = %@\nnounStatusStr = %@",nounNumberStr,nounStatusStr);
+//    NSLog(@"[result[@isLeft] = %d\nself.nounStatus objectAtIndex:0 = %@",[self.nounStatus[0] isEqualToString:@""],self.nounStatus[0]);
+//    if (result[@"isLeft"] == true &&![result[@"isOpen"] isEqualToString:[self.nounStatus objectAtIndex:0]]){
+    if ([nounNumberStr isEqualToString:@"1"]&&![nounStatusStr isEqualToString:[self.nounStatus objectAtIndex:0]]&&![self.nounStatus[0] isEqualToString:@"111"]){
+//        NSDictionary *dict=@{
+//                             @"data":orderDict,
+//                             @"tag":[NSNumber numberWithLong:tag]
+//                             };
+        [[NSNotificationCenter defaultCenter] postNotificationName:KNotiDevoceStateChange object:nil userInfo:result];
+        NSLog(@"左炉开关状态发生变化： %@",result[@"isOpen"]);
     }
+    //(2)右炉开关状态发生变化
+    if ([nounNumberStr isEqualToString:@"0"]&&![nounStatusStr isEqualToString:[self.nounStatus objectAtIndex:1]]&&![self.nounStatus[1] isEqualToString:@"222"]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:KNotiDevoceStateChange object:nil userInfo:result];
+        NSLog(@"右炉开关状态发生变化： %@",result[@"isOpen"]);
+    }
+    //(3)开机加载时左右炉开关状态不为 OFF 时
+//    if ([nounNumberStr isEqualToString:@"1"]) {
+//        [[NSNotificationCenter defaultCenter] postNotificationName:KNotiDevoceStateChange object:nil userInfo:result];
+//        NSLog(@"开机加载时左右炉开关状态不为 OFF 时");
+//    }
+    
+    if ([nounNumberStr isEqualToString:@"1"]) {
+        [self.nounStatus replaceObjectAtIndex:0  withObject:[result[@"isOpen"] stringValue]];
+        
+//        NSLog(@"存储左炉状态！");
+//        self.nounStatus[0] = result[@"isOpen"];
+    }else{
+        [self.nounStatus replaceObjectAtIndex:1  withObject:[result[@"isOpen"] stringValue]];
+        
+//        NSLog(@"存储右炉状态！");
+//        self.nounStatus[1] = result[@"isOpen"];
+        
+    }
+    
+//    NSLog(@"当前所存储的左炉状态%@    当前所存储的右炉状态%@",self.nounStatus[0],self.nounStatus[1]);
+//    self.nounStatus = nounStatus;
+    
+//    if (result[KSokectOrder]==nil) {
+////        NSLog(@"❌❌❌❌❌❌❌❌❌❌❌❌result[KSokectOrder] is nil ❌❌❌❌❌❌❌❌❌❌❌❌");
+//        return;
+//    }
 
     
     if (_delegate && [_delegate respondsToSelector:@selector(didReceiveData:tag:)]) {
@@ -547,7 +602,6 @@ static  RHSocketConnection *tool;
     } @catch (NSException *exception) {
         
         return;
-        
     }
 
     //如果连接状态改变，UI做相应改变
@@ -566,33 +620,32 @@ static  RHSocketConnection *tool;
 
                     [[NSNotificationCenter defaultCenter] postNotificationName:KNotiDeviceDisconnectFormServe object:nil];
                     [GCDiscoverView showWithTip:@"电磁炉未连接服务器,您将无法控制电磁炉,请检查电磁炉状态!"];
-
                 }
                 self.isDeviceDisconnect=NO;
                
             }
                 break;
-            case -3:
-            {   //msg = "unbind device";
+//            case -3:
+//            {   //msg = "unbind device";
 //                [[NSNotificationCenter defaultCenter] postNotificationName:KNotiDeviceDisconnectFormServe object:nil];
 //                [GCDiscoverView showWithTip:@"电磁炉已解除与您手机的绑定状态,您将无法控制电磁炉,请检查绑定状态!"];
 //                self.isDeviceDisconnect=NO;
-            }
-                break;
+//            }
+//                break;
             default:
                 break;
         }
         
     }else{
     
-        
+        //判断设备 ID 不一致
         if(![result[@"id"] isEqualToString:[GCUser getInstance].device.deviceId])return;
         
         
         if (code==6) {
             
             
-            GCLog(@"接收到数据: %@",orderDict);
+            GCLog(@"code 数值为 ：6 \n 接收到数据: %@",orderDict);
             NSString *s = [NSString stringWithFormat:@"接收到数据: %@%@",[[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding],@"\n"];
             
             
@@ -604,7 +657,7 @@ static  RHSocketConnection *tool;
         self.isDeviceDisconnect=YES;
         
         switch (code) {
-            case 5:
+            case 5:     //工作时间通知名称
             {
                 NSDictionary *dict=@{
                                      @"data":orderDict,
@@ -614,7 +667,7 @@ static  RHSocketConnection *tool;
             }
                 break;
 
-            case 6:
+            case 6:     //预约通知名称
             {
                 NSDictionary *dict=@{
                                      @"data":orderDict,
@@ -624,7 +677,7 @@ static  RHSocketConnection *tool;
             }
                 break;
 
-            case 7:
+            case 7:     //预约通知名称
             {
                 NSDictionary *dict=@{
                                      @"data":orderDict,
@@ -633,7 +686,7 @@ static  RHSocketConnection *tool;
                 [[NSNotificationCenter defaultCenter] postNotificationName:KNotiReservation object:nil userInfo:dict];
             }
                 break;
-            case 8:
+            case 8:     //定时通知名称
             {
                 NSDictionary *dict=@{
                                      @"data":orderDict,
@@ -643,13 +696,13 @@ static  RHSocketConnection *tool;
             }
                 break;
 
-            default:
+            default:    //设备状态发生变化通知名
             {
-                NSDictionary *dict=@{
-                                     @"data":orderDict,
-                                     @"tag":[NSNumber numberWithLong:tag]
-                                     };
-                [[NSNotificationCenter defaultCenter] postNotificationName:KNotiDevoceStateChange object:nil userInfo:dict];
+//                NSDictionary *dict=@{
+//                                     @"data":orderDict,
+//                                     @"tag":[NSNumber numberWithLong:tag]
+//                                     };
+//                [[NSNotificationCenter defaultCenter] postNotificationName:KNotiDevoceStateChange object:nil userInfo:dict];
             }
                 break;
         }
