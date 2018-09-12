@@ -528,6 +528,13 @@ static  RHSocketConnection *tool;
         
 //        [[NSNotificationCenter defaultCenter] postNotificationName:@"conectionStatus" object:nil userInfo:result];
 //        [[NSNotificationCenter defaultCenter] postNotificationName:KNotiDevoceStateChange object:nil userInfo:result];
+        
+        //考虑如何引入加载时的同步！
+        if ([[result[@"isLeft"] stringValue] isEqualToString:@"1"]) {
+            
+        }
+        
+        
 //        return;
     }
     

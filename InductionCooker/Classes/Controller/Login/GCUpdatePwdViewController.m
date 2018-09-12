@@ -58,23 +58,28 @@
 #pragma mark -用户交互方法
 - (void) rightButtonClick
 {
-//    [self.hud isShow];
+    
+    NSLog(@"您点击了 rightButtonClick ！");
     if (self.oldPwd_tf.text.length==0||self.pwd_tf.text.length==0||self.again_tf.text.length==0) {
         
+        NSLog(@"请填写本页面的所有项 ！");
         [self.hud addTipHudWithTitle:@"请填写本页面的所有项"];
+//        [_hud isShow];
         return;
         
     }
-    
+    [_hud isShow];
     if(![self.pwd_tf.text isEqualToString:self.again_tf.text])
     {
-        
+        NSLog(@"新密码填写不一致!");
+        [_hud isShow];
         [self.hud addTipHudWithTitle:@"新密码填写不一致"];
         return;
     }
-    
+    [_hud isShow];
+    NSLog(@"正在修改密码...!");
     [self.hud addNormHudWithSupView:self.view title:@"正在修改密码..."];
-    
+//    [_hud isShow];
     //functype=ch&mobile=13763085121&token=64f62f5341b6455981ed456bdb95eb80&old=123&new=456
     NSDictionary *dict=@{
                          @"functype":@"ch",
@@ -88,21 +93,22 @@
         
         __weak typeof(self) ws = self;
 
+        
+        [_hud isShow];
         [self.hud hudUpdataTitile:@"修改密码成功" hideTime:KHudSuccessShowShortTime success:^{
-           
-            
+            NSLog(@"修改密码成功!");
             [ws.navigationController popViewControllerAnimated:YES];
             
         }];
-
+        
         
     } failure:^(MQError *error) {
         
-        
+        NSLog(@"error.msg = %@",error.msg);
         [self.hud hudUpdataTitile:error.msg hideTime:KHudSuccessShowShortTime];
-        
+        [_hud isShow];
     }];
-    
+    [_hud isShow];
 }
 
 - (void) leftButtonClick
