@@ -265,20 +265,18 @@
     
     
     if (bt.selected) {
-        
-        
-        [[RHSocketConnection getInstance] writeData:[GCSokectDataDeal getRootBytesWithDeviceId:0 status:0] timeout:-1 tag:KTagPowerOff ReceiveBlock:^(NSData *data, long tag) {
-            
-            
+        //0   1 表示关机
+        //0   0 表示开机
+//        NSLog(@"bt.selected is true ! = %@",[GCSokectDataDeal getRootBytesWithDeviceId:0 status:0]);
+//        [SVProgressHUD showWithStatus:@"bt.selected is true ! "];
+        [[RHSocketConnection getInstance] writeData:[GCSokectDataDeal getRootBytesWithDeviceId:0 status:1] timeout:-1 tag:KTagPowerOff ReceiveBlock:^(NSData *data, long tag) {
+
         }];
-        
-        
     }else{
-        
-        
-        [[RHSocketConnection getInstance] writeData:[GCSokectDataDeal getRootBytesWithDeviceId:0 status:1] timeout:-1 tag:KTagPowerOn ReceiveBlock:^(NSData *data, long tag) {
-            
-            
+//        NSLog(@"bt.selected is false ! = %@",[GCSokectDataDeal getRootBytesWithDeviceId:0 status:0]);
+//        [SVProgressHUD showWithStatus:@"bt.selected is false ! "];
+        [[RHSocketConnection getInstance] writeData:[GCSokectDataDeal getRootBytesWithDeviceId:0 status:0] timeout:-1 tag:KTagPowerOn ReceiveBlock:^(NSData *data, long tag) {
+
         }];
         
         
@@ -335,8 +333,38 @@
         return;
         
     }
+    //改变了 button 的序列位置
+    int modelId = 0 ;
+    switch (button.moden.modenId) {
+        case 0:
+            modelId = 4;
+            break;
+        case 1:
+            modelId = 5;
+            break;
+        case 2:
+            modelId = 6;
+            break;
+        case 3:
+            modelId = 7;
+            break;
+        case 4:
+            modelId = 0;
+            break;
+        case 5:
+            modelId = 1;
+            break;
+        case 6:
+            modelId = 2;
+            break;
+        case 7:
+            modelId = 3;
+            break;
+    }
     
-    NSData *data=[GCSokectDataDeal getDataWithModen:button.moden.modenId device:0];
+//    NSData *data=[GCSokectDataDeal getDataWithModen:button.moden.modenId device:0];
+    
+    NSData *data=[GCSokectDataDeal getDataWithModen:modelId device:0];
     
     [[RHSocketConnection getInstance] writeData: data timeout:-1 tag:-1];
     
@@ -359,7 +387,6 @@
 
 - (void) getData{
     
-    
     NSString *path = [[NSBundle mainBundle] pathForResource:@"leftdevice" ofType:@"json"];
     NSData *jsonData = [NSData dataWithContentsOfFile:path options:NSDataReadingMappedIfSafe error:nil];
     NSMutableDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:nil];
@@ -371,7 +398,6 @@
         GCModen *model=[GCModen createModelWithDict:dict];
         
         self.buttons[i].moden=model;
-        
     }
     
    

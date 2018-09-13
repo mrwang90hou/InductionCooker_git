@@ -17,7 +17,8 @@
 
 #import "Common.h"
 #import "GCGlobalStyle.h"
-
+#import "MBProgressHUD.h"
+#import "SVProgressHUD.h"
 #import "MQBarButtonItemTool.h"
 #import "RHSocketConnection.h"
 #import "GCAgreementHelper.h"

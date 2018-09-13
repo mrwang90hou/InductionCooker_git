@@ -24,7 +24,7 @@
 
 
 /**
- 是否自动模式
+ 模式
  */
 @property (nonatomic,assign) int modenId;
 

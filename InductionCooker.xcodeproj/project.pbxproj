@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B522A47214A13FE0098DBB6 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 0B522A3B214A13FE0098DBB6 /* LICENSE */; };
+		0B522A48214A13FE0098DBB6 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 0B522A3C214A13FE0098DBB6 /* README.md */; };
+		0B522A49214A13FE0098DBB6 /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B522A3F214A13FE0098DBB6 /* SVIndefiniteAnimatedView.m */; };
+		0B522A4A214A13FE0098DBB6 /* SVProgressAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B522A41214A13FE0098DBB6 /* SVProgressAnimatedView.m */; };
+		0B522A4B214A13FE0098DBB6 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0B522A42214A13FE0098DBB6 /* SVProgressHUD.bundle */; };
+		0B522A4C214A13FE0098DBB6 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B522A44214A13FE0098DBB6 /* SVProgressHUD.m */; };
+		0B522A4D214A13FE0098DBB6 /* SVRadialGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B522A46214A13FE0098DBB6 /* SVRadialGradientLayer.m */; };
 		6C00C4E61F10893B0056CAA8 /* GCLinkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C00C4E51F10893B0056CAA8 /* GCLinkView.m */; };
 		6C049C431F3181DA00A3B626 /* MQButtonCountDownTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C049C421F3181DA00A3B626 /* MQButtonCountDownTool.m */; };
 		6C049C491F31B07300A3B626 /* GCHttpDataTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C049C461F31B07300A3B626 /* GCHttpDataTool.m */; };
@@ -210,6 +217,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0B522A3B214A13FE0098DBB6 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		0B522A3C214A13FE0098DBB6 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		0B522A3E214A13FE0098DBB6 /* SVIndefiniteAnimatedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVIndefiniteAnimatedView.h; sourceTree = "<group>"; };
+		0B522A3F214A13FE0098DBB6 /* SVIndefiniteAnimatedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVIndefiniteAnimatedView.m; sourceTree = "<group>"; };
+		0B522A40214A13FE0098DBB6 /* SVProgressAnimatedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressAnimatedView.h; sourceTree = "<group>"; };
+		0B522A41214A13FE0098DBB6 /* SVProgressAnimatedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressAnimatedView.m; sourceTree = "<group>"; };
+		0B522A42214A13FE0098DBB6 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
+		0B522A43214A13FE0098DBB6 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
+		0B522A44214A13FE0098DBB6 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
+		0B522A45214A13FE0098DBB6 /* SVRadialGradientLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVRadialGradientLayer.h; sourceTree = "<group>"; };
+		0B522A46214A13FE0098DBB6 /* SVRadialGradientLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVRadialGradientLayer.m; sourceTree = "<group>"; };
 		6C00C4E41F10893B0056CAA8 /* GCLinkView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCLinkView.h; sourceTree = "<group>"; };
 		6C00C4E51F10893B0056CAA8 /* GCLinkView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCLinkView.m; sourceTree = "<group>"; };
 		6C049C411F3181DA00A3B626 /* MQButtonCountDownTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MQButtonCountDownTool.h; sourceTree = "<group>"; };
@@ -566,6 +584,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B522A3A214A13FE0098DBB6 /* SVProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				0B522A3B214A13FE0098DBB6 /* LICENSE */,
+				0B522A3C214A13FE0098DBB6 /* README.md */,
+				0B522A3D214A13FE0098DBB6 /* SVProgressHUD */,
+			);
+			path = SVProgressHUD;
+			sourceTree = "<group>";
+		};
+		0B522A3D214A13FE0098DBB6 /* SVProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				0B522A3E214A13FE0098DBB6 /* SVIndefiniteAnimatedView.h */,
+				0B522A3F214A13FE0098DBB6 /* SVIndefiniteAnimatedView.m */,
+				0B522A40214A13FE0098DBB6 /* SVProgressAnimatedView.h */,
+				0B522A41214A13FE0098DBB6 /* SVProgressAnimatedView.m */,
+				0B522A42214A13FE0098DBB6 /* SVProgressHUD.bundle */,
+				0B522A43214A13FE0098DBB6 /* SVProgressHUD.h */,
+				0B522A44214A13FE0098DBB6 /* SVProgressHUD.m */,
+				0B522A45214A13FE0098DBB6 /* SVRadialGradientLayer.h */,
+				0B522A46214A13FE0098DBB6 /* SVRadialGradientLayer.m */,
+			);
+			path = SVProgressHUD;
+			sourceTree = "<group>";
+		};
 		6C049C441F31B07300A3B626 /* Http */ = {
 			isa = PBXGroup;
 			children = (
@@ -906,6 +950,7 @@
 		6C6E95B11EDFA697003A9446 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				0B522A3A214A13FE0098DBB6 /* SVProgressHUD */,
 				6CAD0CDA1F2087B400AF4D20 /* AFNetworking */,
 				6C47752A1F176BD400B7A21D /* FMDB */,
 				6CC984A51F137CD20080A4A1 /* SIAlertView */,
@@ -1368,7 +1413,7 @@
 				TargetAttributes = {
 					6C6E95771EDFA599003A9446 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = NLQX8R2PJC;
+						DevelopmentTeam = 3A86K4H484;
 						ProvisioningStyle = Automatic;
 					};
 					6C6E95901EDFA599003A9446 = {
@@ -1412,6 +1457,7 @@
 			files = (
 				6CAD0D061F2087B500AF4D20 /* LICENSE in Resources */,
 				6C289FCD1EFB6B8C0090E8A5 /* GCLoginViewController.xib in Resources */,
+				0B522A47214A13FE0098DBB6 /* LICENSE in Resources */,
 				6CAD0CD61F1F4ED100AF4D20 /* GCUpdatePwdViewController.xib in Resources */,
 				6CC984AB1F137CD20080A4A1 /* SIAlertView.bundle in Resources */,
 				6C6E958B1EDFA599003A9446 /* LaunchScreen.storyboard in Resources */,
@@ -1421,6 +1467,7 @@
 				6CEF68361EE11533002B21A2 /* QRCodeBottomLeft@2x.png in Resources */,
 				6C289FE11EFB9B580090E8A5 /* LICENSE in Resources */,
 				6C6E95861EDFA599003A9446 /* Main.storyboard in Resources */,
+				0B522A48214A13FE0098DBB6 /* README.md in Resources */,
 				6CEF683D1EE11533002B21A2 /* QRCodeTopLeft@3x.png in Resources */,
 				6CEF683A1EE11533002B21A2 /* QRCodeLine@2x.png in Resources */,
 				6CA5D4B61F7D1E3C006A7D78 /* GCPurviewPhoneVerifyViewController.xib in Resources */,
@@ -1445,6 +1492,7 @@
 				6C2CC6821F7DED6A00721E18 /* GCPurviewVerifyCodeViewController.xib in Resources */,
 				6CFE81FF1EF36A7B00557C09 /* GCReservationTimeViewController.xib in Resources */,
 				6CC3F15D1F0F257C004FC279 /* GCTestViewController.xib in Resources */,
+				0B522A4B214A13FE0098DBB6 /* SVProgressHUD.bundle in Resources */,
 				6CEF683F1EE11533002B21A2 /* QRCodeTopRight@3x.png in Resources */,
 				6C47753A1F176BD400B7A21D /* LICENSE.txt in Resources */,
 				6C3E27E61EE93587000CF381 /* GCLeftDeivceView.xib in Resources */,
@@ -1500,6 +1548,7 @@
 				6C6E95831EDFA599003A9446 /* ViewController.m in Sources */,
 				6CC3F14A1F0E1457004FC279 /* RHSocketConnection.m in Sources */,
 				6C049C571F35A1CE00A3B626 /* GCReservationModen.m in Sources */,
+				0B522A4C214A13FE0098DBB6 /* SVProgressHUD.m in Sources */,
 				6CFE820A1EF3B46B00557C09 /* GCReservationViewController.m in Sources */,
 				6C049C491F31B07300A3B626 /* GCHttpDataTool.m in Sources */,
 				6C6B31231EE4F77C00DB2EA1 /* GCInputSequenceCodeView.m in Sources */,
@@ -1527,6 +1576,7 @@
 				C3E959B1205903EF00EF0A22 /* TwoViewController.m in Sources */,
 				6CC984A41F1333C70080A4A1 /* TypeConversionHelper.m in Sources */,
 				6C4775401F176BD400B7A21D /* FMResultSet.m in Sources */,
+				0B522A4D214A13FE0098DBB6 /* SVRadialGradientLayer.m in Sources */,
 				6CAD0D071F2087B500AF4D20 /* README.md in Sources */,
 				6C6B311F1EE4F32000DB2EA1 /* README.md in Sources */,
 				6CC984AC1F137CD20080A4A1 /* SIAlertView.m in Sources */,
@@ -1556,12 +1606,14 @@
 				6CC3F1631F0F2660004FC279 /* AsyncUdpSocket.m in Sources */,
 				6CAD0D091F2087B500AF4D20 /* AFImageDownloader.m in Sources */,
 				6C6B31191EE4F32000DB2EA1 /* MASViewAttribute.m in Sources */,
+				0B522A4A214A13FE0098DBB6 /* SVProgressAnimatedView.m in Sources */,
 				6CAD0D101F2087B500AF4D20 /* UIWebView+AFNetworking.m in Sources */,
 				6CC3F15C1F0F257C004FC279 /* GCTestViewController.m in Sources */,
 				6CAD0CD51F1F4ED100AF4D20 /* GCUpdatePwdViewController.m in Sources */,
 				6CAD0D001F2087B400AF4D20 /* AFHTTPSessionManager.m in Sources */,
 				6CEF68341EE11533002B21A2 /* QRCodeReaderView.m in Sources */,
 				6C5A02361EEFDA1D000E8A8C /* SFCircleGradientLayer.m in Sources */,
+				0B522A49214A13FE0098DBB6 /* SVIndefiniteAnimatedView.m in Sources */,
 				6C4F6E931FC6B52D00CB023E /* GSPortableDeviceCell.m in Sources */,
 				6C289FCC1EFB6B8C0090E8A5 /* GCLoginViewController.m in Sources */,
 				6C6E95CB1EDFA7B3003A9446 /* GCTabBarController.m in Sources */,
@@ -1772,11 +1824,11 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 3A86K4H484;
 				INFOPLIST_FILE = InductionCooker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.goockr.cooker;
+				PRODUCT_BUNDLE_IDENTIFIER = com.heyi.cooker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1791,11 +1843,11 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 3A86K4H484;
 				INFOPLIST_FILE = InductionCooker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.goockr.cooker;
+				PRODUCT_BUNDLE_IDENTIFIER = com.heyi.cooker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";

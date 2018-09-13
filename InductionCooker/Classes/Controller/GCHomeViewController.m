@@ -275,8 +275,27 @@
         self.leftView.isConection = YES;
         self.rightView.isConection = YES;
     }
+    //监听连接状态，进行弹窗提示！
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(wifiConnectViewHiddenChange:) name:UITextFieldTextDidChangeNotification object:self.wifiConnectView];
     
 }
+
+-(void)wifiConnectViewHiddenChange:(NSNotification *)noti{
+    
+    WifiConnectView *wifi = (WifiConnectView *)noti.object;
+    if (wifi.hidden) {
+        //        [self.hud addHudWithTitle:@"连接成功！" onWindow:myWindow];
+        [SVProgressHUD showSuccessWithStatus:@"连接断开！"];
+        [SVProgressHUD dismissWithDelay:1];
+        //        [MBProgressHUD hideAllHUDsForView:myWindow animated:true];
+    }
+    else{
+        [SVProgressHUD showSuccessWithStatus:@"连接成功！"];
+        [SVProgressHUD dismissWithDelay:1];
+    }
+}
+
+
 
 -(void)conectionStatus:(NSNotification *)noti
 {
@@ -405,8 +424,6 @@
 //        delay=0.45;
 //    }
     
-    
-    
  //   dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
         float duration=0.2;
@@ -432,8 +449,6 @@
             
 
         }
-        
-        
   //  });
     
     
@@ -445,33 +460,34 @@
     GCImageTopButton *bt=sender;
     
     if (bt.selected) {
-        
-        [[RHSocketConnection getInstance] writeData:[GCSokectDataDeal getRootBytesWithDeviceId:(int)self.segmentControl.selectIndex status:0] timeout:-1 tag:KTagPowerOff ReceiveBlock:^(NSData *data, long tag) {
-            
-            if (tag==KTagPowerOff) {
-                
-            }
-            
-        }];
-        
-        //  [[RHSocketConnection getInstance] writeData:[GCAgreementHelper getRootBytesWithDeviceId:(int)self.segmentControl.selectIndex status:0] timeout:5 tag:KTagPowerOff];
+//
+//        [[RHSocketConnection getInstance] writeData:[GCSokectDataDeal getRootBytesWithDeviceId:(int)self.segmentControl.selectIndex status:0] timeout:-1 tag:KTagPowerOff ReceiveBlock:^(NSData *data, long tag) {
+//            NSLog(@"data = %@ tag = %ld",data,tag);
+//            if (tag==KTagPowerOff) {
+//
+//            }
+//
+//        }];
+        NSLog(@"bt.selected is true ! = %@",[GCAgreementHelper getRootBytesWithDeviceId:(int)self.segmentControl.selectIndex status:0]);
+        [SVProgressHUD showWithStatus:@"bt.selected is true ! "];
+          [[RHSocketConnection getInstance] writeData:[GCAgreementHelper getRootBytesWithDeviceId:(int)self.segmentControl.selectIndex status:0] timeout:5 tag:KTagPowerOff];
         
     }else{
         
         //  [GCAgreementHelper getRootBytesWithDeviceId:(int)self.segmentControl.selectIndex status:1];
         
-        [[RHSocketConnection getInstance] writeData:[GCSokectDataDeal getRootBytesWithDeviceId:(int)self.segmentControl.selectIndex status:1] timeout:-1 tag:KTagPowerOn ReceiveBlock:^(NSData *data, long tag) {
-            
-            if (tag==KTagPowerOn) {
-                
-                
-            }
-            
-        }];
+//        [[RHSocketConnection getInstance] writeData:[GCSokectDataDeal getRootBytesWithDeviceId:(int)self.segmentControl.selectIndex status:1] timeout:-1 tag:KTagPowerOn ReceiveBlock:^(NSData *data, long tag) {
+//
+//            if (tag==KTagPowerOn) {
+//
+//
+//            }
+//
+//        }];
         
-        //   [[RHSocketConnection getInstance] writeData:[GCAgreementHelper getRootBytesWithDeviceId:(int)self.segmentControl.selectIndex status:1] timeout:5 tag:KTagPowerOn];
-        
-        
+       [[RHSocketConnection getInstance] writeData:[GCAgreementHelper getRootBytesWithDeviceId:(int)self.segmentControl.selectIndex status:1] timeout:5 tag:KTagPowerOn];
+        NSLog(@"bt.selected is false ! = %@",[GCAgreementHelper getRootBytesWithDeviceId:(int)self.segmentControl.selectIndex status:0]);
+        [SVProgressHUD showWithStatus:@"bt.selected is false ! "];
     }
     
     
@@ -713,7 +729,7 @@
         //        NSDictionary *data=[noti userInfo][@"data"];
         NSDictionary *data=[noti userInfo];
         
-        NSLog(@"NSDictionary = %@",data);
+//        NSLog(@"NSDictionary = %@",data);
         
         int deviceId=[data[@"isLeft"] intValue];
         
@@ -731,9 +747,6 @@
              int power=[data[@"isOpen"] intValue];
              [self updatePowerWithDevice:deviceId State:power];
         }
-        
-        
-        
         
         
         switch ([data[@"code"] intValue]) {
@@ -898,22 +911,22 @@
 //    NSLog(@"updatePowerWithDevice");
     if(device==1&&state==1)
     {
-        NSLog(@"1    1");
+//        NSLog(@"1    1");
         [self.segmentControl updateItemWithIndex:0 title:@"已开机"];
     }
     if(device==0&&state==1)
     {
-        NSLog(@"0    1");
+//        NSLog(@"0    1");
         [self.segmentControl updateItemWithIndex:1 title:@"已开机"];
     }
     if (device==1&&state==0) {
-        NSLog(@"1    0");
+//        NSLog(@"1    0");
         [self.segmentControl updateItemWithIndex:0 title:@"    "];
         //self.bottomView.hidden=[GCUser getInstance].device.leftDevice.selModen?NO:YES;
     }
     if(device==0&&state==0)
     {
-        NSLog(@"0    0");
+//        NSLog(@"0    0");
         [self.segmentControl updateItemWithIndex:1 title:@"    "];
         //self.bottomView.hidden=[GCUser getInstance].device.rightDevice.selModen?NO:YES;
     }

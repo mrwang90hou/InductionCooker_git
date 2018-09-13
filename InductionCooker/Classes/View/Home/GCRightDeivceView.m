@@ -247,9 +247,10 @@
     
     if (bt.selected) {
         
+        //1   0 表示开机
+        //1   1 表示关机
+        [[RHSocketConnection getInstance] writeData:[GCSokectDataDeal getRootBytesWithDeviceId:1 status:1] timeout:-1 tag:KTagPowerOff ReceiveBlock:^(NSData *data, long tag) {
         
-        [[RHSocketConnection getInstance] writeData:[GCSokectDataDeal getRootBytesWithDeviceId:1 status:0] timeout:-1 tag:KTagPowerOff ReceiveBlock:^(NSData *data, long tag) {
-            
             
         }];
         
@@ -257,7 +258,7 @@
     }else{
         
         
-        [[RHSocketConnection getInstance] writeData:[GCSokectDataDeal getRootBytesWithDeviceId:1 status:1] timeout:-1 tag:KTagPowerOn ReceiveBlock:^(NSData *data, long tag) {
+        [[RHSocketConnection getInstance] writeData:[GCSokectDataDeal getRootBytesWithDeviceId:1 status:0] timeout:-1 tag:KTagPowerOn ReceiveBlock:^(NSData *data, long tag) {
             
             
         }];
@@ -312,8 +313,33 @@
 
     
     int moden=button.moden.modenId%100;
-    NSData *data=[GCSokectDataDeal getDataWithModen:moden device:1];
     
+    
+    //改变了 button 的序列位置
+    int modelId = 0 ;
+    switch (moden) {
+        case 0:
+            modelId = 3;
+            break;
+        case 1:
+            modelId = 4;
+            break;
+        case 2:
+            modelId = 5;
+            break;
+        case 3:
+            modelId = 0;
+            break;
+        case 4:
+            modelId = 1;
+            break;
+        case 5:
+            modelId = 2;
+            break;
+    }
+    
+//    NSData *data=[GCSokectDataDeal getDataWithModen:moden device:1];
+    NSData *data=[GCSokectDataDeal getDataWithModen:modelId device:1];
     
     [[RHSocketConnection getInstance] writeData: data timeout:-1 tag:-1];
     

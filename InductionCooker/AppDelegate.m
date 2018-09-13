@@ -247,7 +247,7 @@
 {
     // [[RHSocketConnection getInstance] connectWithHost:KIP port:KPort];
     if (![[RHSocketConnection getInstance] isConnected]) {
-        
+        NSLog(@"conectService!!!!!");
         [[RHSocketConnection getInstance] connectWithHost:KIP port:KPort];
     }
     

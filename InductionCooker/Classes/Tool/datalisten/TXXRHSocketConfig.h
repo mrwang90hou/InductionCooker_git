@@ -9,13 +9,13 @@
 #import <Foundation/Foundation.h>
 
 
-@protocol RHSocketConnectionDelegate <NSObject>
-
-- (void)didDisconnectWithError:(NSError *)error;
-- (void)didConnectToHost:(NSString *)host port:(UInt16)port;
-- (void)didReceiveData:(NSData *)data tag:(long)tag;
-
-@end
+//@protocol RHSocketConnectionDelegate <NSObject>
+//
+//- (void)didDisconnectWithError:(NSError *)error;
+//- (void)didConnectToHost:(NSString *)host port:(UInt16)port;
+//- (void)didReceiveData:(NSData *)data tag:(long)tag;
+//
+//@end
 
 @interface TXXRHSocketConfig : NSObject
 

@@ -292,7 +292,7 @@
                 <outlet property="poweBt" destination="kyV-Fh-ZAQ" id="sGd-EW-Gvf"/>
                 <outlet property="reservationBt" destination="Qb6-5a-EBJ" id="HjX-0g-3Qf"/>
             </connections>
-            <point key="canvasLocation" x="-819.5" y="-54.5"/>
+            <point key="canvasLocation" x="-465" y="-9"/>
         </view>
     </objects>
     <resources>

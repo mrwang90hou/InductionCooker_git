@@ -16,7 +16,6 @@
 #import "WifiConnectView.h"
 
 
-
 #define KMaxConnectCount   3
 
 #define KDataKey                @"data"
@@ -47,7 +46,7 @@
 
 //////////
 @property (nonatomic,strong) NSMutableArray *nounStatus;
-//@property (nonatomic,copy) BOOL bl=true;
+@property (nonatomic,assign) BOOL connected;
 //@property (nonatomic, assign, getter=true) BOOL bl;
 
 
@@ -103,19 +102,13 @@ static  RHSocketConnection *tool;
 {
     if (self = [super init]) {
         _asyncSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
-        
         _dataQueue=[NSMutableArray array];
-        
         _writeCount=0;
-        
         _isDeviceDisconnect=YES;
-        
-       // [self debugView];
-        
-        
+        self.connected = 0;
+//        [self debugView];
         NSArray *array=[NSArray arrayWithObjects:@"111",@"222", nil];
         self.nounStatus = [array mutableCopy];
-        
     }
     return self;
 }
@@ -159,9 +152,6 @@ static  RHSocketConnection *tool;
     [myWindow addSubview:cearBt];
     
     [cearBt addTarget:self action:@selector(clearClick:) forControlEvents:UIControlEventTouchUpInside];
-
-    
-    
     
     
 }
@@ -174,9 +164,7 @@ static  RHSocketConnection *tool;
 
 - (void)clearClick:(UIButton *)bt
 {
-   
     self.textView.text=@"";
-    
 }
 
 
@@ -208,7 +196,7 @@ static  RHSocketConnection *tool;
 }
 
 
-
+// 建立socket连接
 - (BOOL)connectWithHost:(NSString *)hostName port:(int)port
 {
     
@@ -217,23 +205,29 @@ static  RHSocketConnection *tool;
         if (_hud) {
             [_hud hide];
         }
-        
         return YES ;
     }
     
-    [self.hud addHudWithTitle:@"正在连接产品..." onWindow:myWindow];
+    //    [self.hud addHudWithTitle:@"正在连接产品..." onWindow:myWindow];
+//    [[MQHudTool shareHudTool] addHudWithTitle:@"正在连接产品..." onWindow:myWindow];
+//    [MBProgressHUD showHUDAddedTo:myWindow animated:true];
+//    [SVProgressHUD showInfoWithStatus:@"正在连接产品..."];
+    [SVProgressHUD showWithStatus:@"正在连接产品..."];
+    
     NSLog(@"[RHSocketConnection]正在连接产品...");
     self.connectCount++;
     
-    
-    
     NSError *error = nil;
     BOOL isSuccess= [_asyncSocket connectToHost:hostName onPort:port withTimeout:3 error:&error];
-    
+//    if (self.connected) {
+//
+//        //        [self.hud addHudWithTitle:@"连接成功！" onWindow:myWindow];
+//        [SVProgressHUD showSuccessWithStatus:@"连接成功！"];
+//        [SVProgressHUD dismissWithDelay:1];
+//        //        [MBProgressHUD hideAllHUDsForView:myWindow animated:true];
+//    }
     if (error) {
         RHSocketLog(@"[RHSocketConnection] connectWithHost error: %@", error.description);
-        
-        NSLog(@"[RHSocketConnection] connectWithHost error: %@", error.description);
         
         if (_delegate && [_delegate respondsToSelector:@selector(didDisconnectWithError:)]) {
             [_delegate didDisconnectWithError:error];
@@ -246,14 +240,10 @@ static  RHSocketConnection *tool;
             [self hideHud];
             self.connectCount=0;
         }
-        
     }
     
     return isSuccess;
 }
-
-
-
 
 
 - (void)disconnect
@@ -265,7 +255,6 @@ static  RHSocketConnection *tool;
     
     
 }
-
 
 
 - (BOOL)isConnected
@@ -281,7 +270,7 @@ static  RHSocketConnection *tool;
 - (void)writeData:(NSData *)data timeout:(NSTimeInterval)timeout tag:(long)tag
 {
     NSDictionary *d=[NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-//    GCLog(@"输出数据  （writeData1）%@", d);
+    GCLog(@"输出数据  （writeData1）%@", d);
     
     NSDictionary *dict=@{
                          KDataKey:data,
@@ -291,11 +280,10 @@ static  RHSocketConnection *tool;
     
     [self.dataQueue addObject:dict];
     
-    //[_asyncSocket writeData:data withTimeout:timeout tag:tag];
+//    [_asyncSocket writeData:data withTimeout:timeout tag:tag];
     
     
 }
-
 
 
 - (void)writeData:(NSData *)data timeout:(NSTimeInterval)timeout tag:(long)tag ReceiveBlock:(ReceiveBlock)block
@@ -370,9 +358,6 @@ static  RHSocketConnection *tool;
     
 }
 
-
-#pragma mark -
-
 #pragma mark GCDAsyncSocketDelegate method
 
 - (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err
@@ -430,16 +415,13 @@ static  RHSocketConnection *tool;
         
        
     }
-
-    
     RHSocketLog(@"[RHSocketConnection] didDisconnect...%@", err.description);
     if (_delegate && [_delegate respondsToSelector:@selector(didDisconnectWithError:)]) {
         [_delegate didDisconnectWithError:err];
-        
-        
+
     }
 }
-
+//当套接字连接并准备好进行读写时调用。 host参数将是IP地址，而不是DNS名称。         // socket成功连接回调
 - (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(uint16_t)port
 {
     RHSocketLog(@"[RHSocketConnection] didConnectToHost: %@, port: %d", host, port);
@@ -466,22 +448,18 @@ static  RHSocketConnection *tool;
     
 }
 
-
-
+#pragma make 【socket连接】
+//套接字完成将请求的数据读入内存时调用。 如果有错误则不调用。
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
 {
    // RHSocketLog(@"[RHSocketConnection] didReadData length: %lu, tag: %ld", (unsigned long)data.length, tag);
     
     //继续读取sokect
+    // 超时设置为负数，表示不会使用超时
     [sock readDataWithTimeout:-1 tag:tag];
     
     NSDictionary *result=[NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-    
-    
 //    RHSocketLog(@"[RHSocketConnection] didReadData （result）%@",result);
-    
-    
-    
 //    NSString *s=[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 //    
 //    
@@ -501,8 +479,6 @@ static  RHSocketConnection *tool;
 //        NSLog(@"char类型数据: %c",b);
 //        
 //    }
-    
-    
 //    NSStringEncoding enc =CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingISOLatin1);
 //    
 //    NSString *s1= [NSString stringWithCString:data encoding:enc];
@@ -520,11 +496,23 @@ static  RHSocketConnection *tool;
     }else{      //如果 code 参数不存在，则返回连接状态
 //        NSLog(@"👏👏👏👏👏👏👏👏👏👏👏👏👏👏👏Device Connect successful👏👏👏👏👏👏👏👏👏👏👏👏👏👏👏");
         [[NSNotificationCenter defaultCenter] postNotificationName:@"conectionStatus" object:@{@"code":@(1)}];
+        [[NSNotificationCenter defaultCenter] postNotificationName:KNotiDevoceStateChange object:nil userInfo:result];
+//        self.connected = true;
+//        if (self.connected) {
+//
+//            //        [self.hud addHudWithTitle:@"连接成功！" onWindow:myWindow];
+//            [SVProgressHUD showSuccessWithStatus:@"连接成功！"];
+//            [SVProgressHUD dismissWithDelay:1];
+//            //        [MBProgressHUD hideAllHUDsForView:myWindow animated:true];
+//        }else{
+//            [SVProgressHUD showSuccessWithStatus:@"连接断开！"];
+            [SVProgressHUD dismiss];
+//        }
+//
         //如果双炉不为关机状态
 //        if (<#condition#>) {
 //            <#statements#>
 //        }
-//
         
 //        [[NSNotificationCenter defaultCenter] postNotificationName:@"conectionStatus" object:nil userInfo:result];
 //        [[NSNotificationCenter defaultCenter] postNotificationName:KNotiDevoceStateChange object:nil userInfo:result];
@@ -533,8 +521,6 @@ static  RHSocketConnection *tool;
         if ([[result[@"isLeft"] stringValue] isEqualToString:@"1"]) {
             
         }
-        
-        
 //        return;
     }
     
@@ -557,13 +543,13 @@ static  RHSocketConnection *tool;
 //                             @"data":orderDict,
 //                             @"tag":[NSNumber numberWithLong:tag]
 //                             };
-        [[NSNotificationCenter defaultCenter] postNotificationName:KNotiDevoceStateChange object:nil userInfo:result];
-        NSLog(@"左炉开关状态发生变化： %@",result[@"isOpen"]);
+//        [[NSNotificationCenter defaultCenter] postNotificationName:KNotiDevoceStateChange object:nil userInfo:result];
+//        NSLog(@"左炉开关状态发生变化： %@",result[@"isOpen"]);
     }
     //(2)右炉开关状态发生变化
     if ([nounNumberStr isEqualToString:@"0"]&&![nounStatusStr isEqualToString:[self.nounStatus objectAtIndex:1]]&&![self.nounStatus[1] isEqualToString:@"222"]) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:KNotiDevoceStateChange object:nil userInfo:result];
-        NSLog(@"右炉开关状态发生变化： %@",result[@"isOpen"]);
+//        [[NSNotificationCenter defaultCenter] postNotificationName:KNotiDevoceStateChange object:nil userInfo:result];
+//        NSLog(@"右炉开关状态发生变化： %@",result[@"isOpen"]);
     }
     //(3)开机加载时左右炉开关状态不为 OFF 时
 //    if ([nounNumberStr isEqualToString:@"1"]) {
@@ -596,7 +582,7 @@ static  RHSocketConnection *tool;
     if (_delegate && [_delegate respondsToSelector:@selector(didReceiveData:tag:)]) {
         [_delegate didReceiveData:data tag:tag];
     }
-
+/*
     NSDictionary *orderDict=result[KSokectOrder];
     
     
@@ -713,22 +699,20 @@ static  RHSocketConnection *tool;
             }
                 break;
         }
-        
     }
-    
-   
- 
-    
+ */
 }
 
+//在套接字完成写入请求的数据时调用。 如果有错误则不调用。
 - (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
 {
-
     if (self.receiveBlock!=nil) {
         self.receiveBlock(nil, tag);
     }
     
    // RHSocketLog(@"[RHSocketConnection] didWriteDataWithTag: %ld", tag);
+    // 持续接收数据
+    // 超时设置为负数，表示不会使用超时
     [sock readDataWithTimeout:-1 tag:tag];
 }
 
@@ -867,8 +851,6 @@ static  RHSocketConnection *tool;
 {
     while (YES) {
         
-        
-        
         NSLog(@"当前心跳线程%@",_heartBeatThread);
         
 //        if (!_heartBeatThread.isCancelled) {
@@ -882,9 +864,7 @@ static  RHSocketConnection *tool;
 //            [[NSThread currentThread] cancel];
 //            break;
 //        }
-        
         sleep(4);
-        
     }
 
 }
@@ -894,14 +874,9 @@ static  RHSocketConnection *tool;
 - (void) getDeviceState
 {
     [[RHSocketConnection getInstance] writeData:[GCSokectDataDeal getStateDataWithModen:0] timeout:-1 tag:1];
-    
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [[RHSocketConnection getInstance] writeData:[GCSokectDataDeal getStateDataWithModen:1] timeout:-1 tag:1];
     });
-
-
-   
-    
 }
 
 
