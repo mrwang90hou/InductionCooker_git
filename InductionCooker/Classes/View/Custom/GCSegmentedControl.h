@@ -27,6 +27,6 @@
 - (void) itemIndex:(int)index isWarm:(BOOL) warm;
 
 - (void) updateItemWithIndex:(int) index title:(NSString *)title;
-
+- (void) updateItemWithIndex:(int)index stallsMode:(int)stallsMode;
 
 @end

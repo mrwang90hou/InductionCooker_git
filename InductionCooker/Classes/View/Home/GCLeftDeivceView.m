@@ -62,7 +62,6 @@
 @property (weak, nonatomic) IBOutlet UIView *modenView;
 
 
-
 @property (nonatomic,strong) NSMutableArray<GCModenButton *> *buttons;
 
 @property (nonatomic,strong) NSArray *normImageList;
@@ -163,15 +162,24 @@
         
         self.normImageList=nArr;
         self.disEnableImageList=dArr;
-        
-       
-        
-        
     }
     
     return self;
 }
 
+- (IBAction)action01:(GCModenButton *)sender {
+    //button0的bug解决方案！
+    NSLog(@"煲粥");
+    NSData *data=[GCSokectDataDeal getDataWithModen:4 device:0];
+    [[RHSocketConnection getInstance] writeData: data timeout:-1 tag:-1];
+
+//    [[RHSocketConnection getInstance] writeData:data timeout:-1 tag:-1 ReceiveBlock:^(NSData *data, long tag) {
+//        [sender setImage:[UIImage imageNamed:@"btn_moden_left_1_selected"] forState:UIControlStateNormal];
+//    }];
+
+//    [sender setImage:[UIImage imageNamed:@"btn_moden_left_1_selected"] forState:UIControlStateNormal];
+    
+}
 
 - (void)awakeFromNib
 {
@@ -183,12 +191,12 @@
     
     int i=0;
     for (GCModenButton *bt in self.buttons) {
+//        NSLog(@"bt = %@",bt.titleLabel.text);
+//        NSLog(@"bt.moden.modenId = %d",bt.moden.modenId);
         
         [bt addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         [bt setImage:[UIImage imageNamed:self.disEnableImageList[i++]] forState:UIControlStateNormal];
-        
     }
-    
     [self getData];
     
     [self addStallView];
@@ -204,8 +212,6 @@
 {
     
     self.subVc = [[GCAdjustViewController alloc] initWithNibName:@"GCAdjustViewController" bundle:nil];
-    
-
     
     self.subVc.delegate=self;
     
@@ -324,15 +330,23 @@
     }
 
     
-  
     if(button.moden.modenId==[GCUser getInstance].device.leftDevice.selModen.modenId) {
         
         if ([_delegate respondsToSelector:@selector(leftModenButtonClick:)]) {
             [_delegate leftModenButtonClick:button];
         }
         return;
-        
     }
+//    for (UIButton *btn in self.buttons) {
+//        NSLog(@"self.buttons = %@",btn.titleLabel.text);
+//        if ([btn.titleLabel.text isEqualToString:@"煲粥"]) {
+////            modelId = 0;
+//        }
+//    }
+    
+    
+    NSLog(@"button.moden = %@",button.moden);
+    NSLog(@"button.moden.modenId = %d",button.moden.modenId);
     //改变了 button 的序列位置
     int modelId = 0 ;
     switch (button.moden.modenId) {
@@ -362,13 +376,13 @@
             break;
     }
     
+    NSLog(@"modelId = %d",modelId);
 //    NSData *data=[GCSokectDataDeal getDataWithModen:button.moden.modenId device:0];
     
     NSData *data=[GCSokectDataDeal getDataWithModen:modelId device:0];
     
     [[RHSocketConnection getInstance] writeData: data timeout:-1 tag:-1];
-    
-    
+
     
 }
 
@@ -398,9 +412,9 @@
         GCModen *model=[GCModen createModelWithDict:dict];
         
         self.buttons[i].moden=model;
+//        NSLog(@"self.buttons[i].moden.modenId = %d",model.modenId);
+//        [self.buttons[0] addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
     }
-    
-   
     
 }
 

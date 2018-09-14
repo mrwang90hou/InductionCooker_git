@@ -154,6 +154,9 @@
                             </state>
                             <state key="disabled" image="btn_soup_disabled"/>
                             <state key="selected" image="btn_moden_left_1_selected"/>
+                            <connections>
+                                <action selector="action01:" destination="539-lD-0Dt" eventType="touchUpInside" id="aa9-lH-8yl"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cjV-zP-xch" customClass="GCModenButton">
                             <rect key="frame" x="56" y="118" width="55" height="78"/>
@@ -279,7 +282,7 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="bottomView" destination="T04-sO-unS" id="ueH-9J-qUj"/>
-                <outlet property="button_0" destination="iOX-5m-NKL" id="rFW-5f-4KJ"/>
+                <outlet property="button_0" destination="iOX-5m-NKL" id="0kz-u4-B65"/>
                 <outlet property="button_1" destination="cjV-zP-xch" id="ruG-RD-saP"/>
                 <outlet property="button_2" destination="nbE-Vj-3Hj" id="yFR-tN-F6u"/>
                 <outlet property="button_3" destination="ym5-YQ-fV8" id="7nS-fr-f1X"/>

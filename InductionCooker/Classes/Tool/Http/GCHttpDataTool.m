@@ -62,7 +62,6 @@
     NSLog(@"当前URL请求【注册】为：%@",urlString);
     NSLog(@"parameters参数为：%@",dict);
     
-    
     [GCHttpTool Post:urlString parameters:dict success:^(id responseObject) {
         
         success(responseObject);
@@ -75,6 +74,30 @@
 
 }
 
++(void)registerBeforeWithDict:(NSDictionary *)dict success:(void (^)(id))success failure:(void (^)(MQError *))failure
+{
+    NSString *urlString=[NSString stringWithFormat:@"%@%@",KHttpHeader,KHttpRegist];
+    NSLog(@"当前URL请求【注册前账户是否存在的验证】为：%@",urlString);
+    NSLog(@"parameters参数为：%@",dict);
+    
+    [GCHttpTool Post:urlString parameters:dict success:^(id responseObject) {
+        
+        
+        if ([responseObject[@"result"] intValue] == 0) {
+            failure(@"用户不存在!");
+        }else{
+            success(responseObject);
+        }
+    } failure:^(MQError *error) {
+        
+        if ([error.msg isEqualToString:@"用户已存在!"]) {
+            success(@"用户已存在!");
+        }else{
+            failure(error);
+        }
+    }];
+    
+}
 
 
 +(void)forgetPwdWithDict:(NSDictionary *)dict success:(void (^)(id))success failure:(void (^)(MQError *))failure
@@ -141,7 +164,6 @@
     NSString *urlString=[NSString stringWithFormat:@"%@%@",KHttpHeader,KHttpResetPwd];
     NSLog(@"当前URL请求【重设密码】为：%@",urlString);
     NSLog(@"parameters参数为：%@",dict);
-    
     
     [GCHttpTool Post:urlString parameters:dict success:^(id responseObject) {
         

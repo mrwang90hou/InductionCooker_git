@@ -311,33 +311,33 @@
         
     }
 
-    
     int moden=button.moden.modenId%100;
+//    int moden=button.moden.modenId;
     
     
     //改变了 button 的序列位置
     int modelId = 0 ;
     switch (moden) {
-        case 0:
-            modelId = 3;
-            break;
-        case 1:
-            modelId = 4;
-            break;
-        case 2:
-            modelId = 5;
-            break;
-        case 3:
+        case 10:
             modelId = 0;
             break;
-        case 4:
+        case 11:
             modelId = 1;
             break;
-        case 5:
+        case 12:
             modelId = 2;
             break;
+        case 8:
+            modelId = 3;
+            break;
+        case 9:
+            modelId = 4;
+            break;
+        case 7:
+            modelId = 5;
+            break;
     }
-    
+    NSLog(@"modelId = %d",modelId);
 //    NSData *data=[GCSokectDataDeal getDataWithModen:moden device:1];
     NSData *data=[GCSokectDataDeal getDataWithModen:modelId device:1];
     

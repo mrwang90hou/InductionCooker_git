@@ -348,7 +348,6 @@ static NSDictionary *rightModens;
     
     NSString *str=dict[deviceStr][modenStr][stallsStr];
     
-    
     NSString *powerStr=[NSString stringWithFormat:@"%@W",str];
     
     return powerStr;

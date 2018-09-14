@@ -11,8 +11,8 @@
 
 //http://120.24.5.252:8099/cooker/servlet/AppServlet?functype=vc&mobile=13763085121
 
-//#define KHttpHeader                                 @"http://www.zhuhaiheyi.com"//@"http://120.24.5.252:8099"
-#define KHttpHeader                                 @"http://106.12.17.94:8080"//@"http://120.24.5.252:8099"
+#define KHttpHeader                                 @"http://www.zhuhaiheyi.com"//@"http://120.24.5.252:8099"
+//#define KHttpHeader                                 @"http://106.12.17.94:8080"//@"http://120.24.5.252:8099"
 
 #define KHttpLoginSmsCode                           @"/cooker/servlet/AppServlet"///mask/servlet/AppServlet
 
@@ -27,6 +27,8 @@
 #define KHttpSmsLogin                               @"/cooker/servlet/AppServlet"
 
 #define KHttpForgetPwd                              @"/cooker/servlet/AppServlet"
+
+#define KHttpBeforeRegist                           @"/cooker/servlet/AppServlet"
 
 #define KHttpRegist                                 @"/cooker/servlet/AppServlet"
 

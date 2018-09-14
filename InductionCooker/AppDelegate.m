@@ -66,6 +66,7 @@
     [self addObserver];
     
     
+    [self setSVprogressHUD];
     
 //    [NSDictionary jr_swizzleMethod:@selector(description) withMethod:@selector(my_description) error:nil];
     
@@ -247,7 +248,7 @@
 {
     // [[RHSocketConnection getInstance] connectWithHost:KIP port:KPort];
     if (![[RHSocketConnection getInstance] isConnected]) {
-        NSLog(@"conectService!!!!!");
+//        NSLog(@"conectService!!!!!");
         [[RHSocketConnection getInstance] connectWithHost:KIP port:KPort];
     }
     
@@ -268,6 +269,21 @@
     }
 
 }
+
+- (void)setSVprogressHUD{
+    [SVProgressHUD setMinimumDismissTimeInterval:1.5];
+    [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+//    [SVProgressHUD setDefaultStyle:SVProgressHUDStyleLight];
+//    [SVProgressHUD setstatus:nil];
+//    [SVProgressHUD setSuccessImage:nil];
+//    [SVProgressHUD setErrorImage:nil];
+//    [SVProgressHUD setSuccessImage:[UIImage imageNamed:@"pop_toast_success"]];
+//    [SVProgressHUD setErrorImage:[UIImage imageNamed:@"pop_toast_error"]];
+//    [SVProgressHUD setFont:GKFont(14)];
+    [SVProgressHUD setMinimumSize:CGSizeMake(100, 100)];
+}
+
+
 
 - (void) addObserver
 {

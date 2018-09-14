@@ -73,6 +73,8 @@
  */
 + (void) registerWithDict:(NSDictionary *)dict success:(void (^)(id responseObject))success failure:(void (^)(MQError *error))failure;
 
++ (void) registerBeforeWithDict:(NSDictionary *)dict success:(void (^)(id responseObject))success failure:(void (^)(MQError *error))failure;
+
 /**
  重设密码(user.verify)
  

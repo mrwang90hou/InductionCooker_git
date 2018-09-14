@@ -16,4 +16,5 @@
 
 + (UIBarButtonItem *) leftBarButttonItemWithViewController:(UIViewController *)vc imageName:(NSString *)imageName;
 
++ (UIButton *) setUpButtonWithTitle:(NSString *)title action:(SEL) action vc:(UIViewController *)vc;
 @end

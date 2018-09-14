@@ -246,20 +246,47 @@
 - (void)updateItemWithIndex:(int)index title:(NSString *)title
 {
     
-    if (index==0) {
+    if (index==1) {
        
         [GCUser getInstance].device.leftDevice.selModen.aotuWork? [self setLeftButtonTitle:@"Auto"]: [self setLeftButtonTitle:title];
        // [self setLeftButtonTitle:title];
     }else{
-        
           [GCUser getInstance].device.rightDevice.selModen.aotuWork? [self setRightButtonTitle:@"Auto"]: [self setRightButtonTitle:title];
         
        // [self setRightButtonTitle:title];
     }
-    
 }
 
-
+- (void)updateItemWithIndex:(int)index stallsMode:(int)stallsMode
+{
+    //当前显示模式类型       已开机： -1     显示定时和自动AUTO ：0    摄氏度：1       功率数：2       都是自动AUTO:3
+//    public static final int SHOWS_TIME_AUTO = 0;  //显示定时和自动
+//    public static final int SHOWS_TIME_TEMP = 1;    //显示定时温度
+//    public static final int SHOWST_TIME_POW = 2;   //显示定时和功率
+//    public static final int SHOWST_AUTO_AUTO = 3;   //都是自动
+    
+    if (index == 1) {
+        switch (stallsMode) {
+            case -1:
+                [self setLeftButtonTitle:@"    "];
+                break;
+            case 1:
+                [self setLeftButtonTitle:@"摄氏度"];
+                break;
+            case 2:
+                [self setLeftButtonTitle:@"功率数"];
+                break;
+            case 0:
+            case 3:
+                [self setLeftButtonTitle:@"Auto"];
+                break;
+        }
+        
+    }else{
+        
+        
+    }
+}
 
 
 

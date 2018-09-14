@@ -98,11 +98,9 @@
             failure(err);
             
             
-            
         }else{
             
             success(responseObject);
-            
         }
         
         

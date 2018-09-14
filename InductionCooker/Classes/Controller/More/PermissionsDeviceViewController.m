@@ -46,26 +46,46 @@
 
 #pragma mark -页面逻辑方法
 - (void) getData{
-    
     self.dataSoucre=[GCUser getInstance].deviceList;
-    
-    
 }
 
 
 - (void) createUI{
     
     self.title=@"权限转移";
+//    self.tableView.tableHeaderView.tintColor = [UIColor grayColor];
+    [MQBarButtonItemTool leftBarButttonItemWithViewController:self title:@"返回"];
+//    [MQBarButtonItemTool rightBarButttonItemWithViewController:self title:@"编辑"];
+    self.editButtonItem.title = @"编辑";
+    self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated {
+    [super setEditing:editing animated:animated];
     
-    [MQBarButtonItemTool leftBarButttonItemWithViewController:self title:@"取消"];
-    
+    if (self.editing) {
+        self.editButtonItem.title = @"完成";
+        [self.tableView setEditing:YES animated:YES];
+    } else {
+        self.editButtonItem.title = @"编辑";
+        [self.tableView setEditing:NO animated:YES];
+    }
 }
 
 #pragma mark -用户交互方法
-- (void) rightButtonClick
-{
-    
-}
+//- (void) rightButtonClick
+//{
+//    if ([self.navigationItem.rightBarButtonItem.title isEqualToString:@"编辑"]) {
+//        self.navigationItem.rightBarButtonItem.title = @"取消";
+////        [[MQBarButtonItemTool setUpButtonWithTitle:<#(NSString *)#> action:<#(SEL)#> vc:<#(UIViewController *)#>]
+////        [self.tableView setEditing:YES animated:YES];
+//         [self.tableView setAllowsSelectionDuringEditing:true];
+//    }else{
+//        self.navigationItem.rightBarButtonItem.title = @"编辑";
+//        [self.tableView setEditing:NO animated:YES];
+//
+//    }
+//}
 
 - (void) leftButtonClick
 {
@@ -105,12 +125,31 @@
     [self.navigationController pushViewController:vc animated:YES];
     
 }
+- (nullable NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    
+    return @"向左滑动删除";
+}
+-(void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
+
+{
+    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
+    header.textLabel.textColor = [UIColor grayColor];
+    header.textLabel.font = [UIFont boldSystemFontOfSize:12];
+    
+//    _headerView.frame = CGRectMake(0, 0, ScreenWidth, 150);
+    
+//    header.contentView.backgroundColor = [UIColor yellowColor];
+//    header.centerX = self.tableView.centerX;
+//    header.frame = CGRectMake(KScreenWidth/2-CGRectGetWidth(header.bounds)/2, 0, KScreenWidth, 22);
+}
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return KScreenScaleValue(55);
 }
-
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return KScreenScaleValue(22);
+}
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -128,10 +167,16 @@
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSArray * array;
+    
+//    if ([self.editButtonItem.title isEqualToString:@"编辑"]) {
+//        return self.tableView.indexPathsForSelectedRows;;
+//    }
+//
     UITableViewRowAction *action = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"删除" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
         _indexPath = indexPath;
         [self makeSure];
     }];
+
     array = @[action];
     
     return array;
@@ -207,5 +252,25 @@
     return _hud;
 }
 
+
+
+-(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return   UITableViewCellEditingStyleDelete;
+}
+
+//修改编辑按钮文字
+
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return @"编辑";
+}
+
+//设置进入编辑状态时，Cell不会缩进
+
+- (BOOL)tableView: (UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return NO;
+}
 
 @end

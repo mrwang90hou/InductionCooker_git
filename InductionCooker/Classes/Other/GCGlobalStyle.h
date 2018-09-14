@@ -31,8 +31,8 @@ typedef NS_ENUM(NSInteger, DeviceLinkState) {
 /**********************主机ip 端口***********************************/
 #define KWIFIPrefix                        @"abc"
 
-//#define KIP                                @"www.zhuhaiheyi.com" //@"120.24.5.252" //@"192.168.1.190" //@"192.168.1.65" @"120.24.5.252:9001"
-#define KIP                                @"106.12.17.94"
+#define KIP                                @"www.zhuhaiheyi.com" //@"120.24.5.252" //@"192.168.1.190" //@"192.168.1.65" @"120.24.5.252:9001"
+//#define KIP                                @"106.12.17.94"
 
 #define KPort                              9001 //192.168.1.65:9001
 
