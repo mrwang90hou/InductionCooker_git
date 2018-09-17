@@ -130,8 +130,10 @@
     
     self.resendCount=0;
     
-    NSString *modenFileName=self.reservationModen.deviceId==0?@"leftdevice":@"rightdevice";
+//    NSString *modenFileName=self.reservationModen.deviceId==0?@"leftdevice":@"rightdevice";
+    NSString *modenFileName=self.deviceId==0?@"leftdevice":@"rightdevice";
     
+//    [SVProgressHUD showWithStatus:[NSString stringWithFormat:@"查看【预约】按钮对应的火炉状态 \n%@",modenFileName]];
     NSString *path = [[NSBundle mainBundle] pathForResource:modenFileName ofType:@"json"];
     NSData *jsonData = [NSData dataWithContentsOfFile:path options:NSDataReadingMappedIfSafe error:nil];
     NSMutableDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:nil];
@@ -158,7 +160,6 @@
     
     self.title=@"预约";
     
-
     if(self.reservationModen)
     {
         int minuteCount=self.reservationModen.time;
@@ -167,7 +168,7 @@
         
     }else{
         
-        [self.hud addNormHudWithSupView:self.view title:@"正在获取预约数据..."];
+//        [self.hud addNormHudWithSupView:self.view title:@"正在获取预约数据..."];
         
         [[RHSocketConnection getInstance] writeData:[GCSokectDataDeal getReservationInfoBytesWithDeviceId:self.deviceId] timeout:-1 tag:7];
         
@@ -329,10 +330,6 @@
 //
 //    self.dateLabel.attributedText=attributedDateStr;
 
-        
-    
-    
-    
     NSString *minute;
     
     if (self.moden.aotuWork&&self.moden.modenId%100!=7) {
@@ -423,10 +420,9 @@
 
 
 #pragma mark -接收通知
-- (void) receiveNoti:(NSNotification* )noti
+- (void) receiveNoti0:(NSNotification* )noti
 {
     NSDictionary *dict=[noti userInfo][@"data"];
-    
     
     int code=[dict[@"code"] intValue];
     
@@ -453,7 +449,7 @@
                 return;
             }
             
-            if (self.deviceId==0) {
+            if (self.deviceId==1) {
                 [GCUser getInstance].device.leftDevice.hasReservation=0;
             }else{
                 [GCUser getInstance].device.rightDevice.hasReservation=0;
@@ -512,14 +508,213 @@
             
             break;
     }
-    
+}
+
+- (void) receiveNoti:(NSNotification* )noti
+{
+    NSDictionary *dict=[noti userInfo];
+    NSDictionary *totalData = dict;
+    NSDictionary *cookerItemsData = totalData[@"cookerItem"];
+    NSString *leftYuYue = totalData[@"LYuYue"];
+    NSString *rightYuYue = totalData[@"RYuYue"];
+    NSString *curError = cookerItemsData[@"curError"];                  //错误码
+    int curMode = [cookerItemsData[@"curMode"] intValue];               //当前模式      -1代表无任何模式
+    int curPower = [cookerItemsData[@"curPower"] intValue];             //当前档位、功率
+    NSString *cursystemtime = cookerItemsData[@"cursystemtime"];        //模式切换时间
+    int maxPower = [cookerItemsData[@"curPower"] intValue];             //最大功率、档位
+    int maxcookTime = [cookerItemsData[@"maxcookTime"] intValue]/1000;   //最大烹饪时间 【单位：分钟】
+    int showStallsMode = [cookerItemsData[@"showStallsMode"] intValue];  //当前显示模式类型       已开机： -1     显示定时和自动AUTO ：0    摄氏度：1       功率数：2       都是自动AUTO:3
+    NSString *idName = totalData[@"id"];
+    int isLeft = [totalData[@"isLeft"] intValue];
+    int isOpen = [totalData[@"isOpen"] intValue];
+    int isCancel = [totalData[@"isCancel"] intValue];
+    NSString *target = totalData[@"target"];
    
+    
+    
+    
+    
+    int code=[dict[@"code"] intValue];
+    int deviceId = abs(isLeft-1);
+    
+//    if (dict[@"deviceId"]) {
+//        deviceId=[dict[@"deviceId"] intValue];
+//    }else{
+//        return;
+//    }
+    //如果火炉不一致
+    if (self.deviceId!=deviceId) {
+        return;
+    }
+    GCLog(@"查询预约: %@",dict);
+    
+    [self reciveSuccess];
+    
+    [self.hud hide];
+    
+    
+    NSData *jsonData1 = [totalData[@"LYuYue"] dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *err1;
+    NSDictionary *leftYuYueDic = [NSJSONSerialization JSONObjectWithData:jsonData1
+                                                         options:NSJSONReadingMutableContainers
+                                                           error:&err1];
+    
+    NSData *jsonData2 = [totalData[@"RYuYue"] dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *err2;
+    NSDictionary *rightYuYueDic = [NSJSONSerialization JSONObjectWithData:jsonData2
+                                                         options:NSJSONReadingMutableContainers
+                                                           error:&err2];
+//    NSDictionary *leftYuYueDic = totalData[@"LYuYue"];
+//    NSDictionary *rightYuYueDic = totalData[@"RYuYue"];
+    NSDictionary *yuYueDic = [NSDictionary new];
+    if (!self.deviceId) {
+        yuYueDic = leftYuYueDic;
+    }else{
+        yuYueDic = rightYuYueDic;
+    }
+    
+//    [SVProgressHUD showWithStatus:yuYueDic];
+    NSLog(@"😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊%@",yuYueDic);
+    //获取自1970年毫秒数
+        NSTimeInterval nowtime = [[NSDate date] timeIntervalSince1970]*1000;
+        long long theTime = [[NSNumber numberWithDouble:nowtime] longLongValue];
+        NSString *curTime = [NSString stringWithFormat:@"%llu",theTime];
+//        [SVProgressHUD showWithStatus:curTime];
+    long long oldTine = [yuYueDic[@"time"] longLongValue];
 
     
+//    NSTimeInterval timeInterval = [theTime];//获取需要转换的timeinterval
+//    NSDate *date = [NSDate dateWithTimeIntervalSince1970:timeInterval];
+//    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//    formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+//    NSString *dateString = [formatter stringFromDate:date];
     
     
-      
     
+    
+//    [SVProgressHUD showWithStatus:[NSString stringWithFormat:@"%lld",theTime - oldTine]];
+    
+    
+    NSTimeInterval value = theTime - oldTine;
+    int second = (int)value /1000%60;//秒
+    int minute = (int)value /1000/60%60;
+    int house = (int)value /1000/ (24 *3600)%3600;
+    int day = (int)value /1000/ (24 *3600);
+    NSString *str;
+    if (day != 0) {
+        str = [NSString stringWithFormat:@"耗时%d天%d小时%d分%d秒",day,house,minute,second];
+    }else if (day==0 && house !=0) {
+        str = [NSString stringWithFormat:@"耗时%d小时%d分%d秒",house,minute,second];
+    }else if (day==0 && house==0 && minute!=0) {
+        str = [NSString stringWithFormat:@"耗时%d分%d秒",minute,second];
+    }else{
+        str = [NSString stringWithFormat:@"耗时%d秒",second];
+    }
+    [SVProgressHUD showWithStatus:str];
+    
+    
+    
+    
+    
+    
+    
+    NSString *dataStr=dict[@"bootTime"];
+    double date=[dataStr integerValue]/60000.0;
+    int time=[dict[@"appointment"] intValue]/60000;
+    int moden=[dict[@"moden"] intValue];
+    int stall=[dict[@"stall"] intValue];
+    
+    self.reservationModen=[[GCReservationModen alloc] init];
+    self.reservationModen.deviceId=self.deviceId;
+    self.reservationModen.modenId=moden;
+    self.reservationModen.date=date;
+    self.reservationModen.time=time;
+    
+    [self getData];
+    
+    [self setLabelWithReservationDate:date minute:self.reservationModen.time modenName:self.modenNameArr[moden] stall:stall];
+    
+    if(date<0.10)
+    {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
+    
+    
+    
+    
+    
+    
+    
+    switch (code) {
+        case 6:
+        {
+            BOOL success=[dict[@"success"] boolValue];
+            BOOL setting=[dict[@"setting"] boolValue];
+            
+            if (success==NO||setting==YES) {
+                [self.hud hudUpdataTitile:@"取消预约失败" hideTime:KHudTipTime];
+                return;
+            }
+            
+            if (self.deviceId==1) {
+                [GCUser getInstance].device.leftDevice.hasReservation=0;
+            }else{
+                [GCUser getInstance].device.rightDevice.hasReservation=0;
+            }
+            
+            //[NSObject cancelPreviousPerformRequestsWithTarget:self];
+            
+            [self reciveSuccess];
+            
+            [self.navigationController popToRootViewControllerAnimated:YES];
+            
+            
+            
+        }
+            break;
+            
+        case 7:
+        {
+            
+            GCLog(@"查询预约: %@",dict);
+            
+            //[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(getReservationData) object:KGetReservationDataTag];
+            
+            [self reciveSuccess];
+            
+            [self.hud hide];
+            
+            NSString *dataStr=dict[@"bootTime"];
+            
+            double date=[dataStr integerValue]/60000.0;
+            int time=[dict[@"appointment"] intValue]/60000;
+            int moden=[dict[@"moden"] intValue];
+            int stall=[dict[@"stall"] intValue];
+            
+            self.reservationModen=[[GCReservationModen alloc] init];
+            self.reservationModen.deviceId=self.deviceId;
+            self.reservationModen.modenId=moden;
+            self.reservationModen.date=date;
+            self.reservationModen.time=time;
+            
+            [self getData];
+            
+            [self setLabelWithReservationDate:date minute:self.reservationModen.time modenName:self.modenNameArr[moden] stall:stall];
+            
+            if(date<0.10)
+            {
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            }
+            
+        }
+            break;
+            
+        default:
+            
+            
+            
+            break;
+    }
 }
 
 

@@ -361,7 +361,8 @@
 -(GCModen *)updateModen:(int)moden
 {
 
-    GCModenButton *button=self.modenButtonDict[[NSString stringWithFormat:@"%d",moden+100]];
+//    GCModenButton *button=self.modenButtonDict[[NSString stringWithFormat:@"%d",moden+100]];
+    GCModenButton *button=self.modenButtonDict[[NSString stringWithFormat:@"%d",moden]];
     
     
     if (button) {

@@ -247,11 +247,12 @@
 {
     
     if (index==1) {
-       
+//        NSLog(@"[GCUser getInstance].device.leftDevice.selModen.aotuWork = %d",[GCUser getInstance].device.leftDevice.selModen.aotuWork);
         [GCUser getInstance].device.leftDevice.selModen.aotuWork? [self setLeftButtonTitle:@"Auto"]: [self setLeftButtonTitle:title];
        // [self setLeftButtonTitle:title];
     }else{
-          [GCUser getInstance].device.rightDevice.selModen.aotuWork? [self setRightButtonTitle:@"Auto"]: [self setRightButtonTitle:title];
+//        NSLog(@"[GCUser getInstance].device.rightDevice.selModen.aotuWork = %d",[GCUser getInstance].device.rightDevice.selModen.aotuWork);
+        [GCUser getInstance].device.rightDevice.selModen.aotuWork? [self setRightButtonTitle:@"Auto"]: [self setRightButtonTitle:title];
         
        // [self setRightButtonTitle:title];
     }
