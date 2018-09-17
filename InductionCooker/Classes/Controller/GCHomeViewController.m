@@ -468,8 +468,8 @@
 //            }
 //
 //        }];
-        NSLog(@"bt.selected is true ! = %@",[GCAgreementHelper getRootBytesWithDeviceId:(int)self.segmentControl.selectIndex status:0]);
-        [SVProgressHUD showWithStatus:@"bt.selected is true ! "];
+//        NSLog(@"bt.selected is true ! = %@",[GCAgreementHelper getRootBytesWithDeviceId:(int)self.segmentControl.selectIndex status:0]);
+//        [SVProgressHUD showWithStatus:@"bt.selected is true ! "];
           [[RHSocketConnection getInstance] writeData:[GCAgreementHelper getRootBytesWithDeviceId:(int)self.segmentControl.selectIndex status:0] timeout:5 tag:KTagPowerOff];
         
     }else{
@@ -486,8 +486,8 @@
 //        }];
         
        [[RHSocketConnection getInstance] writeData:[GCAgreementHelper getRootBytesWithDeviceId:(int)self.segmentControl.selectIndex status:1] timeout:5 tag:KTagPowerOn];
-        NSLog(@"bt.selected is false ! = %@",[GCAgreementHelper getRootBytesWithDeviceId:(int)self.segmentControl.selectIndex status:0]);
-        [SVProgressHUD showWithStatus:@"bt.selected is false ! "];
+//        NSLog(@"bt.selected is false ! = %@",[GCAgreementHelper getRootBytesWithDeviceId:(int)self.segmentControl.selectIndex status:0]);
+//        [SVProgressHUD showWithStatus:@"bt.selected is false ! "];
     }
     
     
@@ -507,6 +507,9 @@
         
         vc.deviceId=(int)self.segmentControl.selectIndex;
         
+//        [SVProgressHUD showWithStatus:[NSString stringWithFormat:@"vc.deviceId = %d",vc.deviceId]];
+//        [SVProgressHUD showWithStatus:[NSString stringWithFormat:@"vc.reservationModen.deviceId = %d",vc.reservationModen.deviceId]];
+        
         [self.navigationController pushViewController:vc animated:YES];
         
         
@@ -515,7 +518,8 @@
         GCReservationViewController *vc=[[GCReservationViewController alloc] initWithNibName:@"GCReservationViewController" bundle:nil];
         vc.title=@"预约";
         vc.state=self.segmentControl.selectIndex;
-        
+//        vc.state=labs(self.segmentControl.selectIndex-1);
+//        [SVProgressHUD showWithStatus:[NSString stringWithFormat:@"%ld",labs(self.segmentControl.selectIndex-1)]];
         [self.navigationController pushViewController:vc animated:YES];
         
         
@@ -532,7 +536,7 @@
     
     
     if (!subDevice.hasReservation) {
-        
+//        [SVProgressHUD showWithStatus:@"show!"];
 //        SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"" andMessage:@"请点击\"预约\"按钮设置预约程序"];
 //        [alertView addButtonWithTitle:@"确定"
 //                                 type:SIAlertViewButtonTypeCancel
@@ -649,7 +653,7 @@
         
         int deviceId=[data[@"deviceId"] intValue];
         
-//        if (deviceId==0) {
+//        if (deviceId==1) {
 //
 //            [GCUser getInstance].device.leftDevice.powerState=1;
 //
@@ -766,7 +770,7 @@
         
 //        NSLog(@"cookerData[@curError] = %@",cookerData[@"curError"]);
         //【1】状态查询       （复杂、待完善）
-        [self updateStateWithBytes2:totalData];
+        [self updateStateWithBytes:totalData];
         //【2】开关机状态同步回复
 //        [self updatePowerWithDevice:deviceId State:power];
         //【3】模式设定回复    （实时更新同步火炉状态、待完善）
@@ -966,21 +970,21 @@
     
     
     //数据过滤
-    NSString *lastStr=deviceId==0?self.leftDeviceLastData:self.rightDeviceLastData;
+    NSString *lastStr=deviceId==1?self.leftDeviceLastData:self.rightDeviceLastData;
     NSString *statusStr=[dict dictionaryToJson];
     
     if ([statusStr isEqualToString:lastStr]) {
         // return;
     }
     
-    if (deviceId==0) {
+    if (deviceId==1) {
         self.leftDeviceLastData=statusStr;
     }else{
         self.rightDeviceLastData=statusStr;
     }
     
     GCLog(@"查询到的模式%d   查询到的档位%d",moden,stall);
-    GCSubDevice *subDevice=deviceId==0?[GCUser getInstance].device.leftDevice:[GCUser getInstance].device.rightDevice;
+    GCSubDevice *subDevice=deviceId==1?[GCUser getInstance].device.leftDevice:[GCUser getInstance].device.rightDevice;
     
     GCModen *selModen=subDevice.selModen;
     
@@ -991,11 +995,11 @@
     
     if (power==1) {
         
-        deviceId==0?[self.leftView powerState:YES hasReservation:reservation monden:moden]:[self.rightView powerState:YES hasReservation:reservation monden:moden];
+        deviceId==1?[self.leftView powerState:YES hasReservation:reservation monden:moden]:[self.rightView powerState:YES hasReservation:reservation monden:moden];
         
         if (moden!=selModen.modenId%100||selModen==nil) {
             
-            subDevice.selModen=deviceId==0?[self.leftView updateModen:moden]:[self.rightView updateModen:moden];
+            subDevice.selModen=deviceId==1?[self.leftView updateModen:moden]:[self.rightView updateModen:moden];
             
             NSDictionary *dict=@{
                                  @"stalls":[NSNumber numberWithInt:stall],
@@ -1023,14 +1027,14 @@
         
     }else if(power==0)
     {
-        deviceId==0?[self.leftView powerState:NO hasReservation:reservation monden:-1]:[self.rightView powerState:NO hasReservation:reservation monden:-1];
+        deviceId==1?[self.leftView powerState:NO hasReservation:reservation monden:-1]:[self.rightView powerState:NO hasReservation:reservation monden:-1];
     }
     
     //不分左右炉刷新
     [self.segmentControl updateItemWithIndex:deviceId title:[GCAgreementHelper getPowerWhithDeivce:deviceId moden:moden stalls:stall]];
     
     
-    if (power==0&&deviceId==0) {
+    if (power==0&&deviceId==1) {
         
         
         [self.segmentControl updateItemWithIndex:0 title:@"     "];
@@ -1043,7 +1047,7 @@
     }
 }
 
-- (void) updateStateWithBytes:(NSDictionary *)dict
+- (void) updateStateWithBytes2:(NSDictionary *)dict
 {
     /**       新旧参数对照表
         含义                新参数                旧参数
@@ -1217,16 +1221,10 @@
 //
     
     
-    
-    
-    
 }
 
-
-- (void) updateStateWithBytes2:(NSDictionary *)dict
+- (void) updateStateWithBytes:(NSDictionary *)dict
 {
-    
-    
     NSDictionary *totalData = dict;
     NSDictionary *cookerItemsData = totalData[@"cookerItem"];
     NSString *leftYuYue = totalData[@"LYuYue"];
@@ -1287,9 +1285,12 @@
                 case 7:
                     modelId = 3;
                     break;
+                default:
+                    modelId = curMode;
+                    break;
             }
         }else{
-            NSLog(@"右边火炉！！！");
+//            NSLog(@"右边火炉！！！");
             switch (curMode) {
                 case 0:
                     modelId = 110;
@@ -1304,10 +1305,13 @@
                     modelId = 108;
                     break;
                 case 4:
-                    modelId = 107;
+                    modelId = 109;
                     break;
                 case 5:
-                    modelId = 109;
+                    modelId = 107;
+                    break;
+                default:
+                    modelId = curMode;
                     break;
             }
 //            int moden=button.moden.modenId%100;
@@ -1359,10 +1363,10 @@
         
         deviceId==1?[self.leftView powerState:YES hasReservation:reservation monden:moden]:[self.rightView powerState:YES hasReservation:reservation monden:moden];
         //当前模式更改 或是 不为空 的时候
-        NSLog(@"moden = %d",moden);
-        NSLog(@"selModen.modenId = %d",selModen.modenId);
-        if (moden!=selModen.modenId%100||selModen==nil) {
-            NSLog(@"当前模式更改！");
+//        NSLog(@"moden = %d",moden);
+//        NSLog(@"selModen.modenId = %d",selModen.modenId);
+        if (moden!=selModen.modenId||selModen==nil) {
+//            NSLog(@"当前模式更改！");
             subDevice.selModen=deviceId==1?[self.leftView updateModen:moden]:[self.rightView updateModen:moden];
             
             NSDictionary *dict=@{
@@ -1370,11 +1374,10 @@
                                  @"deviceId":[NSNumber numberWithInt:deviceId],
                                  @"moden":[NSNumber numberWithInt:moden]
                                  };
+            //设备档位发生变化
             [[NSNotificationCenter defaultCenter] postNotificationName:KNotiDevoceStallsChange object:nil userInfo:dict];
-            
-            
         }else{
-            
+//            NSLog(@"subDevice.selModen.currentStall = %d",subDevice.selModen.currentStall);
             if(subDevice.selModen.currentStall!=stall)
             {
                 subDevice.selModen.currentStall=stall;
@@ -1383,9 +1386,8 @@
                                      @"deviceId":[NSNumber numberWithInt:deviceId],
                                      @"moden":[NSNumber numberWithInt:moden]
                                      };
-                
+                //设备档位发生变化
                 [[NSNotificationCenter defaultCenter] postNotificationName:KNotiDevoceStallsChange object:nil userInfo:dict];
-                
             }
         }
         
@@ -1396,8 +1398,7 @@
     
     //不分左右炉刷新
     [self.segmentControl updateItemWithIndex:deviceId title:[GCAgreementHelper getPowerWhithDeivce:deviceId moden:moden stalls:stall]];
-    if (power==0&&deviceId==0) {
-        
+    if (power==0&&deviceId==1) {
         
         [self.segmentControl updateItemWithIndex:0 title:@"     "];
         [GCUser getInstance].device.leftDevice.selModen=nil;
@@ -1527,7 +1528,7 @@
         
         
         
-        error=deviceId==0?[@"(左炉) " stringByAppendingString:error]:[@"(右炉) " stringByAppendingString:error];
+        error=deviceId==1?[@"(左炉) " stringByAppendingString:error]:[@"(右炉) " stringByAppendingString:error];
         
         [GCDiscoverView showWithTip:error];
         

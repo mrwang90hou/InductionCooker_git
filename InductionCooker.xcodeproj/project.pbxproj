@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B4E651A214F9ECA007B642B /* leftdevice2.json in Resources */ = {isa = PBXBuildFile; fileRef = 0B4E6518214F8F9D007B642B /* leftdevice2.json */; };
+		0B4E651B214F9ECA007B642B /* rightdevice2.json in Resources */ = {isa = PBXBuildFile; fileRef = 0B4E6519214F8F9D007B642B /* rightdevice2.json */; };
 		6C00C4E61F10893B0056CAA8 /* GCLinkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C00C4E51F10893B0056CAA8 /* GCLinkView.m */; };
 		6C049C431F3181DA00A3B626 /* MQButtonCountDownTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C049C421F3181DA00A3B626 /* MQButtonCountDownTool.m */; };
 		6C049C491F31B07300A3B626 /* GCHttpDataTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C049C461F31B07300A3B626 /* GCHttpDataTool.m */; };
@@ -217,6 +219,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0B4E6518214F8F9D007B642B /* leftdevice2.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = leftdevice2.json; sourceTree = "<group>"; };
+		0B4E6519214F8F9D007B642B /* rightdevice2.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = rightdevice2.json; sourceTree = "<group>"; };
 		6C00C4E41F10893B0056CAA8 /* GCLinkView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCLinkView.h; sourceTree = "<group>"; };
 		6C00C4E51F10893B0056CAA8 /* GCLinkView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCLinkView.m; sourceTree = "<group>"; };
 		6C049C411F3181DA00A3B626 /* MQButtonCountDownTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MQButtonCountDownTool.h; sourceTree = "<group>"; };
@@ -960,7 +964,9 @@
 				6CFE82061EF38A9B00557C09 /* GCGlobalStyle.h */,
 				6CFE81F91EF2609400557C09 /* Assets.xcassets */,
 				6C3E27E91EE95035000CF381 /* leftdevice.json */,
+				0B4E6518214F8F9D007B642B /* leftdevice2.json */,
 				6C3E27EB1EE957E5000CF381 /* rightdevice.json */,
+				0B4E6519214F8F9D007B642B /* rightdevice2.json */,
 				6C6E95CD1EDFA80C003A9446 /* GEPrefixHeader.pch */,
 				6C6E95CC1EDFA7FE003A9446 /* Common.h */,
 				6C6E957E1EDFA599003A9446 /* AppDelegate.h */,
@@ -1418,13 +1424,13 @@
 					};
 					6C6E95901EDFA599003A9446 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = CJ6W4Z749T;
+						DevelopmentTeam = 3A86K4H484;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 6C6E95771EDFA599003A9446;
 					};
 					6C6E959B1EDFA599003A9446 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = CJ6W4Z749T;
+						DevelopmentTeam = 3A86K4H484;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 6C6E95771EDFA599003A9446;
 					};
@@ -1455,6 +1461,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B4E651A214F9ECA007B642B /* leftdevice2.json in Resources */,
+				0B4E651B214F9ECA007B642B /* rightdevice2.json in Resources */,
 				6CAD0D061F2087B500AF4D20 /* LICENSE in Resources */,
 				6C289FCD1EFB6B8C0090E8A5 /* GCLoginViewController.xib in Resources */,
 				6CAD0CD61F1F4ED100AF4D20 /* GCUpdatePwdViewController.xib in Resources */,
@@ -1859,7 +1867,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = CJ6W4Z749T;
+				DEVELOPMENT_TEAM = 3A86K4H484;
 				INFOPLIST_FILE = InductionCookerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = csl.InductionCookerTests;
@@ -1872,7 +1880,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = CJ6W4Z749T;
+				DEVELOPMENT_TEAM = 3A86K4H484;
 				INFOPLIST_FILE = InductionCookerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = csl.InductionCookerTests;
@@ -1884,7 +1892,7 @@
 		6C6E95AC1EDFA599003A9446 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DEVELOPMENT_TEAM = CJ6W4Z749T;
+				DEVELOPMENT_TEAM = 3A86K4H484;
 				INFOPLIST_FILE = InductionCookerUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = csl.InductionCookerUITests;
@@ -1896,7 +1904,7 @@
 		6C6E95AD1EDFA599003A9446 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DEVELOPMENT_TEAM = CJ6W4Z749T;
+				DEVELOPMENT_TEAM = 3A86K4H484;
 				INFOPLIST_FILE = InductionCookerUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = csl.InductionCookerUITests;

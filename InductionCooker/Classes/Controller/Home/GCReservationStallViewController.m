@@ -155,7 +155,7 @@
     
     
     
-    int moden= self.deviceId==0?self.moden.modenId:self.moden.modenId%100;
+    int moden= self.deviceId==1?self.moden.modenId:self.moden.modenId%100;
     
     
     GCLog(@"发出预约");
@@ -297,7 +297,7 @@
                 
                 tip=@"预约开机设置成功";
                 
-                if (self.deviceId==0) {
+                if (self.deviceId==1) {
                     [GCUser getInstance].device.leftDevice.hasReservation=YES;
                 }else{
                     [GCUser getInstance].device.rightDevice.hasReservation=YES;

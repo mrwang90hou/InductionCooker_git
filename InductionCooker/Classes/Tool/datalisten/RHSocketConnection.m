@@ -550,7 +550,7 @@ static  RHSocketConnection *tool;
  【2】工作时间通知名称
  【2】KNotiWorkTime
  【3】预约通知名称
- 【4】KNotiReservation
+ 【3】KNotiReservation
  【4】定时通知名称
  【4】KNotiTiming
  
@@ -585,7 +585,7 @@ static  RHSocketConnection *tool;
         //【2】工作时间通知名称
 //        [[NSNotificationCenter defaultCenter] postNotificationName:KNotiWorkTime object:nil userInfo:result];
         //【3】预约通知名称
-//        [[NSNotificationCenter defaultCenter] postNotificationName:KNotiReservation object:nil userInfo:result];
+        [[NSNotificationCenter defaultCenter] postNotificationName:KNotiReservation object:nil userInfo:result];
         //【4】定时通知名称
 //        [[NSNotificationCenter defaultCenter] postNotificationName:KNotiTiming object:nil userInfo:result];
 //            //                NSDictionary *dict=@{

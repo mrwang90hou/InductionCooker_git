@@ -90,10 +90,7 @@ static NSInteger status;
     
     [self getData];
     
-    
     [self createUI];
-    
-    
     
 }
 
@@ -101,7 +98,6 @@ static NSInteger status;
 {
     
     int count=status==0?8:6;
-    
     
     NSMutableArray *nArr=[NSMutableArray array];
     
@@ -119,6 +115,40 @@ static NSInteger status;
         
         [sArr addObject:selImageName];
         
+    }
+    self.norImageNames=nArr;
+    
+    self.selImageNames=sArr;
+    
+}
+
+
+- (void) getData2
+{
+    
+    int count=status==0?5:3;
+    
+    NSMutableArray *nArr=[NSMutableArray array];
+    
+    NSMutableArray *sArr=[NSMutableArray array];
+    
+    for (int i=0; i<count; i++) {
+        
+        NSString *norImageName=status==0?[NSString stringWithFormat:@"btn_moden_left_%d_normal",i+1]:[NSString stringWithFormat:@"btn_moden_right_%d_normal",i+1];
+        NSString *selImageName=status==0?[NSString stringWithFormat:@"btn_moden_left_%d_selected",i+1]:[NSString stringWithFormat:@"btn_moden_right_%d_selected",i+1];
+        
+        [nArr addObject:norImageName];
+        
+        [sArr addObject:selImageName];
+        
+    }
+    if (status==0) {
+        [nArr removeLastObject];
+        [sArr removeLastObject];
+        NSString *norImageName = [NSString stringWithFormat:@"btn_moden_left_%d_normal",8];
+        NSString *selImageName = [NSString stringWithFormat:@"btn_moden_left_%d_selected",8];
+        [nArr addObject:norImageName];
+        [sArr addObject:selImageName];
     }
     
     
@@ -158,16 +188,11 @@ static NSInteger status;
     
     
     if (status==0) {
-        
-        
         NSString *path = [[NSBundle mainBundle] pathForResource:@"leftdevice" ofType:@"json"];
         NSData *jsonData = [NSData dataWithContentsOfFile:path options:NSDataReadingMappedIfSafe error:nil];
         NSMutableDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:nil];
 
         modens=dic[@"value"];
-        
-        
-        
         
     }else
     {
@@ -191,7 +216,7 @@ static NSInteger status;
             [modenArr addObject:moden];
             
             //NSDictionary *dictionary=[self imageNameFromModenType:moden];
-            
+            NSLog(@"moden.type = %@",moden.type);
             GCModenButton *modenButton=[self buttomWithModen:moden norImageName:self.norImageNames[i] selImageName:self.selImageNames[i] disabelImageName:nil];
             
             [self.buttons addObject:modenButton];
@@ -201,8 +226,6 @@ static NSInteger status;
                 self.selButton.selected=YES;
             }
             i++;
-            
-        
         
     }
     
@@ -240,7 +263,7 @@ static NSInteger status;
     
     button.moden=moden;
     
-    return  button;
+    return button;
     
 }
 
@@ -281,19 +304,18 @@ static NSInteger status;
     float buttonHMargin=(self.contentView.width-column*buttonWidth)/(column*2);
 
 
-   
 //    int i=0;
 //    for (GCModenButton *button in self.buttons) {
-//        
+//
 //        [button mas_makeConstraints:^(MASConstraintMaker *make) {
-//           
+//
 //            make.left.mas_equalTo(self.contentView.mas_left).offset(buttonHMargin+(i%2*(buttonHMargin+buttonWidth)));
-//            
+//
 //            make.top.mas_equalTo(self.contentView.mas_top).offset(buttonMarginTop+i%2*(buttonHeight+buttonMargin));
-//            
+//
 //            make.width.mas_equalTo(buttonWidth);
 //            make.height.mas_equalTo(buttonHeight);
-//            
+//
 //        }];
 //        i++;
 //    }

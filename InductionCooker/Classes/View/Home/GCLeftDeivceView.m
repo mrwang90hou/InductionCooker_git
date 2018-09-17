@@ -232,7 +232,6 @@
 - (void) stallViewShow:(BOOL)isShow moden:(GCModen *)model{
 
 
-   
     if (isShow) {
         
         if (self.subVc.view.hidden) {
@@ -330,7 +329,7 @@
         return;
     }
     if(button.moden.modenId==[GCUser getInstance].device.leftDevice.selModen.modenId) {
-        
+        NSLog(@"_delegate!_delegate!_delegate!_delegate!_delegate!_delegate!_delegate!_delegate!");
         if ([_delegate respondsToSelector:@selector(leftModenButtonClick:)]) {
             [_delegate leftModenButtonClick:button];
         }

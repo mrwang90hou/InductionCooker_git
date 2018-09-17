@@ -340,7 +340,7 @@ static NSDictionary *rightModens;
     
     NSString *deviceStr=[NSString stringWithFormat:@"%d",deviceId];
     
-    moden=deviceId==1?moden+100:moden;
+    //    moden=deviceId==1?moden+100:moden;
     
     NSString *modenStr=[NSString stringWithFormat:@"%d",moden];
     
@@ -349,6 +349,20 @@ static NSDictionary *rightModens;
     NSString *str=dict[deviceStr][modenStr][stallsStr];
     
     NSString *powerStr=[NSString stringWithFormat:@"%@W",str];
+    
+    if (deviceId == 1) {
+        if (moden == 5 || moden == 6) {
+            powerStr=[NSString stringWithFormat:@"%@℃",str];
+        }
+    }else{
+        if (moden == 111) {
+            powerStr=[NSString stringWithFormat:@"%@℃",str];
+        }
+    }
+    if (moden == -1) {
+        powerStr = @"已开机";
+    }
+    
     
     return powerStr;
 }

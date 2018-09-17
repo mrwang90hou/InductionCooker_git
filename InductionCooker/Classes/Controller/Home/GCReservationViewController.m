@@ -65,6 +65,7 @@ typedef NS_ENUM(NSInteger, ReservationStatus) {
     
     
     GCReservationModenView *reservationModenView=[GCReservationModenView loadViewFromXibWithiType:self.state];
+    
     [self.contentView addSubview:reservationModenView];
     [reservationModenView mas_makeConstraints:^(MASConstraintMaker *make) {
         

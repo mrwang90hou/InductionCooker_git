@@ -218,7 +218,7 @@
 - (void) sendWorkData
 {
   
-    int modenId=self.deviceId==0?self.moden.modenId:self.moden.modenId%100;
+    int modenId=self.deviceId==1?self.moden.modenId:self.moden.modenId%100;
     
     [[RHSocketConnection getInstance] writeData:[GCSokectDataDeal getWorkTimeWithDeviceId:self.deviceId moden:modenId] timeout:-1 tag:5];
 }
@@ -545,7 +545,7 @@
         
     }else{
         
-        GCModen *moden=self.deviceId==0?[GCUser getInstance].device.leftDevice.selModen:[GCUser getInstance].device.rightDevice.selModen;
+        GCModen *moden=self.deviceId==1?[GCUser getInstance].device.leftDevice.selModen:[GCUser getInstance].device.rightDevice.selModen;
         [self updateViewWithModen:moden];
         
     }
@@ -581,7 +581,7 @@
         return;
     }
     
-    int modenId=self.deviceId==0?self.moden.modenId:self.moden.modenId%100;
+    int modenId=self.deviceId==1?self.moden.modenId:self.moden.modenId%100;
     
     if (self.deviceId!=deviceId||modenId!=moden) {
         return;
