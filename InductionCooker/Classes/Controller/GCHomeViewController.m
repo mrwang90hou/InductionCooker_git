@@ -766,7 +766,7 @@
         
 //        NSLog(@"cookerData[@curError] = %@",cookerData[@"curError"]);
         //【1】状态查询       （复杂、待完善）
-        [self updateStateWithBytes:totalData];
+        [self updateStateWithBytes2:totalData];
         //【2】开关机状态同步回复
 //        [self updatePowerWithDevice:deviceId State:power];
         //【3】模式设定回复    （实时更新同步火炉状态、待完善）
@@ -792,8 +792,6 @@
         return;
     }
 }
-
-
 
 
 - (void) receiveNotiDeivceDisconnect
@@ -932,11 +930,11 @@
 
 
 
-/**
- 状态更新
+/*状态更新
  
  @param dict bytes description
  */
+
 - (void) updateStateWithBytes1:(NSDictionary *)dict
 {
 
@@ -1043,10 +1041,6 @@
         [self.segmentControl updateItemWithIndex:1 title:@"     "];
         [GCUser getInstance].device.rightDevice.selModen=nil;
     }
-    
-    
-    
-    
 }
 
 - (void) updateStateWithBytes:(NSDictionary *)dict
@@ -1079,7 +1073,6 @@
     */
     NSDictionary *totalData = dict;
     NSDictionary *cookerItemsData = totalData[@"cookerItem"];
-
     NSString *leftYuYue = totalData[@"LYuYue"];
     NSString *rightYuYue = totalData[@"RYuYue"];
         NSString *curError = cookerItemsData[@"curError"];                  //错误码
@@ -1229,6 +1222,194 @@
     
 }
 
+
+- (void) updateStateWithBytes2:(NSDictionary *)dict
+{
+    
+    
+    NSDictionary *totalData = dict;
+    NSDictionary *cookerItemsData = totalData[@"cookerItem"];
+    NSString *leftYuYue = totalData[@"LYuYue"];
+    NSString *rightYuYue = totalData[@"RYuYue"];
+        NSString *curError = cookerItemsData[@"curError"];                  //错误码
+        int curMode = [cookerItemsData[@"curMode"] intValue];               //当前模式      -1代表无任何模式
+        int curPower = [cookerItemsData[@"curPower"] intValue];             //当前档位、功率
+        NSString *cursystemtime = cookerItemsData[@"cursystemtime"];        //模式切换时间
+        int maxPower = [cookerItemsData[@"curPower"] intValue];             //最大功率、档位
+        int maxcookTime = [cookerItemsData[@"maxcookTime"] intValue]/1000;   //最大烹饪时间 【单位：分钟】
+        int showStallsMode = [cookerItemsData[@"showStallsMode"] intValue];  //当前显示模式类型       已开机： -1     显示定时和自动AUTO ：0    摄氏度：1       功率数：2       都是自动AUTO:3
+    NSString *idName = totalData[@"id"];
+    int isLeft = [totalData[@"isLeft"] intValue];
+    int isOpen = [totalData[@"isOpen"] intValue];
+    int isCancel = [totalData[@"isCancel"] intValue];
+    NSString *target = totalData[@"target"];
+    
+    
+    
+    int deviceId = 0;
+    
+    int moden=0;
+    
+    int power=0;
+    
+    int stall=0;
+    
+    BOOL reservation=NO;
+    
+    @try {
+//        deviceId=abs([dict[@"isLeft"] intValue]-1);
+        
+        deviceId = [dict[@"isLeft"] intValue];
+        int modelId;
+        if (deviceId == 1) {
+            switch (curMode) {
+                case 0:
+                    modelId = 4;
+                    break;
+                case 1:
+                    modelId = 5;
+                    break;
+                case 2:
+                    modelId = 6;
+                    break;
+                case 3:
+                    modelId = 7;
+                    break;
+                case 4:
+                    modelId = 0;
+                    break;
+                case 5:
+                    modelId = 1;
+                    break;
+                case 6:
+                    modelId = 2;
+                    break;
+                case 7:
+                    modelId = 3;
+                    break;
+            }
+        }else{
+            NSLog(@"右边火炉！！！");
+            switch (curMode) {
+                case 0:
+                    modelId = 110;
+                    break;
+                case 1:
+                    modelId = 111;
+                    break;
+                case 2:
+                    modelId = 112;
+                    break;
+                case 3:
+                    modelId = 108;
+                    break;
+                case 4:
+                    modelId = 107;
+                    break;
+                case 5:
+                    modelId = 109;
+                    break;
+            }
+//            int moden=button.moden.modenId%100;
+//            modelId = modelId*100+modelId;
+        }
+        moden = modelId;
+        power = [dict[@"isOpen"] intValue];
+        
+//        stall=[dict[@"stall"] intValue];
+        stall = curPower;
+//        reservation=[dict[@"reservation"] boolValue];
+        if (deviceId==1) {
+            reservation = [leftYuYue isEqualToString:@""] ? NO:YES;
+        }else{
+            reservation = [rightYuYue isEqualToString:@""] ? NO:YES;
+        }
+        
+    } @catch (NSException *exception) {
+        
+        return;
+    }
+    
+    
+    //数据过滤
+    NSString *lastStr=deviceId==1?self.leftDeviceLastData:self.rightDeviceLastData;
+    NSString *statusStr=[dict dictionaryToJson];
+    
+    if ([statusStr isEqualToString:lastStr]) {
+        // return;
+    }
+    
+    if (deviceId==1) {
+        self.leftDeviceLastData=statusStr;
+    }else{
+        self.rightDeviceLastData=statusStr;
+    }
+    
+    GCLog(@"当前火炉 %d  查询到的模式 %d   查询到的档位 %d",deviceId,moden,stall);
+    GCSubDevice *subDevice=deviceId==1?[GCUser getInstance].device.leftDevice:[GCUser getInstance].device.rightDevice;
+    
+    GCModen *selModen=subDevice.selModen;
+    
+    subDevice.powerState=power;
+    
+    subDevice.hasReservation=reservation;
+    
+    
+    if (power==1) {
+        
+        deviceId==1?[self.leftView powerState:YES hasReservation:reservation monden:moden]:[self.rightView powerState:YES hasReservation:reservation monden:moden];
+        //当前模式更改 或是 不为空 的时候
+        NSLog(@"moden = %d",moden);
+        NSLog(@"selModen.modenId = %d",selModen.modenId);
+        if (moden!=selModen.modenId%100||selModen==nil) {
+            NSLog(@"当前模式更改！");
+            subDevice.selModen=deviceId==1?[self.leftView updateModen:moden]:[self.rightView updateModen:moden];
+            
+            NSDictionary *dict=@{
+                                 @"stalls":[NSNumber numberWithInt:stall],
+                                 @"deviceId":[NSNumber numberWithInt:deviceId],
+                                 @"moden":[NSNumber numberWithInt:moden]
+                                 };
+            [[NSNotificationCenter defaultCenter] postNotificationName:KNotiDevoceStallsChange object:nil userInfo:dict];
+            
+            
+        }else{
+            
+            if(subDevice.selModen.currentStall!=stall)
+            {
+                subDevice.selModen.currentStall=stall;
+                NSDictionary *dict=@{
+                                     @"stalls":[NSNumber numberWithInt:stall],
+                                     @"deviceId":[NSNumber numberWithInt:deviceId],
+                                     @"moden":[NSNumber numberWithInt:moden]
+                                     };
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:KNotiDevoceStallsChange object:nil userInfo:dict];
+                
+            }
+        }
+        
+    }else if(power==0)
+    {
+        deviceId==1?[self.leftView powerState:NO hasReservation:reservation monden:-1]:[self.rightView powerState:NO hasReservation:reservation monden:-1];
+    }
+    
+    //不分左右炉刷新
+    [self.segmentControl updateItemWithIndex:deviceId title:[GCAgreementHelper getPowerWhithDeivce:deviceId moden:moden stalls:stall]];
+    if (power==0&&deviceId==0) {
+        
+        
+        [self.segmentControl updateItemWithIndex:0 title:@"     "];
+        [GCUser getInstance].device.leftDevice.selModen=nil;
+        
+    }else if(power==0&&deviceId==1)
+    {
+        [self.segmentControl updateItemWithIndex:1 title:@"     "];
+        [GCUser getInstance].device.rightDevice.selModen=nil;
+    }
+}
+
+
 /**
  更新模式
  
@@ -1238,10 +1419,7 @@
 - (void) updateModenWithiDevoceId:(int)deviceId moden:(int)moden
 {
 //    GCLog(@"模式设置测试,回复模式编号%d",moden);
-    
     GCLog(@"当前火炉位置：%d,模式编号：%d",deviceId,moden);
-    
-    
 }
 
 

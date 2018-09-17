@@ -215,7 +215,7 @@
                             <state key="normal" title="煎炒" image="btn_fried_normal">
                                 <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
-                            <state key="disabled" image="btn_fried__disabled"/>
+                            <state key="disabled" image="btn_fiy_disabled"/>
                             <state key="selected" image="btn_moden_left_6_selected"/>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZL4-I2-8uo" customClass="GCModenButton">
@@ -307,7 +307,7 @@
         <image name="btn_cancel_pressed" width="50" height="50"/>
         <image name="btn_device_switching_normal" width="50" height="50"/>
         <image name="btn_device_switching_pressed" width="50" height="50"/>
-        <image name="btn_fried__disabled" width="61" height="66"/>
+        <image name="btn_fiy_disabled" width="61" height="66"/>
         <image name="btn_fried_normal" width="61" height="66"/>
         <image name="btn_moden_left_1_selected" width="71" height="71"/>
         <image name="btn_moden_left_2_selected" width="71" height="71"/>

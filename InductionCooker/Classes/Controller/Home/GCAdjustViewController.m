@@ -76,11 +76,6 @@
     [super viewDidAppear:animated];
     
     
-    
- 
-
-    
-    
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -96,7 +91,6 @@
 
 - (void)dealloc
 {
-    
     
     //[[NSNotificationCenter defaultCenter] removeObserver:self];
 }

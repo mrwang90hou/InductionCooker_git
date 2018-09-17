@@ -595,7 +595,7 @@ static  RHSocketConnection *tool;
 //            //                [[NSNotificationCenter defaultCenter] postNotificationName:KNotiDevoceStateChange object:nil userInfo:dict];
 //        }
     }
-    
+    /*【原始代码】
     //定义存储先前的状态
     //test 用例
     //(1)左炉开关状态发生变化
@@ -636,6 +636,10 @@ static  RHSocketConnection *tool;
 //        self.nounStatus[1] = result[@"isOpen"];
     }
 //    NSLog(@"当前所存储的左炉状态%@    当前所存储的右炉状态%@",self.nounStatus[0],self.nounStatus[1]);
+     
+     
+     
+     */
     if (_delegate && [_delegate respondsToSelector:@selector(didReceiveData:tag:)]) {
         [_delegate didReceiveData:data tag:tag];
     }

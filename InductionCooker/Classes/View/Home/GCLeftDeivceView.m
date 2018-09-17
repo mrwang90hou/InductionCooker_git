@@ -68,6 +68,8 @@
 
 @property (nonatomic,strong) NSArray *disEnableImageList;
 
+@property (nonatomic,strong) NSArray *selectedImageList;
+
 @property (nonatomic,assign) BOOL powerState;
 
 
@@ -129,10 +131,13 @@
     if (self=[super initWithFrame:frame]) {
         
         self.normImageList=@[@"btn_soup_normal",@"btn_porridge_normal",@"btn_rice_normal",@"btn_water_normal",
-                             @"brn_hotpot__normal",@"btn_fried_normal",@"btn_baked_fried_normal",@"btn_r_temperature_normal"];
+                             @"brn_hotpot_normal",@"btn_fried_normal",@"btn_baked_fried_normal",@"btn_r_temperature_normal"];
         self.disEnableImageList=@[@"btn_soup_disabled",@"btn_porridge_disabled",@"btn_rice_disabled",@"btn_water_disabled",
-                                  @"brn_hotpot_disabled",@"btn_fried__disabled",@"btn_baked_fried_disabled",
+                                  @"brn_hotpot_disabled",@"btn_fiy_disabled",@"btn_baked_fried_disabled",
                                   @"btn_r_temperature_disabled"];
+        self.selectedImageList=@[@"btn_soup_selected",@"btn_porridge_selected",@"btn_rice_selected",@"btn_water_selected",
+                                  @"brn_hotpot_selected",@"btn_fried__selected",@"btn_baked_fried_selected",
+                                  @"btn_r_temperature_selected"];
         
     }
     
@@ -316,10 +321,6 @@
 }
 
 
-
-
-
-
 - (void) buttonClick:(GCModenButton *)button
 {
     
@@ -328,8 +329,6 @@
         [GCDiscoverView showWithTip:@"请先开机,再进行操作!"];
         return;
     }
-
-    
     if(button.moden.modenId==[GCUser getInstance].device.leftDevice.selModen.modenId) {
         
         if ([_delegate respondsToSelector:@selector(leftModenButtonClick:)]) {
@@ -465,7 +464,6 @@
             self.selectButton.selected=NO;
             self.selectButton.moden.currentStall=-1;
         }
-
     }
     
     

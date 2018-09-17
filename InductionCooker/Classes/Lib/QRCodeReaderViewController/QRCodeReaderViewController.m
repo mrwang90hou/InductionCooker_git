@@ -335,6 +335,7 @@
         device.deviceName=[NSString stringWithFormat:@"电磁炉%lu" ,[GCUser getInstance].deviceList.count+1];
         [GCUser getInstance].device=device;
          [[GCUser getInstance].deviceList addObject:device];
+        NSLog(@"[GCUser getInstance].device = %@",[GCUser getInstance].device);
         [[NSNotificationCenter defaultCenter] postNotificationName:KNotiSelectDeviceChange object:nil];
 
         __weak typeof(self) ws = self;

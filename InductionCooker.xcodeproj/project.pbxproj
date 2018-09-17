@@ -7,13 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0B522A47214A13FE0098DBB6 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 0B522A3B214A13FE0098DBB6 /* LICENSE */; };
-		0B522A48214A13FE0098DBB6 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 0B522A3C214A13FE0098DBB6 /* README.md */; };
-		0B522A49214A13FE0098DBB6 /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B522A3F214A13FE0098DBB6 /* SVIndefiniteAnimatedView.m */; };
-		0B522A4A214A13FE0098DBB6 /* SVProgressAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B522A41214A13FE0098DBB6 /* SVProgressAnimatedView.m */; };
-		0B522A4B214A13FE0098DBB6 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0B522A42214A13FE0098DBB6 /* SVProgressHUD.bundle */; };
-		0B522A4C214A13FE0098DBB6 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B522A44214A13FE0098DBB6 /* SVProgressHUD.m */; };
-		0B522A4D214A13FE0098DBB6 /* SVRadialGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B522A46214A13FE0098DBB6 /* SVRadialGradientLayer.m */; };
 		6C00C4E61F10893B0056CAA8 /* GCLinkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C00C4E51F10893B0056CAA8 /* GCLinkView.m */; };
 		6C049C431F3181DA00A3B626 /* MQButtonCountDownTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C049C421F3181DA00A3B626 /* MQButtonCountDownTool.m */; };
 		6C049C491F31B07300A3B626 /* GCHttpDataTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C049C461F31B07300A3B626 /* GCHttpDataTool.m */; };
@@ -193,6 +186,13 @@
 		6CFE820E1EF3B95100557C09 /* GCReservationModenView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CFE820D1EF3B95100557C09 /* GCReservationModenView.m */; };
 		6CFE82101EF3B95D00557C09 /* GCReservationModenView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6CFE820F1EF3B95D00557C09 /* GCReservationModenView.xib */; };
 		6CFE82131EF3C0FE00557C09 /* GCReservationProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CFE82121EF3C0FE00557C09 /* GCReservationProgressView.m */; };
+		928D9199214E1FFD00E8D838 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 928D918D214E1FFC00E8D838 /* LICENSE */; };
+		928D919A214E1FFD00E8D838 /* SVRadialGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 928D918F214E1FFC00E8D838 /* SVRadialGradientLayer.m */; };
+		928D919B214E1FFD00E8D838 /* SVProgressAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 928D9192214E1FFC00E8D838 /* SVProgressAnimatedView.m */; };
+		928D919C214E1FFD00E8D838 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 928D9194214E1FFC00E8D838 /* SVProgressHUD.m */; };
+		928D919D214E1FFD00E8D838 /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 928D9195214E1FFC00E8D838 /* SVIndefiniteAnimatedView.m */; };
+		928D919E214E1FFD00E8D838 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 928D9196214E1FFC00E8D838 /* SVProgressHUD.bundle */; };
+		928D919F214E1FFD00E8D838 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 928D9198214E1FFC00E8D838 /* README.md */; };
 		C3E959AA2058F9F800EF0A22 /* MyAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3E959A82058F9F800EF0A22 /* MyAlertView.m */; };
 		C3E959AB2058F9F800EF0A22 /* MyAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3E959A92058F9F800EF0A22 /* MyAlertView.xib */; };
 		C3E959AE205903E000EF0A22 /* OneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3E959AD205903E000EF0A22 /* OneViewController.m */; };
@@ -217,17 +217,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0B522A3B214A13FE0098DBB6 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		0B522A3C214A13FE0098DBB6 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		0B522A3E214A13FE0098DBB6 /* SVIndefiniteAnimatedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVIndefiniteAnimatedView.h; sourceTree = "<group>"; };
-		0B522A3F214A13FE0098DBB6 /* SVIndefiniteAnimatedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVIndefiniteAnimatedView.m; sourceTree = "<group>"; };
-		0B522A40214A13FE0098DBB6 /* SVProgressAnimatedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressAnimatedView.h; sourceTree = "<group>"; };
-		0B522A41214A13FE0098DBB6 /* SVProgressAnimatedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressAnimatedView.m; sourceTree = "<group>"; };
-		0B522A42214A13FE0098DBB6 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
-		0B522A43214A13FE0098DBB6 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
-		0B522A44214A13FE0098DBB6 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
-		0B522A45214A13FE0098DBB6 /* SVRadialGradientLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVRadialGradientLayer.h; sourceTree = "<group>"; };
-		0B522A46214A13FE0098DBB6 /* SVRadialGradientLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVRadialGradientLayer.m; sourceTree = "<group>"; };
 		6C00C4E41F10893B0056CAA8 /* GCLinkView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCLinkView.h; sourceTree = "<group>"; };
 		6C00C4E51F10893B0056CAA8 /* GCLinkView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCLinkView.m; sourceTree = "<group>"; };
 		6C049C411F3181DA00A3B626 /* MQButtonCountDownTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MQButtonCountDownTool.h; sourceTree = "<group>"; };
@@ -548,6 +537,17 @@
 		6CFE820F1EF3B95D00557C09 /* GCReservationModenView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GCReservationModenView.xib; sourceTree = "<group>"; };
 		6CFE82111EF3C0FE00557C09 /* GCReservationProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCReservationProgressView.h; sourceTree = "<group>"; };
 		6CFE82121EF3C0FE00557C09 /* GCReservationProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCReservationProgressView.m; sourceTree = "<group>"; };
+		928D918D214E1FFC00E8D838 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		928D918F214E1FFC00E8D838 /* SVRadialGradientLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVRadialGradientLayer.m; sourceTree = "<group>"; };
+		928D9190214E1FFC00E8D838 /* SVIndefiniteAnimatedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVIndefiniteAnimatedView.h; sourceTree = "<group>"; };
+		928D9191214E1FFC00E8D838 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
+		928D9192214E1FFC00E8D838 /* SVProgressAnimatedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressAnimatedView.m; sourceTree = "<group>"; };
+		928D9193214E1FFC00E8D838 /* SVRadialGradientLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVRadialGradientLayer.h; sourceTree = "<group>"; };
+		928D9194214E1FFC00E8D838 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
+		928D9195214E1FFC00E8D838 /* SVIndefiniteAnimatedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVIndefiniteAnimatedView.m; sourceTree = "<group>"; };
+		928D9196214E1FFC00E8D838 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
+		928D9197214E1FFC00E8D838 /* SVProgressAnimatedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressAnimatedView.h; sourceTree = "<group>"; };
+		928D9198214E1FFC00E8D838 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C3E959A72058F9F800EF0A22 /* MyAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAlertView.h; sourceTree = "<group>"; };
 		C3E959A82058F9F800EF0A22 /* MyAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAlertView.m; sourceTree = "<group>"; };
 		C3E959A92058F9F800EF0A22 /* MyAlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyAlertView.xib; sourceTree = "<group>"; };
@@ -584,32 +584,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0B522A3A214A13FE0098DBB6 /* SVProgressHUD */ = {
-			isa = PBXGroup;
-			children = (
-				0B522A3B214A13FE0098DBB6 /* LICENSE */,
-				0B522A3C214A13FE0098DBB6 /* README.md */,
-				0B522A3D214A13FE0098DBB6 /* SVProgressHUD */,
-			);
-			path = SVProgressHUD;
-			sourceTree = "<group>";
-		};
-		0B522A3D214A13FE0098DBB6 /* SVProgressHUD */ = {
-			isa = PBXGroup;
-			children = (
-				0B522A3E214A13FE0098DBB6 /* SVIndefiniteAnimatedView.h */,
-				0B522A3F214A13FE0098DBB6 /* SVIndefiniteAnimatedView.m */,
-				0B522A40214A13FE0098DBB6 /* SVProgressAnimatedView.h */,
-				0B522A41214A13FE0098DBB6 /* SVProgressAnimatedView.m */,
-				0B522A42214A13FE0098DBB6 /* SVProgressHUD.bundle */,
-				0B522A43214A13FE0098DBB6 /* SVProgressHUD.h */,
-				0B522A44214A13FE0098DBB6 /* SVProgressHUD.m */,
-				0B522A45214A13FE0098DBB6 /* SVRadialGradientLayer.h */,
-				0B522A46214A13FE0098DBB6 /* SVRadialGradientLayer.m */,
-			);
-			path = SVProgressHUD;
-			sourceTree = "<group>";
-		};
 		6C049C441F31B07300A3B626 /* Http */ = {
 			isa = PBXGroup;
 			children = (
@@ -950,7 +924,7 @@
 		6C6E95B11EDFA697003A9446 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
-				0B522A3A214A13FE0098DBB6 /* SVProgressHUD */,
+				928D918C214E1FFC00E8D838 /* SVProgressHUD */,
 				6CAD0CDA1F2087B400AF4D20 /* AFNetworking */,
 				6C47752A1F176BD400B7A21D /* FMDB */,
 				6CC984A51F137CD20080A4A1 /* SIAlertView */,
@@ -969,10 +943,10 @@
 			children = (
 				6C5A02261EEF8DDD000E8A8C /* Home */,
 				6C3E27DD1EE928D2000CF381 /* Noti */,
-				6CEF68401EE118AF002B21A2 /* GCDevice.h */,
-				6CEF68411EE118AF002B21A2 /* GCDevice.m */,
 				6CEF68431EE1190F002B21A2 /* GCUser.h */,
 				6CEF68441EE1190F002B21A2 /* GCUser.m */,
+				6CEF68401EE118AF002B21A2 /* GCDevice.h */,
+				6CEF68411EE118AF002B21A2 /* GCDevice.m */,
 				6C049C581F35A5BE00A3B626 /* GCSubDevice.h */,
 				6C049C591F35A5BE00A3B626 /* GCSubDevice.m */,
 			);
@@ -1345,6 +1319,32 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		928D918C214E1FFC00E8D838 /* SVProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				928D918D214E1FFC00E8D838 /* LICENSE */,
+				928D918E214E1FFC00E8D838 /* SVProgressHUD */,
+				928D9198214E1FFC00E8D838 /* README.md */,
+			);
+			path = SVProgressHUD;
+			sourceTree = "<group>";
+		};
+		928D918E214E1FFC00E8D838 /* SVProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				928D918F214E1FFC00E8D838 /* SVRadialGradientLayer.m */,
+				928D9190214E1FFC00E8D838 /* SVIndefiniteAnimatedView.h */,
+				928D9191214E1FFC00E8D838 /* SVProgressHUD.h */,
+				928D9192214E1FFC00E8D838 /* SVProgressAnimatedView.m */,
+				928D9193214E1FFC00E8D838 /* SVRadialGradientLayer.h */,
+				928D9194214E1FFC00E8D838 /* SVProgressHUD.m */,
+				928D9195214E1FFC00E8D838 /* SVIndefiniteAnimatedView.m */,
+				928D9196214E1FFC00E8D838 /* SVProgressHUD.bundle */,
+				928D9197214E1FFC00E8D838 /* SVProgressAnimatedView.h */,
+			);
+			path = SVProgressHUD;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1457,7 +1457,6 @@
 			files = (
 				6CAD0D061F2087B500AF4D20 /* LICENSE in Resources */,
 				6C289FCD1EFB6B8C0090E8A5 /* GCLoginViewController.xib in Resources */,
-				0B522A47214A13FE0098DBB6 /* LICENSE in Resources */,
 				6CAD0CD61F1F4ED100AF4D20 /* GCUpdatePwdViewController.xib in Resources */,
 				6CC984AB1F137CD20080A4A1 /* SIAlertView.bundle in Resources */,
 				6C6E958B1EDFA599003A9446 /* LaunchScreen.storyboard in Resources */,
@@ -1467,7 +1466,6 @@
 				6CEF68361EE11533002B21A2 /* QRCodeBottomLeft@2x.png in Resources */,
 				6C289FE11EFB9B580090E8A5 /* LICENSE in Resources */,
 				6C6E95861EDFA599003A9446 /* Main.storyboard in Resources */,
-				0B522A48214A13FE0098DBB6 /* README.md in Resources */,
 				6CEF683D1EE11533002B21A2 /* QRCodeTopLeft@3x.png in Resources */,
 				6CEF683A1EE11533002B21A2 /* QRCodeLine@2x.png in Resources */,
 				6CA5D4B61F7D1E3C006A7D78 /* GCPurviewPhoneVerifyViewController.xib in Resources */,
@@ -1490,9 +1488,9 @@
 				6CAD0CD11F1F49BB00AF4D20 /* GCSetPwdViewController.xib in Resources */,
 				6CF0FD541EF91070003DC0B7 /* GCReservationPreviewViewController.xib in Resources */,
 				6C2CC6821F7DED6A00721E18 /* GCPurviewVerifyCodeViewController.xib in Resources */,
+				928D919E214E1FFD00E8D838 /* SVProgressHUD.bundle in Resources */,
 				6CFE81FF1EF36A7B00557C09 /* GCReservationTimeViewController.xib in Resources */,
 				6CC3F15D1F0F257C004FC279 /* GCTestViewController.xib in Resources */,
-				0B522A4B214A13FE0098DBB6 /* SVProgressHUD.bundle in Resources */,
 				6CEF683F1EE11533002B21A2 /* QRCodeTopRight@3x.png in Resources */,
 				6C47753A1F176BD400B7A21D /* LICENSE.txt in Resources */,
 				6C3E27E61EE93587000CF381 /* GCLeftDeivceView.xib in Resources */,
@@ -1504,6 +1502,8 @@
 				6C8B5B881F750B1500C12802 /* ModenName.plist in Resources */,
 				6C289FD21EFB79100090E8A5 /* GCVerifyPhoneViewController.xib in Resources */,
 				6C8D6BEC1EEA9A8E00A45F05 /* GCSegmentedControl.xib in Resources */,
+				928D9199214E1FFD00E8D838 /* LICENSE in Resources */,
+				928D919F214E1FFD00E8D838 /* README.md in Resources */,
 				6C6E95C21EDFA770003A9446 /* GCMoreViewController.xib in Resources */,
 				6C2CC6871F7E6EE400721E18 /* GCReservationStallViewController.xib in Resources */,
 				6C3E27EC1EE957E5000CF381 /* rightdevice.json in Resources */,
@@ -1548,7 +1548,6 @@
 				6C6E95831EDFA599003A9446 /* ViewController.m in Sources */,
 				6CC3F14A1F0E1457004FC279 /* RHSocketConnection.m in Sources */,
 				6C049C571F35A1CE00A3B626 /* GCReservationModen.m in Sources */,
-				0B522A4C214A13FE0098DBB6 /* SVProgressHUD.m in Sources */,
 				6CFE820A1EF3B46B00557C09 /* GCReservationViewController.m in Sources */,
 				6C049C491F31B07300A3B626 /* GCHttpDataTool.m in Sources */,
 				6C6B31231EE4F77C00DB2EA1 /* GCInputSequenceCodeView.m in Sources */,
@@ -1564,6 +1563,8 @@
 				6CC3F14E1F0E15B0004FC279 /* WifiHelper.m in Sources */,
 				6C6E95D01EDFA9DA003A9446 /* GCNavigationController.m in Sources */,
 				6C289FD11EFB79100090E8A5 /* GCVerifyPhoneViewController.m in Sources */,
+				928D919B214E1FFD00E8D838 /* SVProgressAnimatedView.m in Sources */,
+				928D919C214E1FFD00E8D838 /* SVProgressHUD.m in Sources */,
 				6C5BEB031EE10B8700B0DDE3 /* GCSetBasicCell.m in Sources */,
 				6C47753D1F176BD400B7A21D /* FMDatabaseAdditions.m in Sources */,
 				6C049C5A1F35A5BE00A3B626 /* GCSubDevice.m in Sources */,
@@ -1576,12 +1577,12 @@
 				C3E959B1205903EF00EF0A22 /* TwoViewController.m in Sources */,
 				6CC984A41F1333C70080A4A1 /* TypeConversionHelper.m in Sources */,
 				6C4775401F176BD400B7A21D /* FMResultSet.m in Sources */,
-				0B522A4D214A13FE0098DBB6 /* SVRadialGradientLayer.m in Sources */,
 				6CAD0D071F2087B500AF4D20 /* README.md in Sources */,
 				6C6B311F1EE4F32000DB2EA1 /* README.md in Sources */,
 				6CC984AC1F137CD20080A4A1 /* SIAlertView.m in Sources */,
 				6C3E27E01EE928E9000CF381 /* GCNotificationCellMd.m in Sources */,
 				6CAD0D021F2087B400AF4D20 /* AFSecurityPolicy.m in Sources */,
+				928D919A214E1FFD00E8D838 /* SVRadialGradientLayer.m in Sources */,
 				6CFE81FE1EF36A7B00557C09 /* GCReservationTimeViewController.m in Sources */,
 				6C6B311B1EE4F32000DB2EA1 /* NSArray+MASAdditions.m in Sources */,
 				6CAD0D081F2087B500AF4D20 /* AFAutoPurgingImageCache.m in Sources */,
@@ -1606,14 +1607,12 @@
 				6CC3F1631F0F2660004FC279 /* AsyncUdpSocket.m in Sources */,
 				6CAD0D091F2087B500AF4D20 /* AFImageDownloader.m in Sources */,
 				6C6B31191EE4F32000DB2EA1 /* MASViewAttribute.m in Sources */,
-				0B522A4A214A13FE0098DBB6 /* SVProgressAnimatedView.m in Sources */,
 				6CAD0D101F2087B500AF4D20 /* UIWebView+AFNetworking.m in Sources */,
 				6CC3F15C1F0F257C004FC279 /* GCTestViewController.m in Sources */,
 				6CAD0CD51F1F4ED100AF4D20 /* GCUpdatePwdViewController.m in Sources */,
 				6CAD0D001F2087B400AF4D20 /* AFHTTPSessionManager.m in Sources */,
 				6CEF68341EE11533002B21A2 /* QRCodeReaderView.m in Sources */,
 				6C5A02361EEFDA1D000E8A8C /* SFCircleGradientLayer.m in Sources */,
-				0B522A49214A13FE0098DBB6 /* SVIndefiniteAnimatedView.m in Sources */,
 				6C4F6E931FC6B52D00CB023E /* GSPortableDeviceCell.m in Sources */,
 				6C289FCC1EFB6B8C0090E8A5 /* GCLoginViewController.m in Sources */,
 				6C6E95CB1EDFA7B3003A9446 /* GCTabBarController.m in Sources */,
@@ -1621,6 +1620,7 @@
 				6CC3F1541F0E1FCE004FC279 /* GCDiscoverView.m in Sources */,
 				6CF0FD4E1EF90B69003DC0B7 /* GCReservationStartViewController.m in Sources */,
 				6CAD0D0A1F2087B500AF4D20 /* AFNetworkActivityIndicatorManager.m in Sources */,
+				928D919D214E1FFD00E8D838 /* SVIndefiniteAnimatedView.m in Sources */,
 				6CAD0D0B1F2087B500AF4D20 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				6C6E95C11EDFA770003A9446 /* GCMoreViewController.m in Sources */,
 				6C049C4E1F31BC5600A3B626 /* MQError.m in Sources */,

@@ -147,12 +147,10 @@
 {
     //mobile=13800138000&token=adsafokjdsoaidslakjfsdalkj
     
-   
-    
     if ([GCUser getInstance].userId&&[GCUser getInstance].token) {
         
-         [[MQHudTool shareHudTool] addHudWithTitle:@"正在获取产品列表..." onWindow:self.window];
-        
+        [[MQHudTool shareHudTool] addHudWithTitle:@"正在获取产品列表..." onWindow:self.window];
+//        [SVProgressHUD showWithStatus:@"正在获取产品列表..."];
         NSDictionary *dict=@{
                              @"mobile":[GCUser getInstance].mobile,
                              @"token":[GCUser getInstance].token,
@@ -200,11 +198,8 @@
                     [[NSNotificationCenter defaultCenter] postNotificationName:KNotiSelectDeviceChange object:nil];
                     
                     [self conectService];
-                    
+                    [SVProgressHUD showSuccessWithStatus:@"获取设备成功！"];
                 } failure:^(MQError *error) {
-                    
-                  
-                    
                     SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"" andMessage:@"获取当前选中电磁炉失败,请重试!"];
                     [alertView addButtonWithTitle:@"确定"
                                              type:SIAlertViewButtonTypeCancel
@@ -220,12 +215,11 @@
                     
                 }];
                 
-           
-                
             }else
             {
                 if (show) {
                     [GCDiscoverView showWithTip:@"您未绑定和一电磁炉产品,请先绑定产品,再进行操作!"];
+//                    [SVProgressHUD showErrorWithStatus:@"您未绑定和一电磁炉产品,请先绑定产品,再进行操作!"];
                 }
                 
                
