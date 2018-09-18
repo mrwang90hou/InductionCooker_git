@@ -256,6 +256,7 @@
         
        // [self setRightButtonTitle:title];
     }
+    
 }
 
 - (void)updateItemWithIndex:(int)index stallsMode:(int)stallsMode

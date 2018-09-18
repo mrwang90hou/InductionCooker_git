@@ -534,7 +534,6 @@
     
     GCSubDevice *subDevice=self.segmentControl.selectIndex==0?[GCUser getInstance].device.leftDevice:[GCUser getInstance].device.rightDevice;
     
-    
     if (!subDevice.hasReservation) {
 //        [SVProgressHUD showWithStatus:@"show!"];
 //        SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"" andMessage:@"请点击\"预约\"按钮设置预约程序"];
@@ -782,7 +781,7 @@
         //【6】模式设定回复
         
         
-        
+#pragma mark -收到故障报警 curError参数！！！
         
         
         
@@ -1397,15 +1396,28 @@
     }
     
     //不分左右炉刷新
-    [self.segmentControl updateItemWithIndex:deviceId title:[GCAgreementHelper getPowerWhithDeivce:deviceId moden:moden stalls:stall]];
-    if (power==0&&deviceId==1) {
-        
-        [self.segmentControl updateItemWithIndex:0 title:@"     "];
+    
+//    if (deviceId==1&&power==1) {
+//        [self.segmentControl updateItemWithIndex:1 title:[GCAgreementHelper getPowerWhithDeivce:deviceId moden:moden stalls:stall]];
+//    }
+//    if (deviceId==0&&power==1) {
+//        [self.segmentControl updateItemWithIndex:0 title:[GCAgreementHelper getPowerWhithDeivce:deviceId moden:moden stalls:stall]];
+//    }
+    
+//    if ((deviceId==1&&power==1)||(deviceId==0&&power==1)) {
+        [self.segmentControl updateItemWithIndex:deviceId title:[GCAgreementHelper getPowerWhithDeivce:deviceId moden:moden stalls:stall]];
+//    }
+    
+    if (deviceId==1&&power==0) {
+//        [SVProgressHUD showErrorWithStatus:@"left segmentControl"];
+        [self.segmentControl updateItemWithIndex:1 title:@"     "];
         [GCUser getInstance].device.leftDevice.selModen=nil;
         
-    }else if(power==0&&deviceId==1)
+    }
+    if(deviceId==0&&power==0)
     {
-        [self.segmentControl updateItemWithIndex:1 title:@"     "];
+//        [SVProgressHUD showErrorWithStatus:@"right segmentControl"];
+        [self.segmentControl updateItemWithIndex:0 title:@"     "];
         [GCUser getInstance].device.rightDevice.selModen=nil;
     }
 }

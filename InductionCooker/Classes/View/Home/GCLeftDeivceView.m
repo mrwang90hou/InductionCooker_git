@@ -251,8 +251,6 @@
             [CATransitionHelper addTransitionWithLayer:self.subVc.view.layer animationType:kCATransitionPush subtype:kCATransitionFromBottom duration:0.4];
         }
       
-        
-        
     }
 
     

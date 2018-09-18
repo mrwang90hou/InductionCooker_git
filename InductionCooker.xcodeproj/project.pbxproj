@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0B4E651A214F9ECA007B642B /* leftdevice2.json in Resources */ = {isa = PBXBuildFile; fileRef = 0B4E6518214F8F9D007B642B /* leftdevice2.json */; };
-		0B4E651B214F9ECA007B642B /* rightdevice2.json in Resources */ = {isa = PBXBuildFile; fileRef = 0B4E6519214F8F9D007B642B /* rightdevice2.json */; };
+		0B4E651A214F9ECA007B642B /* leftdeviceYD.json in Resources */ = {isa = PBXBuildFile; fileRef = 0B4E6518214F8F9D007B642B /* leftdeviceYD.json */; };
+		0B4E651B214F9ECA007B642B /* rightdeviceYD.json in Resources */ = {isa = PBXBuildFile; fileRef = 0B4E6519214F8F9D007B642B /* rightdeviceYD.json */; };
 		6C00C4E61F10893B0056CAA8 /* GCLinkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C00C4E51F10893B0056CAA8 /* GCLinkView.m */; };
 		6C049C431F3181DA00A3B626 /* MQButtonCountDownTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C049C421F3181DA00A3B626 /* MQButtonCountDownTool.m */; };
 		6C049C491F31B07300A3B626 /* GCHttpDataTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C049C461F31B07300A3B626 /* GCHttpDataTool.m */; };
@@ -38,7 +38,7 @@
 		6C3E27E01EE928E9000CF381 /* GCNotificationCellMd.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C3E27DF1EE928E9000CF381 /* GCNotificationCellMd.m */; };
 		6C3E27E41EE9331F000CF381 /* GCModenButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C3E27E31EE9331F000CF381 /* GCModenButton.m */; };
 		6C3E27E61EE93587000CF381 /* GCLeftDeivceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6C3E27E51EE93587000CF381 /* GCLeftDeivceView.xib */; };
-		6C3E27EA1EE95035000CF381 /* leftdevice.json in Resources */ = {isa = PBXBuildFile; fileRef = 6C3E27E91EE95035000CF381 /* leftdevice.json */; };
+		6C3E27EA1EE95035000CF381 /* leftdeviceNew.json in Resources */ = {isa = PBXBuildFile; fileRef = 6C3E27E91EE95035000CF381 /* leftdeviceNew.json */; };
 		6C3E27EC1EE957E5000CF381 /* rightdevice.json in Resources */ = {isa = PBXBuildFile; fileRef = 6C3E27EB1EE957E5000CF381 /* rightdevice.json */; };
 		6C4418DD1EF12ACE0099933F /* CircularProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4418DC1EF12ACE0099933F /* CircularProgressBar.m */; };
 		6C4775231F170F9000B7A21D /* MQSaveLoadTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4775221F170F9000B7A21D /* MQSaveLoadTool.m */; };
@@ -104,7 +104,7 @@
 		6C6E95DC1EDFF069003A9446 /* UIView+NTES.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C6E95DB1EDFF069003A9446 /* UIView+NTES.m */; };
 		6C7F2CFB1FC265FE00F649DC /* WifiConnectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C7F2CFA1FC265FE00F649DC /* WifiConnectView.m */; };
 		6C7F2CFE1FC2864F00F649DC /* WifiConnectingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C7F2CFD1FC2864F00F649DC /* WifiConnectingView.m */; };
-		6C8B5B881F750B1500C12802 /* ModenName.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6C8B5B871F750B1500C12802 /* ModenName.plist */; };
+		6C8B5B881F750B1500C12802 /* ModenNameLeft.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6C8B5B871F750B1500C12802 /* ModenNameLeft.plist */; };
 		6C8D6BEA1EEA95CD00A45F05 /* GCSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C8D6BE91EEA95CD00A45F05 /* GCSegmentedControl.m */; };
 		6C8D6BEC1EEA9A8E00A45F05 /* GCSegmentedControl.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6C8D6BEB1EEA9A8E00A45F05 /* GCSegmentedControl.xib */; };
 		6CA5D4B51F7D1E3C006A7D78 /* GCPurviewPhoneVerifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CA5D4B31F7D1E39006A7D78 /* GCPurviewPhoneVerifyViewController.m */; };
@@ -188,6 +188,18 @@
 		6CFE820E1EF3B95100557C09 /* GCReservationModenView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CFE820D1EF3B95100557C09 /* GCReservationModenView.m */; };
 		6CFE82101EF3B95D00557C09 /* GCReservationModenView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6CFE820F1EF3B95D00557C09 /* GCReservationModenView.xib */; };
 		6CFE82131EF3C0FE00557C09 /* GCReservationProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CFE82121EF3C0FE00557C09 /* GCReservationProgressView.m */; };
+		92F0D5C5214FD1E80085A1A2 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 92F0D5B9214FD1E80085A1A2 /* LICENSE */; };
+		92F0D5C6214FD1E80085A1A2 /* SVRadialGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F0D5BB214FD1E80085A1A2 /* SVRadialGradientLayer.m */; };
+		92F0D5C7214FD1E80085A1A2 /* SVProgressAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F0D5BE214FD1E80085A1A2 /* SVProgressAnimatedView.m */; };
+		92F0D5C8214FD1E80085A1A2 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F0D5C0214FD1E80085A1A2 /* SVProgressHUD.m */; };
+		92F0D5C9214FD1E80085A1A2 /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F0D5C1214FD1E80085A1A2 /* SVIndefiniteAnimatedView.m */; };
+		92F0D5CA214FD1E80085A1A2 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 92F0D5C2214FD1E80085A1A2 /* SVProgressHUD.bundle */; };
+		92F0D5CB214FD1E80085A1A2 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 92F0D5C4214FD1E80085A1A2 /* README.md */; };
+		92F0D5CE214FE36F0085A1A2 /* ModenNameRight.plist in Resources */ = {isa = PBXBuildFile; fileRef = 92F0D5CC214FE0BF0085A1A2 /* ModenNameRight.plist */; };
+		92F0D5D1214FEF6E0085A1A2 /* leftdevice.json in Resources */ = {isa = PBXBuildFile; fileRef = 92F0D5CF214FECD70085A1A2 /* leftdevice.json */; };
+		92F0D5D2214FEF6E0085A1A2 /* rightdeviceOld.json in Resources */ = {isa = PBXBuildFile; fileRef = 92F0D5D0214FECD70085A1A2 /* rightdeviceOld.json */; };
+		92F0D5D3214FEF7E0085A1A2 /* ModenNameOld.plist in Resources */ = {isa = PBXBuildFile; fileRef = 92F0D5CD214FE1880085A1A2 /* ModenNameOld.plist */; };
+		92F0D5D52150053C0085A1A2 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 92F0D5D42150053B0085A1A2 /* README.md */; };
 		C3E959AA2058F9F800EF0A22 /* MyAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3E959A82058F9F800EF0A22 /* MyAlertView.m */; };
 		C3E959AB2058F9F800EF0A22 /* MyAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3E959A92058F9F800EF0A22 /* MyAlertView.xib */; };
 		C3E959AE205903E000EF0A22 /* OneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3E959AD205903E000EF0A22 /* OneViewController.m */; };
@@ -212,8 +224,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0B4E6518214F8F9D007B642B /* leftdevice2.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = leftdevice2.json; sourceTree = "<group>"; };
-		0B4E6519214F8F9D007B642B /* rightdevice2.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = rightdevice2.json; sourceTree = "<group>"; };
+		0B4E6518214F8F9D007B642B /* leftdeviceYD.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = leftdeviceYD.json; sourceTree = "<group>"; };
+		0B4E6519214F8F9D007B642B /* rightdeviceYD.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = rightdeviceYD.json; sourceTree = "<group>"; };
 		6C00C4E41F10893B0056CAA8 /* GCLinkView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCLinkView.h; sourceTree = "<group>"; };
 		6C00C4E51F10893B0056CAA8 /* GCLinkView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCLinkView.m; sourceTree = "<group>"; };
 		6C049C411F3181DA00A3B626 /* MQButtonCountDownTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MQButtonCountDownTool.h; sourceTree = "<group>"; };
@@ -264,7 +276,7 @@
 		6C3E27E21EE9331F000CF381 /* GCModenButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCModenButton.h; sourceTree = "<group>"; };
 		6C3E27E31EE9331F000CF381 /* GCModenButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCModenButton.m; sourceTree = "<group>"; };
 		6C3E27E51EE93587000CF381 /* GCLeftDeivceView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GCLeftDeivceView.xib; sourceTree = "<group>"; };
-		6C3E27E91EE95035000CF381 /* leftdevice.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = leftdevice.json; sourceTree = "<group>"; };
+		6C3E27E91EE95035000CF381 /* leftdeviceNew.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = leftdeviceNew.json; sourceTree = "<group>"; };
 		6C3E27EB1EE957E5000CF381 /* rightdevice.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = rightdevice.json; sourceTree = "<group>"; };
 		6C4418DB1EF12ACE0099933F /* CircularProgressBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircularProgressBar.h; sourceTree = "<group>"; };
 		6C4418DC1EF12ACE0099933F /* CircularProgressBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircularProgressBar.m; sourceTree = "<group>"; };
@@ -388,7 +400,7 @@
 		6C7F2CFA1FC265FE00F649DC /* WifiConnectView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WifiConnectView.m; sourceTree = "<group>"; };
 		6C7F2CFC1FC2864F00F649DC /* WifiConnectingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WifiConnectingView.h; sourceTree = "<group>"; };
 		6C7F2CFD1FC2864F00F649DC /* WifiConnectingView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WifiConnectingView.m; sourceTree = "<group>"; };
-		6C8B5B871F750B1500C12802 /* ModenName.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ModenName.plist; sourceTree = "<group>"; };
+		6C8B5B871F750B1500C12802 /* ModenNameLeft.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ModenNameLeft.plist; sourceTree = "<group>"; };
 		6C8D6BE81EEA95CD00A45F05 /* GCSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCSegmentedControl.h; sourceTree = "<group>"; };
 		6C8D6BE91EEA95CD00A45F05 /* GCSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCSegmentedControl.m; sourceTree = "<group>"; };
 		6C8D6BEB1EEA9A8E00A45F05 /* GCSegmentedControl.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GCSegmentedControl.xib; sourceTree = "<group>"; };
@@ -534,6 +546,22 @@
 		6CFE820F1EF3B95D00557C09 /* GCReservationModenView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GCReservationModenView.xib; sourceTree = "<group>"; };
 		6CFE82111EF3C0FE00557C09 /* GCReservationProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCReservationProgressView.h; sourceTree = "<group>"; };
 		6CFE82121EF3C0FE00557C09 /* GCReservationProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCReservationProgressView.m; sourceTree = "<group>"; };
+		92F0D5B9214FD1E80085A1A2 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		92F0D5BB214FD1E80085A1A2 /* SVRadialGradientLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVRadialGradientLayer.m; sourceTree = "<group>"; };
+		92F0D5BC214FD1E80085A1A2 /* SVIndefiniteAnimatedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVIndefiniteAnimatedView.h; sourceTree = "<group>"; };
+		92F0D5BD214FD1E80085A1A2 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
+		92F0D5BE214FD1E80085A1A2 /* SVProgressAnimatedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressAnimatedView.m; sourceTree = "<group>"; };
+		92F0D5BF214FD1E80085A1A2 /* SVRadialGradientLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVRadialGradientLayer.h; sourceTree = "<group>"; };
+		92F0D5C0214FD1E80085A1A2 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
+		92F0D5C1214FD1E80085A1A2 /* SVIndefiniteAnimatedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVIndefiniteAnimatedView.m; sourceTree = "<group>"; };
+		92F0D5C2214FD1E80085A1A2 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
+		92F0D5C3214FD1E80085A1A2 /* SVProgressAnimatedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressAnimatedView.h; sourceTree = "<group>"; };
+		92F0D5C4214FD1E80085A1A2 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		92F0D5CC214FE0BF0085A1A2 /* ModenNameRight.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ModenNameRight.plist; sourceTree = "<group>"; };
+		92F0D5CD214FE1880085A1A2 /* ModenNameOld.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ModenNameOld.plist; sourceTree = "<group>"; };
+		92F0D5CF214FECD70085A1A2 /* leftdevice.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = leftdevice.json; sourceTree = "<group>"; };
+		92F0D5D0214FECD70085A1A2 /* rightdeviceOld.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = rightdeviceOld.json; sourceTree = "<group>"; };
+		92F0D5D42150053B0085A1A2 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C3E959A72058F9F800EF0A22 /* MyAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAlertView.h; sourceTree = "<group>"; };
 		C3E959A82058F9F800EF0A22 /* MyAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAlertView.m; sourceTree = "<group>"; };
 		C3E959A92058F9F800EF0A22 /* MyAlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyAlertView.xib; sourceTree = "<group>"; };
@@ -831,6 +859,7 @@
 		6C6E957A1EDFA599003A9446 /* InductionCooker */ = {
 			isa = PBXGroup;
 			children = (
+				92F0D5D42150053B0085A1A2 /* README.md */,
 				6C6E95AE1EDFA697003A9446 /* Classes */,
 				6C6E957B1EDFA599003A9446 /* Supporting Files */,
 			);
@@ -910,6 +939,7 @@
 		6C6E95B11EDFA697003A9446 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				92F0D5B8214FD1E80085A1A2 /* SVProgressHUD */,
 				6CAD0CDA1F2087B400AF4D20 /* AFNetworking */,
 				6C47752A1F176BD400B7A21D /* FMDB */,
 				6CC984A51F137CD20080A4A1 /* SIAlertView */,
@@ -944,10 +974,12 @@
 				6CC984AE1F14A6390080A4A1 /* stall.json */,
 				6CFE82061EF38A9B00557C09 /* GCGlobalStyle.h */,
 				6CFE81F91EF2609400557C09 /* Assets.xcassets */,
-				6C3E27E91EE95035000CF381 /* leftdevice.json */,
-				0B4E6518214F8F9D007B642B /* leftdevice2.json */,
+				6C3E27E91EE95035000CF381 /* leftdeviceNew.json */,
+				92F0D5CF214FECD70085A1A2 /* leftdevice.json */,
+				0B4E6518214F8F9D007B642B /* leftdeviceYD.json */,
 				6C3E27EB1EE957E5000CF381 /* rightdevice.json */,
-				0B4E6519214F8F9D007B642B /* rightdevice2.json */,
+				92F0D5D0214FECD70085A1A2 /* rightdeviceOld.json */,
+				0B4E6519214F8F9D007B642B /* rightdeviceYD.json */,
 				6C6E95CD1EDFA80C003A9446 /* GEPrefixHeader.pch */,
 				6C6E95CC1EDFA7FE003A9446 /* Common.h */,
 				6C6E957E1EDFA599003A9446 /* AppDelegate.h */,
@@ -957,7 +989,9 @@
 				6C6E95841EDFA599003A9446 /* Main.storyboard */,
 				6C6E95891EDFA599003A9446 /* LaunchScreen.storyboard */,
 				6C6E958C1EDFA599003A9446 /* Info.plist */,
-				6C8B5B871F750B1500C12802 /* ModenName.plist */,
+				92F0D5CC214FE0BF0085A1A2 /* ModenNameRight.plist */,
+				92F0D5CD214FE1880085A1A2 /* ModenNameOld.plist */,
+				6C8B5B871F750B1500C12802 /* ModenNameLeft.plist */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -1306,6 +1340,32 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		92F0D5B8214FD1E80085A1A2 /* SVProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				92F0D5B9214FD1E80085A1A2 /* LICENSE */,
+				92F0D5BA214FD1E80085A1A2 /* SVProgressHUD */,
+				92F0D5C4214FD1E80085A1A2 /* README.md */,
+			);
+			path = SVProgressHUD;
+			sourceTree = "<group>";
+		};
+		92F0D5BA214FD1E80085A1A2 /* SVProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				92F0D5BB214FD1E80085A1A2 /* SVRadialGradientLayer.m */,
+				92F0D5BC214FD1E80085A1A2 /* SVIndefiniteAnimatedView.h */,
+				92F0D5BD214FD1E80085A1A2 /* SVProgressHUD.h */,
+				92F0D5BE214FD1E80085A1A2 /* SVProgressAnimatedView.m */,
+				92F0D5BF214FD1E80085A1A2 /* SVRadialGradientLayer.h */,
+				92F0D5C0214FD1E80085A1A2 /* SVProgressHUD.m */,
+				92F0D5C1214FD1E80085A1A2 /* SVIndefiniteAnimatedView.m */,
+				92F0D5C2214FD1E80085A1A2 /* SVProgressHUD.bundle */,
+				92F0D5C3214FD1E80085A1A2 /* SVProgressAnimatedView.h */,
+			);
+			path = SVProgressHUD;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1416,8 +1476,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0B4E651A214F9ECA007B642B /* leftdevice2.json in Resources */,
-				0B4E651B214F9ECA007B642B /* rightdevice2.json in Resources */,
+				92F0D5D3214FEF7E0085A1A2 /* ModenNameOld.plist in Resources */,
+				92F0D5D1214FEF6E0085A1A2 /* leftdevice.json in Resources */,
+				92F0D5D2214FEF6E0085A1A2 /* rightdeviceOld.json in Resources */,
+				92F0D5CE214FE36F0085A1A2 /* ModenNameRight.plist in Resources */,
+				0B4E651A214F9ECA007B642B /* leftdeviceYD.json in Resources */,
+				0B4E651B214F9ECA007B642B /* rightdeviceYD.json in Resources */,
 				6CAD0D061F2087B500AF4D20 /* LICENSE in Resources */,
 				6C289FCD1EFB6B8C0090E8A5 /* GCLoginViewController.xib in Resources */,
 				6CAD0CD61F1F4ED100AF4D20 /* GCUpdatePwdViewController.xib in Resources */,
@@ -1426,6 +1490,7 @@
 				6C6B31251EE4F78F00DB2EA1 /* GCInputSequenceCodeView.xib in Resources */,
 				6CEF683E1EE11533002B21A2 /* QRCodeTopRight@2x.png in Resources */,
 				6C5A02251EEF7D1D000E8A8C /* GCRightDeivceView.xib in Resources */,
+				92F0D5CA214FD1E80085A1A2 /* SVProgressHUD.bundle in Resources */,
 				6CEF68361EE11533002B21A2 /* QRCodeBottomLeft@2x.png in Resources */,
 				6C289FE11EFB9B580090E8A5 /* LICENSE in Resources */,
 				6C6E95861EDFA599003A9446 /* Main.storyboard in Resources */,
@@ -1433,6 +1498,7 @@
 				6CEF683A1EE11533002B21A2 /* QRCodeLine@2x.png in Resources */,
 				6CA5D4B61F7D1E3C006A7D78 /* GCPurviewPhoneVerifyViewController.xib in Resources */,
 				6CF0FD4F1EF90B69003DC0B7 /* GCReservationStartViewController.xib in Resources */,
+				92F0D5D52150053C0085A1A2 /* README.md in Resources */,
 				6C289FD71EFB98440090E8A5 /* GCFillinSmsCodeViewController.xib in Resources */,
 				6CEF683C1EE11533002B21A2 /* QRCodeTopLeft@2x.png in Resources */,
 				6C5A022E1EEF9722000E8A8C /* GCAdjustViewController.xib in Resources */,
@@ -1440,7 +1506,7 @@
 				C3E959AB2058F9F800EF0A22 /* MyAlertView.xib in Resources */,
 				6CEF68391EE11533002B21A2 /* QRCodeBottomRight@3x.png in Resources */,
 				6C5BEB041EE10B8700B0DDE3 /* GCSetBasicCell.xib in Resources */,
-				6C3E27EA1EE95035000CF381 /* leftdevice.json in Resources */,
+				6C3E27EA1EE95035000CF381 /* leftdeviceNew.json in Resources */,
 				6C6B31141EE4F32000DB2EA1 /* LICENSE in Resources */,
 				6C4F6E841FC69E6D00CB023E /* PermissionsDeviceViewController.xib in Resources */,
 				6CFE82101EF3B95D00557C09 /* GCReservationModenView.xib in Resources */,
@@ -1453,15 +1519,17 @@
 				6C2CC6821F7DED6A00721E18 /* GCPurviewVerifyCodeViewController.xib in Resources */,
 				6CFE81FF1EF36A7B00557C09 /* GCReservationTimeViewController.xib in Resources */,
 				6CC3F15D1F0F257C004FC279 /* GCTestViewController.xib in Resources */,
+				92F0D5CB214FD1E80085A1A2 /* README.md in Resources */,
 				6CEF683F1EE11533002B21A2 /* QRCodeTopRight@3x.png in Resources */,
 				6C47753A1F176BD400B7A21D /* LICENSE.txt in Resources */,
 				6C3E27E61EE93587000CF381 /* GCLeftDeivceView.xib in Resources */,
 				6CC984AF1F14A6390080A4A1 /* stall.json in Resources */,
 				6CFE820B1EF3B46B00557C09 /* GCReservationViewController.xib in Resources */,
+				92F0D5C5214FD1E80085A1A2 /* LICENSE in Resources */,
 				6CEF68371EE11533002B21A2 /* QRCodeBottomLeft@3x.png in Resources */,
 				6C4F6E891FC69EFB00CB023E /* PermissionsDeviceCell.xib in Resources */,
 				6C3E27DC1EE92688000CF381 /* GCNotificationCell.xib in Resources */,
-				6C8B5B881F750B1500C12802 /* ModenName.plist in Resources */,
+				6C8B5B881F750B1500C12802 /* ModenNameLeft.plist in Resources */,
 				6C289FD21EFB79100090E8A5 /* GCVerifyPhoneViewController.xib in Resources */,
 				6C8D6BEC1EEA9A8E00A45F05 /* GCSegmentedControl.xib in Resources */,
 				6C6E95C21EDFA770003A9446 /* GCMoreViewController.xib in Resources */,
@@ -1508,6 +1576,7 @@
 				6C6E95831EDFA599003A9446 /* ViewController.m in Sources */,
 				6CC3F14A1F0E1457004FC279 /* RHSocketConnection.m in Sources */,
 				6C049C571F35A1CE00A3B626 /* GCReservationModen.m in Sources */,
+				92F0D5C8214FD1E80085A1A2 /* SVProgressHUD.m in Sources */,
 				6CFE820A1EF3B46B00557C09 /* GCReservationViewController.m in Sources */,
 				6C049C491F31B07300A3B626 /* GCHttpDataTool.m in Sources */,
 				6C6B31231EE4F77C00DB2EA1 /* GCInputSequenceCodeView.m in Sources */,
@@ -1515,6 +1584,7 @@
 				6CAD0CD91F20853800AF4D20 /* GCNetStateHelper.m in Sources */,
 				6CC984AD1F137CD20080A4A1 /* UIWindow+SIUtils.m in Sources */,
 				6C289FE31EFB9B580090E8A5 /* README.mdown in Sources */,
+				92F0D5C6214FD1E80085A1A2 /* SVRadialGradientLayer.m in Sources */,
 				6CAD0D161F20ABAD00AF4D20 /* GCStringAndBytesConversion.m in Sources */,
 				6C6E95D71EDFEAE3003A9446 /* GCLeftDeivceView.m in Sources */,
 				6CFE820E1EF3B95100557C09 /* GCReservationModenView.m in Sources */,
@@ -1563,6 +1633,7 @@
 				6CEF68451EE1190F002B21A2 /* GCUser.m in Sources */,
 				6CC3F1631F0F2660004FC279 /* AsyncUdpSocket.m in Sources */,
 				6CAD0D091F2087B500AF4D20 /* AFImageDownloader.m in Sources */,
+				92F0D5C7214FD1E80085A1A2 /* SVProgressAnimatedView.m in Sources */,
 				6C6B31191EE4F32000DB2EA1 /* MASViewAttribute.m in Sources */,
 				6CAD0D101F2087B500AF4D20 /* UIWebView+AFNetworking.m in Sources */,
 				6CC3F15C1F0F257C004FC279 /* GCTestViewController.m in Sources */,
@@ -1609,6 +1680,7 @@
 				6CAD0D131F20A82000AF4D20 /* GCSokectDataDeal.m in Sources */,
 				6CF0FD531EF91070003DC0B7 /* GCReservationPreviewViewController.m in Sources */,
 				6CAD0D011F2087B400AF4D20 /* AFNetworkReachabilityManager.m in Sources */,
+				92F0D5C9214FD1E80085A1A2 /* SVIndefiniteAnimatedView.m in Sources */,
 				6C2CC6861F7E6EE400721E18 /* GCReservationStallViewController.m in Sources */,
 				6C4775441F176C7900B7A21D /* GCDataBasicManager.m in Sources */,
 				6C7F2CFE1FC2864F00F649DC /* WifiConnectingView.m in Sources */,

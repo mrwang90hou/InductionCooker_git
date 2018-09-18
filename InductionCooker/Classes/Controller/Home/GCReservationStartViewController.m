@@ -104,8 +104,8 @@
 
 #pragma mark -页面逻辑方法
 - (void) getData{
-    
-    self.deviceId=self.moden.modenId<100?0:1;
+//    [SVProgressHUD showSuccessWithStatus:[NSString stringWithFormat:@"self.moden.modenId = %d",self.moden.modenId]];
+    self.deviceId=self.moden.modenId<100?1:0;
     
     for(int k=0;k<50;k++)
     {
@@ -147,7 +147,7 @@
     NSArray *tipArr=@[@"1.选择模式",@"2.预约开机时间",@"3.设置定时"];
     
     int count=3;
-
+    
     if (self.moden.aotuWork&&self.moden.modenId%100!=7) {
         
         tipArr=@[@"1.选择模式",@"2.预约开机时间"];
@@ -205,20 +205,78 @@
     
     self.resendCount++;
     
- 
     
+//    int moden= self.deviceId==1?self.moden.modenId:self.moden.modenId%100;
+    int moden = [self getImportModenId:self.deviceId modenId:self.moden.modenId];
     
-    int moden= self.deviceId==1?self.moden.modenId:self.moden.modenId%100;
-    
-    
-    GCLog(@"发出预约");
+    GCLog(@"🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚发出预约🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚");
     
     [[RHSocketConnection getInstance] writeData:[GCSokectDataDeal getReservationBytesWithDeviceId:self.deviceId setting:YES moden:moden bootTime:self.date appointment:-1 stall:-1] timeout:-1 tag:0];
   
     [self performSelector:@selector(setReservation) withObject:nil afterDelay:3];
+}
 
+- (int)getImportModenId:(int)isLeftDevice modenId:(int)modenId0{
+    int modelId;
+    if (isLeftDevice == 1) {
+        switch (modenId0) {
+            case 0:
+                modelId = 4;
+                break;
+            case 1:
+                modelId = 5;
+                break;
+            case 2:
+                modelId = 6;
+                break;
+            case 3:
+                modelId = 7;
+                break;
+            case 4:
+                modelId = 0;
+                break;
+            case 5:
+                modelId = 1;
+                break;
+            case 6:
+                modelId = 2;
+                break;
+            case 7:
+                modelId = 3;
+                break;
+        }
+    }
+    else{
+//        int moden=button.moden.modenId%100;
+        //改变了 button 的序列位置
+        switch (modenId0) {
+            case 110:
+                modelId = 0;
+                break;
+            case 111:
+                modelId = 1;
+                break;
+            case 112:
+                modelId = 2;
+                break;
+            case 108:
+                modelId = 3;
+                break;
+            case 109:
+                modelId = 4;
+                break;
+            case 107:
+                modelId = 5;
+                break;
+        }
+    }
+    return modelId;
     
 }
+
+
+
+
 
 
 #pragma mark -用户交互方法
@@ -240,7 +298,6 @@
     
     if(self.moden.aotuWork&&(self.moden.modenId%100)!=7)
     {
-        
         if (self.isSetting) {
             return;
         }
@@ -256,8 +313,6 @@
         
         [self setReservation];
          self.isSetting=YES;
-        
-        
         
     }else
     {
@@ -363,6 +418,44 @@
     
     
     
+}
+
+
+- (void) receiveNoti0:(NSNotification* )noti
+{
+    
+    
+    
+    int moden = [self getImportModenId:self.deviceId modenId:self.moden.modenId];
+    
+    NSDictionary *dict=[noti userInfo];
+    
+    if (self.deviceId!=[dict[@"isLeft"] intValue]) {
+        return;
+    }
+    NSString *tip=@"";
+    BOOL b1 = self.deviceId == 1 && ![dict[@"LYuYue"] isEqualToString:@""];
+    BOOL b2 = self.deviceId == 0 && ![dict[@"RYuYue"] isEqualToString:@""];
+    
+    if (b1||b2) {
+        if (b1) {
+            [GCUser getInstance].device.leftDevice.hasReservation=YES;
+        }
+        if (self.deviceId == 0 && ![dict[@"RYuYue"] isEqualToString:@""]) {
+            [GCUser getInstance].device.rightDevice.hasReservation=YES;
+        }
+        
+        tip=@"预约开机设置成功";
+        GCReservationPreviewViewController *vc=[[GCReservationPreviewViewController alloc] initWithNibName:@"GCReservationPreviewViewController" bundle:nil];
+        
+        vc.reservationModen=[GCReservationModen createModelWithDict:self.dict];
+        
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    
+    [self reciveSuccess];
+    [SVProgressHUD showSuccessWithStatus:tip];
+    [self.hud hudUpdataTitile:tip hideTime:1];
 }
 
 

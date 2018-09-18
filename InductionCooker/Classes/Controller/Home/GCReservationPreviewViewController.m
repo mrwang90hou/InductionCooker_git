@@ -15,7 +15,7 @@
 #import "MQHudTool.h"
 #import "GCAgreementHelper.h"
 
-#define KTypePrefixString           @"模式: "
+#define KTypePrefixString           @"预约模式: "
 #define KDatePrefixString           @"开机时间: "
 #define KTimePrefixString           @"工作时长: "
 #define KPowerPrefixString          @"火力: "
@@ -28,7 +28,7 @@
 @interface GCReservationPreviewViewController ()
 
 @property (nonatomic,strong) NSArray *modenNameArr;
-
+@property (nonatomic,strong) NSArray *modenNameArrRight;
 @property (weak, nonatomic) IBOutlet UILabel *typeLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
@@ -78,13 +78,27 @@
     
     if(_modenNameArr==nil)
     {
-        NSString *path=[[NSBundle mainBundle] pathForResource:@"ModenName" ofType:@"plist"];
+        NSString *path=[[NSBundle mainBundle] pathForResource:@"ModenNameLeft" ofType:@"plist"];
         NSArray *arr = [NSArray arrayWithContentsOfFile:path];
         _modenNameArr=arr;
     }
     
     return _modenNameArr;
 }
+- (NSArray *)modenNameArrRight
+{
+    
+    if(_modenNameArrRight==nil)
+    {
+        NSString *path=[[NSBundle mainBundle] pathForResource:@"ModenNameRight" ofType:@"plist"];
+        NSArray *arr = [NSArray arrayWithContentsOfFile:path];
+        _modenNameArrRight=arr;
+    }
+    
+    return _modenNameArrRight;
+}
+
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -145,9 +159,8 @@
         GCModen *model=[GCModen createModelWithDict:dict];
         
         if (model.modenId==self.reservationModen.modenId) {
-            
+//            NSLog(@"model.type = %@   self.reservationModen.modenId = %d",model.type,self.reservationModen.modenId);
             self.moden=model;
-            
             break;
         }
     }
@@ -332,10 +345,11 @@
 
     NSString *minute;
     
-    if (self.moden.aotuWork&&self.moden.modenId%100!=7) {
-        
+//    if (self.moden.aotuWork&&self.moden.modenId%100!=7) {
+//    [SVProgressHUD showSuccessWithStatus:self.moden.type];
+//    if (![self.moden.type isEqualToString:@"保温"]) {
+    if (![name isEqualToString:@"保温"]) {
         minute=@"自动";
-        
     }else{
         int hour=(int)minuteCount/60;
         int min=(int)minuteCount%60;
@@ -361,10 +375,14 @@
     
     //powerStr=[powerStr isEqualToString:@"Auto"]?@"自动":powerStr;
     
-    if(self.moden.aotuWork)
-    {
-        powerStr=@"自动";
-    }
+//    if(self.moden.aotuWork)
+//    {
+//        powerStr=@"自动";
+//    }
+    powerStr=@"自动";
+
+    self.powerLabel.text=powerStr;
+    
     
 //    powerStr=[NSString stringWithFormat:@"%@%@",KPowerPrefixString,powerStr];
     
@@ -377,8 +395,6 @@
 //                              range:NSMakeRange(KPowerPrefixString.length, powerStr.length-KPowerPrefixString.length)];
 //
 //    self.powerLabel.attributedText=attributedPowerStr;
-
-    self.powerLabel.text=powerStr;
     
 }
 
@@ -572,30 +588,22 @@
     }else{
         yuYueDic = rightYuYueDic;
     }
+    //取得记录的时间戳
+    long long recordTime = [yuYueDic[@"time"] longLongValue];
+    int startUpTimeHour = [yuYueDic[@"hour"] intValue];
+    int startUpTimeMin = [yuYueDic[@"min"] intValue];
+    int workTimeHour = [yuYueDic[@"wHour"] intValue];;
+    int workTimeMin = [yuYueDic[@"wMin"] intValue];;
+    
     
 //    [SVProgressHUD showWithStatus:yuYueDic];
     NSLog(@"😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊%@",yuYueDic);
-    //获取自1970年毫秒数
+    //获取当前的时间戳，来自1970年毫秒数
         NSTimeInterval nowtime = [[NSDate date] timeIntervalSince1970]*1000;
         long long theTime = [[NSNumber numberWithDouble:nowtime] longLongValue];
         NSString *curTime = [NSString stringWithFormat:@"%llu",theTime];
-//        [SVProgressHUD showWithStatus:curTime];
-    long long oldTine = [yuYueDic[@"time"] longLongValue];
 
-    
-//    NSTimeInterval timeInterval = [theTime];//获取需要转换的timeinterval
-//    NSDate *date = [NSDate dateWithTimeIntervalSince1970:timeInterval];
-//    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-//    formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
-//    NSString *dateString = [formatter stringFromDate:date];
-    
-    
-    
-    
-//    [SVProgressHUD showWithStatus:[NSString stringWithFormat:@"%lld",theTime - oldTine]];
-    
-    
-    NSTimeInterval value = theTime - oldTine;
+    NSTimeInterval value = theTime - recordTime;
     int second = (int)value /1000%60;//秒
     int minute = (int)value /1000/60%60;
     int house = (int)value /1000/ (24 *3600)%3600;
@@ -610,19 +618,30 @@
     }else{
         str = [NSString stringWithFormat:@"耗时%d秒",second];
     }
-    [SVProgressHUD showWithStatus:str];
+//    [SVProgressHUD showWithStatus:str];
+//    NSLog(@"second = %d",second);
+//    NSLog(@"minute = %d",minute);
+//    NSLog(@"house = %d",house);
+//    NSLog(@"day = %d",day);
+//
+    
+    int time = workTimeHour*60+workTimeMin;
     
     
+    double date = (startUpTimeHour - house)*60 + (startUpTimeMin - minute);
+
+//    NSLog(@"data = %lf",date);
+//    NSLog(@"time = %d",time);
+    
+//    NSString *dataStr=dict[@"bootTime"];
+//    double date=[dataStr integerValue]/60000.0;
+//    int time=[dict[@"appointment"] intValue]/60000;
     
     
-    
-    
-    
-    NSString *dataStr=dict[@"bootTime"];
-    double date=[dataStr integerValue]/60000.0;
-    int time=[dict[@"appointment"] intValue]/60000;
-    int moden=[dict[@"moden"] intValue];
-    int stall=[dict[@"stall"] intValue];
+    //    int moden=[dict[@"moden"] intValue];
+    //    int stall=[dict[@"stall"] intValue];
+    int moden = [yuYueDic[@"mode"] intValue];
+    int stall = curPower;
     
     self.reservationModen=[[GCReservationModen alloc] init];
     self.reservationModen.deviceId=self.deviceId;
@@ -632,7 +651,18 @@
     
     [self getData];
     
-    [self setLabelWithReservationDate:date minute:self.reservationModen.time modenName:self.modenNameArr[moden] stall:stall];
+    if ([yuYueDic[@"left"] intValue] == 1) {
+        
+        [self setLabelWithReservationDate:date minute:self.reservationModen.time modenName:self.modenNameArr[moden] stall:stall];
+    }else{
+        
+        [self setLabelWithReservationDate:date minute:self.reservationModen.time modenName:self.modenNameArrRight[moden] stall:stall];
+    }
+    
+    NSLog(@"moden = %d",moden);
+    
+    NSLog(@"stall = %d",stall);
+    
     
     if(date<0.10)
     {
@@ -644,77 +674,77 @@
     
     
     
-    
-    switch (code) {
-        case 6:
-        {
-            BOOL success=[dict[@"success"] boolValue];
-            BOOL setting=[dict[@"setting"] boolValue];
-            
-            if (success==NO||setting==YES) {
-                [self.hud hudUpdataTitile:@"取消预约失败" hideTime:KHudTipTime];
-                return;
-            }
-            
-            if (self.deviceId==1) {
-                [GCUser getInstance].device.leftDevice.hasReservation=0;
-            }else{
-                [GCUser getInstance].device.rightDevice.hasReservation=0;
-            }
-            
-            //[NSObject cancelPreviousPerformRequestsWithTarget:self];
-            
-            [self reciveSuccess];
-            
-            [self.navigationController popToRootViewControllerAnimated:YES];
-            
-            
-            
-        }
-            break;
-            
-        case 7:
-        {
-            
-            GCLog(@"查询预约: %@",dict);
-            
-            //[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(getReservationData) object:KGetReservationDataTag];
-            
-            [self reciveSuccess];
-            
-            [self.hud hide];
-            
-            NSString *dataStr=dict[@"bootTime"];
-            
-            double date=[dataStr integerValue]/60000.0;
-            int time=[dict[@"appointment"] intValue]/60000;
-            int moden=[dict[@"moden"] intValue];
-            int stall=[dict[@"stall"] intValue];
-            
-            self.reservationModen=[[GCReservationModen alloc] init];
-            self.reservationModen.deviceId=self.deviceId;
-            self.reservationModen.modenId=moden;
-            self.reservationModen.date=date;
-            self.reservationModen.time=time;
-            
-            [self getData];
-            
-            [self setLabelWithReservationDate:date minute:self.reservationModen.time modenName:self.modenNameArr[moden] stall:stall];
-            
-            if(date<0.10)
-            {
-                [self.navigationController popToRootViewControllerAnimated:YES];
-            }
-            
-        }
-            break;
-            
-        default:
-            
-            
-            
-            break;
-    }
+//
+//    switch (code) {
+//        case 6:
+//        {
+//            BOOL success=[dict[@"success"] boolValue];
+//            BOOL setting=[dict[@"setting"] boolValue];
+//
+//            if (success==NO||setting==YES) {
+//                [self.hud hudUpdataTitile:@"取消预约失败" hideTime:KHudTipTime];
+//                return;
+//            }
+//
+//            if (self.deviceId==1) {
+//                [GCUser getInstance].device.leftDevice.hasReservation=0;
+//            }else{
+//                [GCUser getInstance].device.rightDevice.hasReservation=0;
+//            }
+//
+//            //[NSObject cancelPreviousPerformRequestsWithTarget:self];
+//
+//            [self reciveSuccess];
+//
+//            [self.navigationController popToRootViewControllerAnimated:YES];
+//
+//
+//
+//        }
+//            break;
+//
+//        case 7:
+//        {
+//
+//            GCLog(@"查询预约: %@",dict);
+//
+//            //[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(getReservationData) object:KGetReservationDataTag];
+//
+//            [self reciveSuccess];
+//
+//            [self.hud hide];
+//
+//            NSString *dataStr=dict[@"bootTime"];
+//
+//            double date=[dataStr integerValue]/60000.0;
+//            int time=[dict[@"appointment"] intValue]/60000;
+//            int moden=[dict[@"moden"] intValue];
+//            int stall=[dict[@"stall"] intValue];
+//
+//            self.reservationModen=[[GCReservationModen alloc] init];
+//            self.reservationModen.deviceId=self.deviceId;
+//            self.reservationModen.modenId=moden;
+//            self.reservationModen.date=date;
+//            self.reservationModen.time=time;
+//
+//            [self getData];
+//
+//            [self setLabelWithReservationDate:date minute:self.reservationModen.time modenName:self.modenNameArr[moden] stall:stall];
+//
+//            if(date<0.10)
+//            {
+//                [self.navigationController popToRootViewControllerAnimated:YES];
+//            }
+//
+//        }
+//            break;
+//
+//        default:
+//
+//
+//
+//            break;
+//    }
 }
 
 
