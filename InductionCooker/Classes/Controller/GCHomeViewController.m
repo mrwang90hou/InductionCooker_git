@@ -578,9 +578,7 @@
 #pragma mark -GCAdjustViewControllerDelegate
 -(void)removeButtonClickWithDeivceId:(int) deviceId
 {
-    
     [self removeStallViewWithBottomViewHide:NO];
-    
 }
 
 #pragma mark -GCLeftDeivceViewDelegate
@@ -731,8 +729,10 @@
     {
         //        NSDictionary *data=[noti userInfo][@"data"];
         NSDictionary *totalData = [noti userInfo];
-        NSDictionary *cookerData = totalData[@"cookerItem"];
-        
+        NSDictionary *cookerItemsData = totalData[@"cookerItem"];
+        //    NSString *leftYuYue = totalData[@"LYuYue"];
+        //    NSString *rightYuYue = totalData[@"RYuYue"];
+        NSString *curError = cookerItemsData[@"curError"];
 //        NSLog(@"NSDictionary = %@",data);
         
 /**       新旧参数对照表
@@ -761,11 +761,11 @@
                              target = 123450;
                              type = 1;
         */
-        int deviceId = [totalData[@"isLeft"] intValue];
+        int isLeft = [totalData[@"isLeft"] intValue];
         int power = [totalData[@"isOpen"] intValue];
-        int moden = [cookerData[@"curMode"] intValue];  //当前模式
-        int stalls=[cookerData[@"curPower"] intValue];  //当前档位
-        int showStallsMode=[cookerData[@"showStallsMode"] intValue];  //当前显示模式类型           摄氏度：1       功率数：2       AUTO:3
+        int moden = [cookerItemsData[@"curMode"] intValue];  //当前模式
+        int stalls=[cookerItemsData[@"curPower"] intValue];  //当前档位
+        int showStallsMode=[cookerItemsData[@"showStallsMode"] intValue];  //当前显示模式类型           摄氏度：1       功率数：2       AUTO:3
         
 //        NSLog(@"cookerData[@curError] = %@",cookerData[@"curError"]);
         //【1】状态查询       （复杂、待完善）
@@ -777,18 +777,33 @@
         //【4】档位设置回复
 //        [self updateStallsWithiDevoceId:deviceId moden:moden stalls:stalls];
         //【5】收到故障报警
-//        [self deviceErrorWithDict:totalData];
+        
+        
+        
+        /*收到故障报警*/
+        if (![curError isEqualToString:@"XX"]) {
+            [self deviceErrorWithDict:totalData];
+//            [self.segmentControl itemIndex:abs(1-isLeft) isWarm:true];
+        }
+        else{
+//            [self.segmentControl itemIndex:abs(1-isLeft) isWarm:false];
+        }
         //【6】模式设定回复
         
         
+        
+        /*工作时间通知名称*/
+        //工作时间通知名称【转移到：KNotiDevoceStateChange通知中去】
+        
+//        [[NSNotificationCenter defaultCenter] postNotificationName:KNotiWorkTime object:nil userInfo:result];
+        
+        
+        //【4】定时通知名称
+        //        [[NSNotificationCenter defaultCenter] postNotificationName:KNotiTiming object:nil userInfo:result];
+        
+        
+        
 #pragma mark -收到故障报警 curError参数！！！
-        
-        
-        
-        
-        
-        
-        
         
     }@catch (NSException * e) {
         
@@ -799,6 +814,7 @@
 
 - (void) receiveNotiDeivceDisconnect
 {
+    
     [self.leftView powerState:NO hasReservation:NO monden:-1];
     
     [self.rightView powerState:NO hasReservation:NO monden:-1];
@@ -806,6 +822,8 @@
     [self.segmentControl updateItemWithIndex:0 title:@"     "];
     
     [self.segmentControl updateItemWithIndex:1 title:@"     "];
+    
+    self.wifiConnectView.hidden = true;
 }
 
 - (void) selectDeiveChange
@@ -1228,18 +1246,18 @@
     NSDictionary *cookerItemsData = totalData[@"cookerItem"];
     NSString *leftYuYue = totalData[@"LYuYue"];
     NSString *rightYuYue = totalData[@"RYuYue"];
-        NSString *curError = cookerItemsData[@"curError"];                  //错误码
+//        NSString *curError = cookerItemsData[@"curError"];                  //错误码
         int curMode = [cookerItemsData[@"curMode"] intValue];               //当前模式      -1代表无任何模式
         int curPower = [cookerItemsData[@"curPower"] intValue];             //当前档位、功率
-        NSString *cursystemtime = cookerItemsData[@"cursystemtime"];        //模式切换时间
-        int maxPower = [cookerItemsData[@"curPower"] intValue];             //最大功率、档位
-        int maxcookTime = [cookerItemsData[@"maxcookTime"] intValue]/1000;   //最大烹饪时间 【单位：分钟】
-        int showStallsMode = [cookerItemsData[@"showStallsMode"] intValue];  //当前显示模式类型       已开机： -1     显示定时和自动AUTO ：0    摄氏度：1       功率数：2       都是自动AUTO:3
-    NSString *idName = totalData[@"id"];
-    int isLeft = [totalData[@"isLeft"] intValue];
-    int isOpen = [totalData[@"isOpen"] intValue];
-    int isCancel = [totalData[@"isCancel"] intValue];
-    NSString *target = totalData[@"target"];
+//        NSString *cursystemtime = cookerItemsData[@"cursystemtime"];        //模式切换时间
+//        int maxPower = [cookerItemsData[@"curPower"] intValue];             //最大功率、档位
+//        int maxcookTime = [cookerItemsData[@"maxcookTime"] intValue]/1000;   //最大烹饪时间 【单位：分钟】
+//        int showStallsMode = [cookerItemsData[@"showStallsMode"] intValue];  //当前显示模式类型       已开机： -1     显示定时和自动AUTO ：0    摄氏度：1       功率数：2       都是自动AUTO:3
+//    NSString *idName = totalData[@"id"];
+//    int isLeft = [totalData[@"isLeft"] intValue];
+//    int isOpen = [totalData[@"isOpen"] intValue];
+//    int isCancel = [totalData[@"isCancel"] intValue];
+//    NSString *target = totalData[@"target"];
     
     
     
@@ -1456,7 +1474,7 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:KNotiDevoceStallsChange object:nil userInfo:dict];
 }
 
-- (void) deviceErrorWithDict:(NSDictionary *)dict
+- (void) deviceErrorWithDict0:(NSDictionary *)dict
 {
     //    0x0001 无锅或锅材质不对或锅具小于8cm（故障代码：E1）
     //    0x0002 高压保护（故障代码：E3）
@@ -1563,6 +1581,163 @@
     
 }
 
+
+- (void) deviceErrorWithDict:(NSDictionary *)dict
+{
+    //    0x0001 无锅或锅材质不对或锅具小于8cm（故障代码：E1）
+    //    0x0002 高压保护（故障代码：E3）
+    //    0x0004 低压保护（故障代码：E4）
+    //    0x0008 IGBT超温（故障代码：E2）
+    //    0x0010 炉面开路（热敏开路）（故障代码：E5）
+    //    0x0020炉面超温保护，短路保护（故障代码：E6）
+    //    0x0040线盘开路短路，振荡电路故障（大电容开路短路）（故障代码：E0）
+    
+    
+    
+    NSDictionary *totalData = dict;
+    NSDictionary *cookerItemsData = totalData[@"cookerItem"];
+//    NSString *leftYuYue = totalData[@"LYuYue"];
+//    NSString *rightYuYue = totalData[@"RYuYue"];
+    NSString *curError = cookerItemsData[@"curError"];                  //错误码
+//    int curMode = [cookerItemsData[@"curMode"] intValue];               //当前模式      -1代表无任何模式
+//    int curPower = [cookerItemsData[@"curPower"] intValue];             //当前档位、功率
+//    NSString *cursystemtime = cookerItemsData[@"cursystemtime"];        //模式切换时间
+//    int maxPower = [cookerItemsData[@"curPower"] intValue];             //最大功率、档位
+//    int maxcookTime = [cookerItemsData[@"maxcookTime"] intValue]/1000;   //最大烹饪时间 【单位：分钟】
+//    int showStallsMode = [cookerItemsData[@"showStallsMode"] intValue];  //当前显示模式类型       已开机： -1     显示定时和自动AUTO ：0    摄氏度：1       功率数：2       都是自动AUTO:3
+//    NSString *idName = totalData[@"id"];
+    int isLeft = [totalData[@"isLeft"] intValue];
+//    int isOpen = [totalData[@"isOpen"] intValue];
+//    int isCancel = [totalData[@"isCancel"] intValue];
+//    NSString *target = totalData[@"target"];
+
+    NSLog(@"🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗故障信息🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗%@",dict);
+//    [GCDiscoverView showWithTip:dict];
+    int deviceId = isLeft;
+    
+    [[RHSocketConnection getInstance] writeData:[GCSokectDataDeal getErorrBackDataWithDeviceId:deviceId] timeout:-1 tag:-1];
+    
+    NSString *errorStr = curError;
+    
+    NSArray  *array = [errorStr componentsSeparatedByString:@"___"];//--分隔符
+    
+    NSString *error=array[0];
+    
+    int errorCode=(int)[HexStringChange numberWithHexString:[error substringWithRange:NSMakeRange(1, error.length-1)]] ;
+    
+    if (![array[1] isEqualToString:self.lastErrorId])
+    {
+        self.lastErrorId=array[1];
+    }else{
+        return;
+    }
+    
+    if (errorCode!=0) {
+        
+        NSString *error=@"";
+        
+        switch (errorCode) {
+            case (0x01)://无锅或锅材质不对或锅具小于8cm
+            {
+                error=@"无锅、锅具过小或锅具材质不对,请放置正确的锅具。";
+            }
+                break;
+            case (0x03)://高压保护
+            {
+                error=@"电压过高，请检查或更换供电电源";
+            }
+                break;
+            case (0x04)://低压保护
+            {
+                error=@"电压过低，请检查或更换供电电源";
+            }
+                break;
+            case (0x02)://IGBT超温
+            {
+                error=@"器件温度过高，请联系售后维修。售后电话400-8888-8888";
+            }
+                break;
+            case (0x05)://炉面开路（热敏开路）
+            {
+                error=@"炉面温检失败,请联系售后维修。售后电话400-8888-8888";
+            }
+                break;
+            case (0x06)://炉面超温保护，短路保护
+            {
+                error=@"炉面温度过高,请联系售后维修。售后电话400-8888-8888";
+            }
+                break;
+            case (0x00)://线盘开路短路，振荡电路故障
+            {
+                error=@"电路故障,请联系售后维修.售后电话400-8888-8888";
+            }
+                break;
+                
+            default:
+                break;
+        }
+        
+        error=deviceId==1?[@"(左炉) " stringByAppendingString:error]:[@"(右炉) " stringByAppendingString:error];
+        
+        [GCDiscoverView showWithTip:error];
+        
+        [GCUser getInstance].device.error++;
+        
+        GCNotificationCellMd *model=[GCNotificationCellMd createModelWithNotiState:errorCode text:error date:[NSDate date]];
+        
+        [[GCDataBasicManager shareManager] insertOneDataOnTable:KErrorTableName model:model];
+        
+        NSDictionary *dict=@{
+                             @"error":model
+                             };
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:KNotiError object:nil userInfo:dict];
+    }
+    
+    
+}
+
+//
+//
+//private void GetError(String err) {
+//    isShow = false;
+//    String[] xxx = err.split("___");
+//    int tag = -1;
+//    if (xxx.length > 1) {
+//        String xx = xxx[0];
+//        cookerItem.setCurError(xx);
+//        if (err.contains("E1")) {
+//            tag = 1;
+//            xx = "(左炉)无锅或锅材质不对或锅具小于8cm";
+//        } else if (err.contains("E2")) {
+//            tag = 2;
+//            xx = "(左炉)IGBT 超温";
+//        } else if (err.contains("E3")) {
+//            tag = 3;
+//            xx = "(左炉)高压保护";
+//        } else if (err.contains("E4")) {
+//            tag = 4;
+//            xx = "(左炉)低压保护";
+//        } else if (err.contains("E5")) {
+//            tag = 5;
+//            xx = "(左炉)炉面开路（热敏开路）";
+//        } else if (err.contains("E6")) {
+//            tag = 6;
+//            xx = "(左炉)炉面超温保护，短路保护";
+//        } else if (err.contains("E0")) {
+//            tag = 7;
+//            xx = "(左炉)线盘开路短路，振荡电路故障";
+//        }
+//        tipDialog(xx);
+//        NotifityUtil.getNotifityUtil(context).AddError(xx, xxx[1], tag);
+//        MainActivity.getInstance().shapeBadgeItem.show();
+//        NotifyFragment.getNotifyFragment().UpdateUI();
+//    }
+//}
+//
+//
+//
+
 #pragma mark -GCDeviceListViewControllerDelegate
 - (void)portableDeviceSelected:(GCDevice *)device
 {
@@ -1623,6 +1798,65 @@
     [self removeDeviceView];
     
     
+    
+}
+
+
+- (int)getImportModenId:(int)isLeftDevice modenId:(int)modenId0{
+    int modelId;
+    if (isLeftDevice == 1) {
+        switch (modenId0) {
+            case 0:
+                modelId = 4;
+                break;
+            case 1:
+                modelId = 5;
+                break;
+            case 2:
+                modelId = 6;
+                break;
+            case 3:
+                modelId = 7;
+                break;
+            case 4:
+                modelId = 0;
+                break;
+            case 5:
+                modelId = 1;
+                break;
+            case 6:
+                modelId = 2;
+                break;
+            case 7:
+                modelId = 3;
+                break;
+        }
+    }
+    else{
+        //        int moden=button.moden.modenId%100;
+        //改变了 button 的序列位置
+        switch (modenId0) {
+            case 110:
+                modelId = 0;
+                break;
+            case 111:
+                modelId = 1;
+                break;
+            case 112:
+                modelId = 2;
+                break;
+            case 108:
+                modelId = 3;
+                break;
+            case 109:
+                modelId = 4;
+                break;
+            case 107:
+                modelId = 5;
+                break;
+        }
+    }
+    return modelId;
     
 }
 

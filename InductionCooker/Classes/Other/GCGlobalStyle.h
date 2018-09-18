@@ -153,7 +153,6 @@ typedef NS_ENUM(NSInteger, DeviceLinkState) {
 /**************************数据库表名***************************************************/
 #define KErrorTableName                   @"error"
 
-
 /*******************************hud相关参数*************************************************/
 #define KHudSuccessShowShortTime          0.8
 

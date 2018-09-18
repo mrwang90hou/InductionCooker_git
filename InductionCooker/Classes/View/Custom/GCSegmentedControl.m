@@ -235,9 +235,8 @@
 
 - (void)itemIndex:(int)index isWarm:(BOOL)warm
 {
-
+    [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"warm = %d",warm]];
     GCImageRightButton *selectBt=self.childrenButtons[index];
-    
     [selectBt setImageVisit:warm];
     
 }

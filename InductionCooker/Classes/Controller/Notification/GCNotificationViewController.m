@@ -15,7 +15,9 @@
 #import "NSDate+TimeCategory.h"
 
 @interface GCNotificationViewController ()<UITableViewDelegate,UITableViewDataSource>
-
+{
+    NSIndexPath * _indexPath;
+}
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (nonatomic,strong)  NSMutableArray *dataSoucre;
@@ -39,7 +41,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
+//    self.tableView.scrollEnabled = false;
+//    [self.tableView setEditing:<#(BOOL)#>]
     [self addObserver];
     
     [self getData];
@@ -133,9 +136,119 @@
     cell.selectionStyle=UITableViewCellSelectionStyleNone;
     
     return cell;
-    
+}
+//设置提示头部标签
+- (nullable NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    if (self.dataSoucre.count != 0) {
+        return @"向左滑动删除！";
+    }else{
+        return @"当前暂无通知消息！";
+    }
     
 }
+-(void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
+{
+    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
+    header.textLabel.textColor = [UIColor grayColor];
+    header.textLabel.font = [UIFont boldSystemFontOfSize:12];
+}
+/**
+ *  左滑cell时出现什么按钮
+ */
+- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSArray * array;
+    
+    //    if ([self.editButtonItem.title isEqualToString:@"编辑"]) {
+    //        return self.tableView.indexPathsForSelectedRows;;
+    //    }
+    //
+    UITableViewRowAction *action = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"删除" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
+        _indexPath = indexPath;
+        [self makeSure];
+    }];
+    
+    array = @[action];
+    
+    return array;
+}
+
+//删除的二次确认
+-(void)makeSure
+{
+    SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"提示" andMessage:@"确认删除？"];
+    
+    [alertView addButtonWithTitle:@"取消"
+                             type:SIAlertViewButtonTypeDefault
+                          handler:^(SIAlertView *alertView) {
+                              
+                              [alertView dismissAnimated:NO];
+                              
+                          }];
+    
+    [alertView addButtonWithTitle:@"确定"
+                             type:SIAlertViewButtonTypeDefault
+                          handler:^(SIAlertView *alertView) {
+                              
+                              [alertView dismissAnimated:NO];
+                              [self deleteDeviceWithIndexPath];
+                          }];
+    
+    [alertView show];
+}
+
+-(void)deleteDeviceWithIndexPath
+{
+//    [self.hud addNormHudWithSupView:self.view title:@"正在删除..."];
+//    [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%ld   %ld  正在删除！",(long)_indexPath.section,(long)_indexPath.row]];
+//    GCDevice * device = self.dataSoucre[_indexPath.row];
+//    [self getData];
+//    NSArray *deleteIndexPaths = [NSArray arrayWithObjects:
+//                                 [NSIndexPath indexPathForRow:1 inSection:0],
+//                                 [NSIndexPath indexPathForRow:2 inSection:0],
+//                                 nil];
+    [self.tableView beginUpdates];
+//    [self.tableView deleteRowsAtIndexPaths:deleteIndexPaths withRowAnimation:UITableViewRowAnimationTop];
+//    [self.tableView deleteRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationFade];
+//    NSIndexPath *path=[NSIndexPath indexPathForRow:0 inSection:0];
+    
+    [self.dataSoucre removeObjectAtIndex:_indexPath.row];
+    [self.tableView deleteRowsAtIndexPaths:@[_indexPath] withRowAnimation:UITableViewRowAnimationTop];
+//    [self.tableView insertRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationBottom];
+    [self.tableView endUpdates];
+    [self.tableView reloadData];
+//    NSDictionary * dic = @{@"mobile":[GCUser getInstance].mobile,@"token":[GCUser getInstance].token,@"devcode":device.deviceId};
+//    [GCHttpDataTool delDeviceRefWithDict:dic success:^(id responseObject) {
+//        [self.hud hide];
+//        NSLog(@" 删除结果 == %@",responseObject);
+//        if (responseObject[@"result"] && [responseObject[@"result"] intValue] == 0) {
+//
+//            [[GCUser getInstance].deviceList removeObject:device];
+//
+//            if ([GCUser getInstance].device.deviceId == device.deviceId) {
+//                if ([GCUser getInstance].deviceList.count > 0) {
+//                    [GCUser getInstance].device = [GCUser getInstance].deviceList[0];
+//                }else
+//                {
+//                    [GCUser getInstance].device = nil;
+//                }
+//            }
+//
+//            [self getData];
+//
+//            [self.tableView reloadData];
+//
+//            [[NSNotificationCenter defaultCenter] postNotificationName:KNotiSelectDeviceChange object:nil];
+//        }
+//
+//    } failure:^(MQError *error) {
+//        [self.hud hudUpdataTitile:@"删除失败" hideTime:1.2];
+//    }];
+}
+
+
+
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -144,6 +257,21 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    GCNotificationCell *cell=[GCNotificationCell cellWithTableView:tableView];
+    cell.cellModel = self.dataSoucre[indexPath.row];
+//    cell.cellModel.text
+    
+//    [SVProgressHUD showErrorWithStatus:self.dataSoucre[indexPath.row]];
+//    for () {
+//        <#statements#>
+//    }
+//    NSLog(@"self.dataSoucre = %@",cell.cellModel.text);
+    
+//    cell.selectionStyle=UITableViewCellSelectionStyleNone;
+    NSString *error = cell.cellModel.text;
+    
+    [GCDiscoverView showWithTip:error];
+//    [GCDiscoverView showInSupview:self.tableView tip:error];
     
 }
 
@@ -156,8 +284,6 @@
         [GCUser getInstance].device.error=0;
     }
     
-    
-    
     NSDictionary *dict=[noti userInfo];
     
     GCNotificationCellMd *model=dict[@"error"];
@@ -165,7 +291,6 @@
     [self.dataSoucre insertObject:model atIndex:0];
     
     [self.tableView beginUpdates];
-    
     
     NSIndexPath *path=[NSIndexPath indexPathForRow:0 inSection:0];
     
@@ -181,37 +306,3 @@
 
 
 @end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

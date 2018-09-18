@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface GCHomeViewController : UIViewController
-
+- (int)getImportModenId:(int)isLeftDevice modenId:(int)modenId0;
 
 
 @end

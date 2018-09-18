@@ -179,6 +179,9 @@
     [MQBarButtonItemTool leftBarButttonItemWithViewController:self title:@"取消"];
     
     NSString *rightStr=self.moden.aotuWork?@"完成":@"下一步";
+    if ([self.moden.type isEqualToString:@"保温"]) {
+        rightStr = @"下一步";
+    }
     
     [MQBarButtonItemTool rightBarButttonItemWithViewController:self title:rightStr];
 

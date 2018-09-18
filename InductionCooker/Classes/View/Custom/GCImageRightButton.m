@@ -19,14 +19,13 @@
    // self.titleLabel.backgroundColor=[UIColor redColor];
     
     
-   
-    
 }
 
 -(void)setImageVisit:(BOOL) visit
 {
-   
+//   [SVProgressHUD showErrorWithStatus:@"1111111"];
     if (visit) {
+        [SVProgressHUD showErrorWithStatus:@"home_icon_warning"];
          [self setImage:[UIImage imageNamed:@"home_icon_warning"] forState:UIControlStateNormal];
     }else{
         [self setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];

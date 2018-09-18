@@ -51,6 +51,8 @@
 
 @property (nonatomic,assign) int resendCount;
 
+@property (nonatomic,assign) int maxCookTimeRecord;
+
 
 @end
 
@@ -159,9 +161,8 @@
     NSString *rightTitle=@"确定";
     
     
-    
     if (self.moden) {
-        
+//        [SVProgressHUD showSuccessWithStatus:@"self.moden is not nil!"];
        rightTitle=@"完成";
         
         NSArray *tipArr=nil;
@@ -169,7 +170,6 @@
         int count=0;
         
       
-        
         tipArr=@[@"1.选择模式",@"2.预约开机时间",@"3.设置定时"];
         count=3;
 
@@ -198,16 +198,16 @@
             make.bottom.mas_equalTo(self.topView.mas_bottom);
             
         }];
-
+        
         self.unReservationBt.hidden=NO;
         
         
     }else{
-        
+        //进入【功能键】上的开关机预约选择
+        [self.timePickerView selectRow:2 inComponent:0 animated:NO];
+//        [SVProgressHUD showSuccessWithStatus:@"self.moden is nil!"];
         self.topViewScale.constant=1000;
         self.unReservationBt.hidden=YES;
-        
-        
     }
     
     
@@ -223,9 +223,6 @@
     }else{
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveNoti:) name:KNotiTiming object:nil];
     }
-    
-    
-    
 }
 
 
@@ -244,8 +241,6 @@
     self.resendCount++;
     
     
-   
-    
     
     NSInteger row_0=[self.timePickerView selectedRowInComponent:0];
     //／然后是获取这个行中的值，就是数组中的值
@@ -253,7 +248,6 @@
     
     NSInteger row_1=[self.timePickerView selectedRowInComponent:1];
     int value_1=[[self.minuteArray objectAtIndex:row_1] intValue];
-    
     
     
     
@@ -286,6 +280,10 @@
 - (void) setPowerOffTime
 {
     
+    
+    
+    
+    
     if (self.resendCount==5) {
         
         [self.hud hudUpdataTitile:@"设置关机定时超时,请重试!" hideTime:KDelay];
@@ -296,9 +294,6 @@
     }
     
     self.resendCount++;
-    
-
-    
     
     GCModen *moden=self.deviceId==1?[GCUser getInstance].device.leftDevice.selModen:[GCUser getInstance].device.rightDevice.selModen;
     
@@ -312,8 +307,12 @@
     //    long time=(value_0*60+value_1)*60000;
     long time=(value_0*60+value_1);
     
-    int modenId=moden.modenId<100?moden.modenId:(moden.modenId%100);
-    [[RHSocketConnection getInstance] writeData:[GCSokectDataDeal getTimingBytesWithDeviceId:self.deviceId setting:YES moden:modenId timing:time] timeout:-1 tag:0];
+    
+    
+//    int modenId=moden.modenId<100?moden.modenId:(moden.modenId%100);
+    int modenId = [self getImportModenId:self.deviceId modenId:moden.modenId];
+    GCLog(@"🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚发出设置关机预约🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚");
+    [[RHSocketConnection getInstance] writeData:[GCSokectDataDeal getTimingBytesWithDeviceId:abs(self.deviceId-1) setting:YES moden:modenId timing:time] timeout:-1 tag:0];
     
     [self performSelector:@selector(setPowerOffTime) withObject:nil afterDelay:3];
     
@@ -368,7 +367,12 @@
 
     }else{
         
-     
+        if (time >120) {
+            [self reciveSuccess];
+            [SVProgressHUD showErrorWithStatus:@"最大运行时长为2小时,请重新选择！"];
+            return;
+        }
+        
         if (self.isSetting) {
             return;
         }
@@ -467,6 +471,15 @@
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
+    if (!self.moden) {
+        if (component == 0) {
+            return 3;
+        }else{
+            return 60;
+        }
+    }
+    
+    
     if (component == 0) {
         return self.timeArray.count;
         
@@ -481,14 +494,9 @@
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
     if (component == 0) {
-        
-        
         return self.timeArray[row];
-        
     }else{
-        
         return  self.minuteArray[row];
-        
     }
 }
 
@@ -524,8 +532,33 @@
 // 选中某一行的时候调用
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-
-    
+    if (!self.moden) {
+        if (component == 0 && row == 2) {
+            //当设置小时为2小时 时
+    //        component = 0;
+            [pickerView selectRow:0 inComponent:1 animated:NO];
+            if (component == 1 && row != 0) {
+                [SVProgressHUD showErrorWithStatus:@"最大运行时长为2小时！"];
+                [pickerView selectRow:0 inComponent:1 animated:NO];
+            }else{
+                [SVProgressHUD showErrorWithStatus:@"最大运行时长为2小时！"];
+                [pickerView selectRow:0 inComponent:1 animated:NO];
+            }
+        }else if(component == 1 && row != 0){
+                if (component == 0 && row == 2){
+                    [SVProgressHUD showErrorWithStatus:@"最大运行时长为2小时！"];
+                    [pickerView selectRow:0 inComponent:1 animated:NO];
+                }
+        }
+    }
+//    if (!self.moden) {
+//        if (component == 0 && pickerView[]) {
+//            return 2;
+//
+//        }else{
+//            return 30;
+//        }
+//    }
     
 }
 
@@ -610,7 +643,6 @@
             
             [self.hud hudUpdataTitile:@"设置关机定时成功" hideTime:KDelay success:^{
                 
-                
                 [self reciveSuccess];
                 [self.navigationController popViewControllerAnimated:YES];
                 
@@ -625,15 +657,16 @@
             break;
     }
     
-    
-    
 }
-
 
 - (void) receiveNoti:(NSNotification* )noti
 {
     
     NSDictionary *dict=[noti userInfo];
+    NSDictionary *cookerItemsData = dict[@"cookerItem"];
+    int maxPower = [cookerItemsData[@"curPower"] intValue];             //最大功率、档位
+    int maxcookTime = [cookerItemsData[@"maxcookTime"] intValue]/1000/60;   //最大烹饪时间 【单位：分钟】
+    
     
     if (self.deviceId != [dict[@"isLeft"] intValue]) {
         return;
@@ -660,10 +693,23 @@
         [SVProgressHUD showSuccessWithStatus:tip];
     }
     else{
+        //判断与上次接收到的maxcookTime数值不同【即：更改倒计时关机时间】
+        
+        if (maxcookTime != self.maxCookTimeRecord&& self.maxCookTimeRecord != 0) {
+//            [self.hud hudUpdataTitile:@"设置关机定时成功" hideTime:KDelay success:^{
+            [SVProgressHUD showSuccessWithStatus:[NSString stringWithFormat:@"设置关机定时成功!当前设置时间为： self.maxCookTimeRecord = %d，maxcookTime = %d",self.maxCookTimeRecord,maxcookTime]];
+//            tip=[NSString stringWithFormat:@"设置关机定时成功!当前设置时间为： self.maxCookTimeRecord = %d，maxcookTime = %d",self.maxCookTimeRecord,maxcookTime];
+                [self reciveSuccess];
+                [self.navigationController popViewControllerAnimated:YES];
+//            }];
+        }
+//        NSLog(@"self.maxCookTimeRecord = %d，maxcookTime = %d",self.maxCookTimeRecord,maxcookTime);
+//        [SVProgressHUD showSuccessWithStatus:[NSString stringWithFormat:@"self.maxCookTimeRecord = %d，maxcookTime = %d",self.maxCookTimeRecord,maxcookTime]];
+        self.maxCookTimeRecord = maxcookTime;
         
     }
     
-    [self.hud hudUpdataTitile:tip hideTime:1];
+//    [self.hud hudUpdataTitile:tip hideTime:1];
 }
 
 

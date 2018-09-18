@@ -183,7 +183,7 @@
     }else{
         
         [self.hud addNormHudWithSupView:self.view title:@"正在获取预约数据..."];
-        
+//        [SVProgressHUD showWithStatus:@"正在获取预约数据..."];
         [[RHSocketConnection getInstance] writeData:[GCSokectDataDeal getReservationInfoBytesWithDeviceId:self.deviceId] timeout:-1 tag:7];
         
         [self performSelector:@selector(getReservationData) withObject:KGetReservationDataTag afterDelay:3];
@@ -239,7 +239,7 @@
         [self reciveSuccess];
         
         [self.hud hudUpdataTitile:@"获取预约数据超时" hideTime:KHudTipTime success:^{
-            
+//            [SVProgressHUD dismiss];
             [self.navigationController popViewControllerAnimated:YES];
         }];
         
@@ -422,7 +422,6 @@
     
     [self performSelector:@selector(unReservationData) withObject:KUnReservationDataTag afterDelay:3];
 
-    
 }
 
 - (void) test

@@ -168,13 +168,12 @@
     self.subVc = [[GCAdjustViewController alloc] initWithNibName:@"GCAdjustViewController" bundle:nil];
     self.subVc.delegate=self;
     self.subVc.view.hidden=YES;
-    self.subVc.deviceId=1;
+    self.subVc.deviceId=0;
     [self.modenView addSubview:self.subVc.view];
     
 }
 
 - (void) stallViewShow:(BOOL)isShow moden:(GCModen *)model{
-    
     
     
     if (isShow) {
@@ -186,8 +185,6 @@
             [CATransitionHelper addTransitionWithLayer:self.subVc.view.layer animationType:kCATransitionPush subtype:kCATransitionFromTop duration:0.4];
             
         }
-        
-        
         
         
     }else{

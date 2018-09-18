@@ -145,7 +145,7 @@
 {
     GCLog(@"GCAdjustViewController addObserver");
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveNoti:) name:KNotiDevoceStallsChange object:nil];
-    
+//    工作时间通知名称
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveWorkTime:) name:KNotiWorkTime object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveTimingNoti:) name:KNotiTiming object:nil];
@@ -163,9 +163,6 @@
 
 - (void) getData{
 
-    
-   
-    
     self.maxTime=120;
     self.countdown=self.maxTime;
     
@@ -178,7 +175,7 @@
 
     NSArray *rightvalues=@[@"80℃",@"120℃",@"140℃",@"160℃",@"180℃",@"200℃",@"220℃",@"240℃",@"260℃",@"280℃",@"290℃",@"300℃"];
     
-      NSArray *rightkeys=@[@"100",@"200",@"400",@"600",@"1000",@"1200",@"1400",@"1600",@"1800",@"2000",@"2300",@"2600"];
+    NSArray *rightkeys=@[@"100",@"200",@"400",@"600",@"1000",@"1200",@"1400",@"1600",@"1800",@"2000",@"2300",@"2600"];
 
     NSArray *values;
     NSArray *keys;
@@ -196,8 +193,6 @@
         keys=leftkeys;
 
     }
-    
-    
     
     
     NSMutableDictionary *mDict=[NSMutableDictionary dictionary];
@@ -218,10 +213,79 @@
 - (void) sendWorkData
 {
   
-    int modenId=self.deviceId==1?self.moden.modenId:self.moden.modenId%100;
+//    int modenId=self.deviceId==1?self.moden.modenId:self.moden.modenId%100;
+//    int modenId = [self getImportModenId:self.deviceId modenId:self.moden.modenId];
     
-    [[RHSocketConnection getInstance] writeData:[GCSokectDataDeal getWorkTimeWithDeviceId:self.deviceId moden:modenId] timeout:-1 tag:5];
+//    NSData *data = [GCSokectDataDeal getWorkTimeWithDeviceId:self.deviceId moden:modenId];
+//    NSMutableDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+//    NSLog(@"dic = %@",dic);
+//    [SVProgressHUD showSuccessWithStatus:[NSString stringWithFormat:@"self.deviceId = %ddic = %@",self.deviceId,dic]];
+    
+//    [[RHSocketConnection getInstance] writeData:[GCSokectDataDeal getWorkTimeWithDeviceId:abs(1-self.deviceId) moden:modenId] timeout:-1 tag:5];
+//    [[RHSocketConnection getInstance] writeData:[GCSokectDataDeal getWorkTimeWithDeviceId:self.deviceId moden:modenId] timeout:-1 tag:5];
 }
+
+
+- (int)getImportModenId:(int)isLeftDevice modenId:(int)modenId0{
+    int modelId;
+    if (isLeftDevice == 1) {
+        switch (modenId0) {
+            case 0:
+                modelId = 4;
+                break;
+            case 1:
+                modelId = 5;
+                break;
+            case 2:
+                modelId = 6;
+                break;
+            case 3:
+                modelId = 7;
+                break;
+            case 4:
+                modelId = 0;
+                break;
+            case 5:
+                modelId = 1;
+                break;
+            case 6:
+                modelId = 2;
+                break;
+            case 7:
+                modelId = 3;
+                break;
+        }
+    }
+    else{
+        //        int moden=button.moden.modenId%100;
+        //改变了 button 的序列位置
+        switch (modenId0) {
+            case 110:
+                modelId = 0;
+                break;
+            case 111:
+                modelId = 1;
+                break;
+            case 112:
+                modelId = 2;
+                break;
+            case 108:
+                modelId = 3;
+                break;
+            case 109:
+                modelId = 4;
+                break;
+            case 107:
+                modelId = 5;
+                break;
+        }
+    }
+    return modelId;
+    
+}
+
+
+
 
 
 - (void) createUI{
@@ -415,8 +479,8 @@
         return;
     }
     
-    int modenId=self.moden.modenId<100?self.moden.modenId:(self.moden.modenId%100);
-    
+//    int modenId=self.moden.modenId<100?self.moden.modenId:(self.moden.modenId%100);
+    int modenId = [self getImportModenId:self.deviceId modenId:self.moden.modenId];
      [[RHSocketConnection getInstance] writeData:[GCSokectDataDeal getTimingBytesWithDeviceId:self.deviceId setting:NO moden:modenId timing:-1] timeout:-1 tag:0];
     
 }
@@ -556,22 +620,20 @@
 
 
 #pragma mark -获取工作时间通知
-- (void) receiveWorkTime:(NSNotification *)noti
+
+- (void) receiveWorkTime0:(NSNotification *)noti
 {
     
-   NSDictionary *dict=[noti userInfo][@"data"];
+    NSDictionary *dict=[noti userInfo][@"data"];
     
-   // GCLog(@"关机倒计时:  %@",dict);
-    
+    GCLog(@"👻👻👻👻👻👻👻👻👻👻👻👻👻👻👻关机倒计时:  %@👻👻👻👻👻👻👻👻👻👻👻👻👻👻👻",dict);
     int deviceId=0;
     int moden=0;
     double time=0;
     int maxtime=0;
-    
-   // NSString *s=dict[@"deviceId"];
-    
+    // NSString *s=dict[@"deviceId"];
     @try {
-        
+
         deviceId=[dict[@"deviceId"] intValue];
         moden=[dict[@"moden"] intValue];
         time=[dict[@"time"] doubleValue];
@@ -592,13 +654,125 @@
     self.countdown=self.maxTime-(int)time;
     
     [self setWorkTimeState];
+    
+}
+
+//关机预约通知方法
+- (void) receiveWorkTime:(NSNotification *)noti
+{
+    
+   NSDictionary *dict=[noti userInfo];
+    
+    NSDictionary *totalData = dict;
+    NSDictionary *cookerItemsData = totalData[@"cookerItem"];
+    //    NSString *leftYuYue = totalData[@"LYuYue"];
+    //    NSString *rightYuYue = totalData[@"RYuYue"];
+//    NSString *curError = cookerItemsData[@"curError"];                  //错误码
+        int curMode = [cookerItemsData[@"curMode"] intValue];               //当前模式      -1代表无任何模式
+//        int curPower = [cookerItemsData[@"curPower"] intValue];             //当前档位、功率
+        NSString *cursystemtime = cookerItemsData[@"cursystemtime"];        //模式切换时间
+    //    int maxPower = [cookerItemsData[@"curPower"] intValue];             //最大功率、档位
+        int maxcookTime = [cookerItemsData[@"maxcookTime"] intValue]/1000;   //最大烹饪时间 【单位：分钟】
+    //    int showStallsMode = [cookerItemsData[@"showStallsMode"] intValue];  //当前显示模式类型       已开机： -1     显示定时和自动AUTO ：0    摄氏度：1       功率数：2       都是自动AUTO:3
+    //    NSString *idName = totalData[@"id"];
+    int isLeft = [totalData[@"isLeft"] intValue];
+    //    int isOpen = [totalData[@"isOpen"] intValue];
+    //    int isCancel = [totalData[@"isCancel"] intValue];
+    //    NSString *target = totalData[@"target"];
+    
+    GCLog(@"👻👻👻👻👻👻👻👻👻👻👻👻👻👻👻关机倒计时:  👻👻👻👻👻👻👻👻👻👻👻👻👻👻👻");
+    
+    int deviceId=0;
+    int moden=0;
+    long long recordTime = 0;
+    int maxtime=0;
+    
+   // NSString *s=dict[@"deviceId"];
+    
+    @try {
+        
+        deviceId = isLeft;
+        moden = curMode;
+        recordTime = [cursystemtime longLongValue];       //当前时间戳
+        maxtime = maxcookTime;
+        
+//        GCLog(@"deviceId = %d\n moden = %d \n time = %llf \n maxtime = %d",deviceId,moden,time,maxtime);
+        
+//        moden=[dict[@"moden"] intValue];
+        //记录存储当前关机耗时
+//        time=[dict[@"time"] longLongValue];
+        maxtime=[dict[@"stoptime"] intValue];
+        
+        //获取当前的时间戳，来自1970年毫秒数
+        NSTimeInterval nowtime = [[NSDate date] timeIntervalSince1970]*1000;
+        long long theTime = [[NSNumber numberWithDouble:nowtime] longLongValue];
+//        NSString *curTime = [NSString stringWithFormat:@"%llu",theTime];
+        
+        NSTimeInterval value = theTime - recordTime;
+        int second = (int)value /1000%60;//秒
+        int minute = (int)value /1000/60%60;
+        int house = (int)value /1000/ (24 *3600)%3600;
+        int day = (int)value /1000/ (24 *3600);
+        NSString *str;
+        if (day != 0) {
+            str = [NSString stringWithFormat:@"耗时%d天%d小时%d分%d秒",day,house,minute,second];
+        }else if (day==0 && house !=0) {
+            str = [NSString stringWithFormat:@"耗时%d小时%d分%d秒",house,minute,second];
+        }else if (day==0 && house==0 && minute!=0) {
+            str = [NSString stringWithFormat:@"耗时%d分%d秒",minute,second];
+        }else{
+            str = [NSString stringWithFormat:@"耗时%d秒",second];
+        }
+        //    [SVProgressHUD showWithStatus:str];
+        //    NSLog(@"second = %d",second);
+        //    NSLog(@"minute = %d",minute);
+        //    NSLog(@"house = %d",house);
+        //    NSLog(@"day = %d",day);
+        //
+        
+        //记录存储当前关机耗时
+        long time = house*60*60 + minute*60 + second;
+
+        [SVProgressHUD showSuccessWithStatus:[NSString stringWithFormat:@"time = %d",time]];
+//        curTime =
+//
+//        int time = workTimeHour*60+workTimeMin;
+//        double date = (startUpTimeHour - house)*60 + (startUpTimeMin - minute);
+//
+//
+//
+        
+        
+        
+        
+//        deviceId=[dict[@"deviceId"] intValue];
+//        moden=[dict[@"moden"] intValue];
+//        time=[dict[@"time"] doubleValue];
+//        maxtime=[dict[@"stoptime"] intValue];
+        
+    } @catch (NSException *exception) {
+        return;
+    }
+    
+    int modenId=self.deviceId==1?self.moden.modenId:self.moden.modenId%100;
+    
+    if (self.deviceId!=deviceId||modenId!=moden) {
+        return;
+    }
+    
+    self.maxTime=maxtime;
+    
+    self.countdown=self.maxTime-(int)time;
+    
+    [self setWorkTimeState];
 
 }
 
 
-
 - (void) receiveTimingNoti:(NSNotification* )noti
 {
+    
+    
     NSDictionary *dict=[noti userInfo][@"data"];
     
 //    [0]    (null)    @"deviceId" : @"0"
@@ -655,46 +829,6 @@
     
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

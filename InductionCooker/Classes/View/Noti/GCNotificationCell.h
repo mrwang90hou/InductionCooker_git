@@ -14,7 +14,7 @@
 
 
 @property (nonatomic,strong) GCNotificationCellMd *cellModel;
-
+//@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 +(instancetype)cellWithTableView:(UITableView *)tableView;
 
 @end

@@ -222,7 +222,7 @@
     
     self.subVc.view.hidden=YES;
     
-    self.subVc.deviceId=0;
+    self.subVc.deviceId = 1;
     
     [self.modenView addSubview:self.subVc.view];
     
@@ -231,19 +231,15 @@
 
 - (void) stallViewShow:(BOOL)isShow moden:(GCModen *)model{
 
-
     if (isShow) {
         
         if (self.subVc.view.hidden) {
-           
             [self.subVc updateViewWithModen:model];
             [self.subVc showAdjustView:YES];
-            
+            //上升动画时间
             [CATransitionHelper addTransitionWithLayer:self.subVc.view.layer animationType:kCATransitionPush subtype:kCATransitionFromTop duration:0.4];
-            
         }
 
-        
     }else{
         
         if (!self.subVc.view.hidden) {
@@ -583,10 +579,8 @@
 #pragma mark -GCAdjustViewControllerDelegate
 - (void) removeButtonClickWithDeivceId:(int)deviceId
 {
-
     [self stallViewShow:NO moden:nil];
 
-    
 }
 
 

@@ -274,7 +274,6 @@
 //    "worktime":1, //工作时间 long(类型)
 
     
-    
     NSDictionary *dict=[self textAppending];
     
     NSMutableDictionary *order=dict[KSokectOrder];
@@ -318,7 +317,7 @@
 +(NSData *)getWorkTimeWithDeviceId:(int)deviceId moden:(int)mod
 {
     NSDictionary *dict=[self textAppending];
-    
+//    NSLog(@"🀄️🀄️🀄️🀄️🀄️🀄️🀄️🀄️🀄️🀄️🀄️🀄️🀄️🀄️🀄️🀄️🀄️设置关机时长为：%@",dict);
     NSMutableDictionary *order=dict[KSokectOrder];
     
     [order setObject:[NSString stringWithFormat:@"%d",5] forKey:@"code"];

@@ -515,7 +515,6 @@ static  RHSocketConnection *tool;
                 case -1:
                 {
                     if (self.isDeviceDisconnect) {
-                        
                         [[NSNotificationCenter defaultCenter] postNotificationName:KNotiDeviceDisconnectFormServe object:nil];
                         [GCDiscoverView showWithTip:@"电磁炉未连接服务器,您将无法控制电磁炉,请检查电磁炉状态!"];
                     }
@@ -523,13 +522,16 @@ static  RHSocketConnection *tool;
                     
                 }
                     break;
-                    //            case -3:
-                    //            {   //msg = "unbind device";
-                    //                [[NSNotificationCenter defaultCenter] postNotificationName:KNotiDeviceDisconnectFormServe object:nil];
-                    //                [GCDiscoverView showWithTip:@"电磁炉已解除与您手机的绑定状态,您将无法控制电磁炉,请检查绑定状态!"];
-                    //                self.isDeviceDisconnect=NO;
-                    //            }
-                    //                break;
+                case -3:
+                    {
+                        if (self.isDeviceDisconnect) {
+                            [[NSNotificationCenter defaultCenter] postNotificationName:KNotiDeviceDisconnectFormServe object:nil];
+                            
+                            [GCDiscoverView showWithTip:@"电磁炉已解除与您手机的绑定状态,您将无法控制电磁炉,请检查绑定状态!"];
+                        }
+                        self.isDeviceDisconnect=NO;
+                    }
+                    break;
                 default:
                     break;
             }
@@ -582,17 +584,17 @@ static  RHSocketConnection *tool;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"conectionStatus" object:@{@"code":@(1)}];
         //【1】设备状态发生变化通知名
         [[NSNotificationCenter defaultCenter] postNotificationName:KNotiDevoceStateChange object:nil userInfo:result];
-        //【2】工作时间通知名称
-//        [[NSNotificationCenter defaultCenter] postNotificationName:KNotiWorkTime object:nil userInfo:result];
+        //【2】工作时间通知名称【转移到：KNotiDevoceStateChange通知中去】
+        [[NSNotificationCenter defaultCenter] postNotificationName:KNotiWorkTime object:nil userInfo:result];
         //【3】预约通知名称
         [[NSNotificationCenter defaultCenter] postNotificationName:KNotiReservation object:nil userInfo:result];
         //【4】定时通知名称
-//        [[NSNotificationCenter defaultCenter] postNotificationName:KNotiTiming object:nil userInfo:result];
+        [[NSNotificationCenter defaultCenter] postNotificationName:KNotiTiming object:nil userInfo:result];
 //            //                NSDictionary *dict=@{
 //            //                                     @"data":orderDict,
 //            //                                     @"tag":[NSNumber numberWithLong:tag]
 //            //                                     };
-//            //                [[NSNotificationCenter defaultCenter] postNotificationName:KNotiDevoceStateChange object:nil userInfo:dict];
+            //                [[NSNotificationCenter defaultCenter] postNotificationName:KNotiDevoceStateChange object:nil userInfo:dict];
 //        }
     }
     /*【原始代码】
