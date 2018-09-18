@@ -13,6 +13,7 @@
             <connections>
                 <outlet property="lineView" destination="0n2-dh-P9e" id="RWv-LV-RQ1"/>
                 <outlet property="nameLabel" destination="COe-Aa-zY9" id="AjH-fB-7yq"/>
+                <outlet property="openBtn" destination="xfR-vb-iTN" id="1vx-i9-DS2"/>
                 <outlet property="plusBtn" destination="EFJ-LG-2g3" id="e9u-WA-5mW"/>
                 <outlet property="powerLabel" destination="TuC-dk-8lv" id="4tE-5t-3f2"/>
                 <outlet property="powerView" destination="xLZ-XZ-MPo" id="wmL-4h-lUs"/>

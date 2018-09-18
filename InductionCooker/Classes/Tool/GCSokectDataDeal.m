@@ -150,7 +150,7 @@
 //    "code":4,
 //    "deviceId":0,  //炉号 左炉 0 右炉 1
 //    "stall":1,    //功率档位
-
+//    NSLog(@"👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀");
     NSDictionary *dict=[self textAppending];
     
     NSMutableDictionary *order=dict[KSokectOrder];

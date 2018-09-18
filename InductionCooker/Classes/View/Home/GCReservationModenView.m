@@ -103,8 +103,6 @@ static NSInteger status;
     
     NSMutableArray *sArr=[NSMutableArray array];
 
-    
-    
     for (int i=0; i<count; i++) {
         
         NSString *norImageName=status==0?[NSString stringWithFormat:@"btn_moden_left_%d_normal",i+1]:[NSString stringWithFormat:@"btn_moden_right_%d_normal",i+1];
@@ -191,7 +189,6 @@ static NSInteger status;
         NSString *path = [[NSBundle mainBundle] pathForResource:@"leftdevice" ofType:@"json"];
         NSData *jsonData = [NSData dataWithContentsOfFile:path options:NSDataReadingMappedIfSafe error:nil];
         NSMutableDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:nil];
-
         modens=dic[@"value"];
         
     }else
@@ -199,7 +196,6 @@ static NSInteger status;
         NSString *path = [[NSBundle mainBundle] pathForResource:@"rightdevice" ofType:@"json"];
         NSData *jsonData = [NSData dataWithContentsOfFile:path options:NSDataReadingMappedIfSafe error:nil];
         NSMutableDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:nil];
-        
        modens=dic[@"value"];
     }
     
@@ -275,10 +271,10 @@ static NSInteger status;
 }
 
 
-- (void)layoutSubviews
+- (void)layoutSubviews0
 {
     [super layoutSubviews];
-    
+//    [SVProgressHUD showSuccessWithStatus:@"layoutSubviews"];
 //    float buttonWidth= 71;
 //
 //    float buttonHeight=94;
@@ -345,11 +341,7 @@ static NSInteger status;
             make.top.mas_equalTo(self.contentView.mas_top).offset(buttonMarginTop+i*(buttonHeight+buttonMargin));
             make.width.mas_equalTo(buttonWidth);
             make.height.mas_equalTo(buttonHeight);
-
-            
         }];
-        
-        
     }
     
     
@@ -359,6 +351,188 @@ static NSInteger status;
     
     
 }
+
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+//    [SVProgressHUD showSuccessWithStatus:@"layoutSubviews"];
+    //    float buttonWidth= 71;
+    //
+    //    float buttonHeight=94;
+    //
+    //    float buttonWidth= KScreenScaleValue(71);
+    //
+    //    float buttonHeight=KScreenScaleValue(94);
+    
+    float buttonWidth= KScreenScaleValue(71);
+    
+    float buttonHeight=KScreenScaleValue(94);
+    
+    float buttonMarginTop=KScreenScaleValue(10);
+    
+    float buttonMarginBottom=KScreenScaleValue(100);
+    
+    // float a=self.contentView.height;
+    
+    float buttonMargin=(self.contentView.height-buttonMarginTop-buttonMarginBottom-(self.buttons.count/2*buttonHeight))/((self.buttons.count/2)-1);
+    
+    int column=2;
+    
+    float buttonHMargin=(self.contentView.width-column*buttonWidth)/(column*2);
+    
+    
+    //    int i=0;
+    //    for (GCModenButton *button in self.buttons) {
+    //
+    //        [button mas_makeConstraints:^(MASConstraintMaker *make) {
+    //
+    //            make.left.mas_equalTo(self.contentView.mas_left).offset(buttonHMargin+(i%2*(buttonHMargin+buttonWidth)));
+    //
+    //            make.top.mas_equalTo(self.contentView.mas_top).offset(buttonMarginTop+i%2*(buttonHeight+buttonMargin));
+    //
+    //            make.width.mas_equalTo(buttonWidth);
+    //            make.height.mas_equalTo(buttonHeight);
+    //
+    //        }];
+    //        i++;
+    //    }
+    
+    if (status == 0) {
+        //左炉布局
+        NSMutableArray *newButtonArray = [NSMutableArray new];
+        for (int i=0; i<4; i++) {
+            [newButtonArray addObject:self.buttons[i]];
+        }
+        NSUInteger count=newButtonArray.count/2;
+//        int j = 0;
+        for (int i=0; i<count; i++) {
+            
+            GCModenButton *button_1=newButtonArray[i];
+            
+            GCModenButton *button_2=newButtonArray[i+count];
+            
+            [button_1 mas_makeConstraints:^(MASConstraintMaker *make) {
+                
+                make.left.mas_equalTo(self.contentView.mas_left).offset(buttonHMargin);
+                make.top.mas_equalTo(self.contentView.mas_top).offset(buttonMarginTop+i*(buttonHeight+buttonMargin));
+                make.width.mas_equalTo(buttonWidth);
+                make.height.mas_equalTo(buttonHeight);
+                
+            }];
+            
+            [button_2 mas_makeConstraints:^(MASConstraintMaker *make) {
+                
+                make.left.mas_equalTo(self.contentView.mas_left).offset(3*buttonHMargin+buttonWidth);
+                make.top.mas_equalTo(self.contentView.mas_top).offset(buttonMarginTop+i*(buttonHeight+buttonMargin));
+                make.width.mas_equalTo(buttonWidth);
+                make.height.mas_equalTo(buttonHeight);
+            }];
+            
+            if (i == 1) {
+                GCModenButton *button_7=self.buttons[7];
+                [button_7 mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.left.mas_equalTo(self.contentView.mas_left).offset(buttonHMargin);
+                    make.top.mas_equalTo(self.contentView.mas_top).offset(buttonMarginTop+i*(buttonHeight+buttonMargin)*2);
+                    make.width.mas_equalTo(buttonWidth);
+                    make.height.mas_equalTo(buttonHeight);
+                }];
+            }
+        }
+        
+        for (int i = 4; i<7; i++) {
+            GCModenButton *button = self.buttons[i];
+            [button setHidden:true];
+        }
+        
+    }else{
+        //右炉布局
+        NSMutableArray *newButtonArray = [NSMutableArray new];
+        for (int i=0; i<3; i++) {
+            [newButtonArray addObject:self.buttons[i]];
+        }
+        [newButtonArray addObject:[self.buttons lastObject]];
+        NSUInteger count=newButtonArray.count/2;
+        for (int i=0; i<count; i++) {
+            
+            GCModenButton *button_1=newButtonArray[i];
+            
+            GCModenButton *button_2=newButtonArray[i+count];
+            
+            [button_1 mas_makeConstraints:^(MASConstraintMaker *make) {
+                
+                make.left.mas_equalTo(self.contentView.mas_left).offset(buttonHMargin);
+                make.top.mas_equalTo(self.contentView.mas_top).offset(buttonMarginTop+i*(buttonHeight+buttonMargin));
+                make.width.mas_equalTo(buttonWidth);
+                make.height.mas_equalTo(buttonHeight);
+                
+            }];
+            
+            [button_2 mas_makeConstraints:^(MASConstraintMaker *make) {
+                
+                make.left.mas_equalTo(self.contentView.mas_left).offset(3*buttonHMargin+buttonWidth);
+                make.top.mas_equalTo(self.contentView.mas_top).offset(buttonMarginTop+i*(buttonHeight+buttonMargin));
+                make.width.mas_equalTo(buttonWidth);
+                make.height.mas_equalTo(buttonHeight);
+            }];
+            if (i == 1) {
+                [button_2 setHidden:true];
+            }
+        }
+        
+        for (int i = 3; i<5; i++) {
+            GCModenButton *button = self.buttons[i];
+            [button setHidden:true];
+        }
+        
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+//
+//
+//    NSUInteger count=self.buttons.count/2;
+//    for (int i=0; i<count; i++) {
+//
+//        GCModenButton *button_1=self.buttons[i];
+//
+//        GCModenButton *button_2=self.buttons[i+count];
+//
+//
+//        [button_1 mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//            make.left.mas_equalTo(self.contentView.mas_left).offset(buttonHMargin);
+//            make.top.mas_equalTo(self.contentView.mas_top).offset(buttonMarginTop+i*(buttonHeight+buttonMargin));
+//            make.width.mas_equalTo(buttonWidth);
+//            make.height.mas_equalTo(buttonHeight);
+//
+//        }];
+//
+//        [button_2 mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//            make.left.mas_equalTo(self.contentView.mas_left).offset(3*buttonHMargin+buttonWidth);
+//            make.top.mas_equalTo(self.contentView.mas_top).offset(buttonMarginTop+i*(buttonHeight+buttonMargin));
+//            make.width.mas_equalTo(buttonWidth);
+//            make.height.mas_equalTo(buttonHeight);
+//        }];
+//    }
+//
+    
+    // 执行九宫格布局
+    //    [self.contentView.subviews mas_distributeSudokuViewsWithFixedItemWidth:0 fixedItemHeight:0 fixedLineSpacing:10 fixedInteritemSpacing:20 warpCount:3 topSpacing:10 bottomSpacing:10 leadSpacing:10 tailSpacing:10];
+    
+    
+    
+}
+
+
 
 #pragma mark -用户交互方法
 - (void) buttonClick:(GCModenButton *)button

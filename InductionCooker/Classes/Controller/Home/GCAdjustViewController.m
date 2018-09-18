@@ -23,6 +23,7 @@
     UISlider *sw;
 }
 
+@property (weak, nonatomic) IBOutlet UIButton *openBtn;
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 
@@ -79,15 +80,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.isClose = false;
+//    self.isClose = false;
     self.powerLabelOldCenter=self.powerLabel.center;
     [self getData];
     
     [self createUI];
     
-   // [self addObserver];
-    
-  
+//    [self addObserver];
+    //添加手势✋操作
+    [self addHandoperation];
     
 }
 
@@ -112,7 +113,7 @@
 - (void)dealloc
 {
     
-    //[[NSNotificationCenter defaultCenter] removeObserver:self];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark -页面逻辑方法
@@ -184,13 +185,13 @@
 
 - (void) addObserver
 {
-    GCLog(@"GCAdjustViewController addObserver");
+//    GCLog(@"GCAdjustViewController addObserver");
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveNoti:) name:KNotiDevoceStallsChange object:nil];
 //    工作时间通知名称
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveWorkTime:) name:KNotiWorkTime object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveTimingNoti:) name:KNotiTiming object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noti) name:@"开机预约成功" object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noti) name:@"开机预约成功" object:nil];
     
 }
 
@@ -460,11 +461,14 @@
 - (void) setWorkTimeState
 {
     self.progressView.progress=1-(float)(self.maxTime-self.countdown)/self.maxTime;
+    if (self.progressView.progress != 0) {
+        
+    }
     
+    
+//    [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%lf",1-(float)(self.maxTime-self.countdown)/self.maxTime]];
 //    int minute =self.countdown/(60*1000)%60+1;
-    
 //    int hour=self.countdown/(60*60*1000);
-    
 //    int second2 = lastSecond %60;//秒
 //    int minute2 = lastSecond /60%60;//分钟
 //    int hours = lastSecond / (24 *3600)%3600;
@@ -481,9 +485,6 @@
 //    }else{
 //        hour = hours;
 //    }
-    
-    
-
 //
     int minute =self.countdown/60%60+1;
 //    int hour=self.countdown/(24 *3600)%3600+1;
@@ -610,31 +611,22 @@
     [[RHSocketConnection getInstance] writeData:[GCSokectDataDeal getTimingBytesWithDeviceId:abs(1-self.deviceId) setting:NO moden:modenId timing:-1] timeout:-1 tag:0];
     //如何判断取消关机倒计时？
     
-    self.isClose = true;
-    self.timeLabel.text = @"00:00";
-    self.shutDownLabel.text = @"定时已关闭";
-    self.progressView.progress = 1;
-//    self.progressView.endColor
-    bar.backgroundColor = self.progressView.backgroundColor;
-    bar.bgCircularColor = self.progressView.backgroundColor;
-    bar.progress = 1;
+//    self.isClose = true;
+//    self.timeLabel.text = @"00:00";
+//    self.shutDownLabel.text = @"定时已关闭";
+//    self.progressView.progress = 1;
+////    self.progressView.endColor
+//    bar.backgroundColor = self.progressView.backgroundColor;
+//    bar.bgCircularColor = self.progressView.backgroundColor;
+//    bar.progress = 1;
     
 }
-
-
-
-
-
-
-
 
 - (IBAction)reduceButtonClick:(id)sender {
     
     if (self.progress==0||self.moden.stalls.count==0) {
         return;
     }
-    
-
     
     self.progress--;
     
@@ -654,8 +646,6 @@
     if (self.progress==self.moden.stalls.count-1||self.moden.stalls.count==0) {
         return;
     }
-    
-    
     self.progress++;
     
     int deviceId=self.moden.modenId>=100?1:0;
@@ -663,9 +653,12 @@
    // [self updateUI];
     
     [[RHSocketConnection getInstance] writeData:[GCSokectDataDeal getBytesWithDeviceId:deviceId Stalls:self.progress] timeout:-1 tag:-1];
+    //双炉同时工作时，无法达到最大功率或温度
     
-
-
+    
+    if (/* DISABLES CODE */ (false)) {
+        [SVProgressHUD showErrorWithStatus:@"双炉同时工作时，无法达到最大功率或温度"];
+    }
 }
 
 - (IBAction)removeBUttonClick:(id)sender {
@@ -710,6 +703,60 @@
    [self updateUI];
     
 }
+
+
+//添加手势✋操作
+- (void) addHandoperation{
+    UISwipeGestureRecognizer *left = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipes:)];
+    left.direction=UISwipeGestureRecognizerDirectionLeft;
+    [self.view addGestureRecognizer:left];
+    UISwipeGestureRecognizer *right = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipes:)];
+    right.direction=UISwipeGestureRecognizerDirectionRight;
+    [self.view addGestureRecognizer:right];
+    
+    UISwipeGestureRecognizer *up = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipes:)];
+    up.direction=UISwipeGestureRecognizerDirectionUp;
+    [self.view addGestureRecognizer:up];
+    [self.openBtn addGestureRecognizer:up];
+    UISwipeGestureRecognizer *down = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipes:)];
+    down.direction=UISwipeGestureRecognizerDirectionDown;
+    [self.view addGestureRecognizer:down];
+}
+
+-(void)handleSwipes:(UISwipeGestureRecognizer *)recognizer
+{
+    if(recognizer.direction==UISwipeGestureRecognizerDirectionLeft){
+//        [SVProgressHUD showInfoWithStatus:@"向左边滑动了!!!!!!"];
+//        NSLog(@"向左边滑动了!!!!!!");
+    }
+    if (recognizer.direction == UISwipeGestureRecognizerDirectionRight) {
+//        [SVProgressHUD showInfoWithStatus:@"向右边滑动了!!!!!!"];
+//        NSLog(@"向右边滑动了!!!!!!");
+    }
+    if (recognizer.direction == UISwipeGestureRecognizerDirectionUp) {
+//        [SVProgressHUD showInfoWithStatus:@"向上边滑动了!!!!!!"];
+//        NSLog(@"向上边滑动了!!!!!!");
+        
+//        [self removeBUttonClick:];
+    }
+    if (recognizer.direction == UISwipeGestureRecognizerDirectionDown) {
+//        [SVProgressHUD showInfoWithStatus:@"向下边滑动了!!!!!!"];
+//        NSLog(@"向下边滑动了!!!!!!");
+        
+        
+        if ([_delegate respondsToSelector:@selector(removeButtonClickWithDeivceId:)]) {
+            
+            int deviceId=self.moden.modenId<100?0:1;
+            
+            [_delegate removeButtonClickWithDeivceId:deviceId];
+        }
+        
+    }
+    
+}
+
+
+
 
 #pragma mark -档位变化通知
 - (void) receiveNoti:(NSNotification *)noti
@@ -803,11 +850,6 @@
     if (!bl) {
         return;
     }
-    if (self.isClose) {
-        self.timeLabel.text = @"00:00";
-        self.shutDownLabel.text = @"定时已关闭";
-        return;
-    }
     
    NSDictionary *dict=[noti userInfo];
     
@@ -825,7 +867,7 @@
     //    NSString *idName = totalData[@"id"];
     int isLeft = [totalData[@"isLeft"] intValue];
     //    int isOpen = [totalData[@"isOpen"] intValue];
-    //    int isCancel = [totalData[@"isCancel"] intValue];
+    int isCancel = [totalData[@"isCancel"] intValue];
     //    NSString *target = totalData[@"target"];
     
 //    GCLog(@"👻👻👻👻👻👻👻👻👻👻👻👻👻👻👻关机倒计时:  👻👻👻👻👻👻👻👻👻👻👻👻👻👻👻");
@@ -905,11 +947,23 @@
     }
     
     self.maxTime = maxcookTime;
-    
+    [self.reservationBtn setImage:[UIImage imageNamed:@"btn_data_reservation_normal"] forState:UIControlStateNormal];
+    [self.reservationBtn setImage:[UIImage imageNamed:@"btn_data_reservation_normal"] forState:UIControlStateSelected];
+    [self.reservationBtn setImage:[UIImage imageNamed:@"btn_data_reservation_pressed"] forState:UIControlStateHighlighted];
     //    self.countdown=self.maxTime-(int)time;
 //    self.countdown=self.maxTime - lastSecond;
     self.countdown = lastSecond;
-    
+    self.isClose = isCancel;
+    if (self.isClose) {
+        self.timeLabel.text = @"00:00";
+        self.shutDownLabel.text = @"定时已关闭";
+        self.progressView.progress = 1;
+        self.reservationBtn.selected = false;
+        return;
+    }
+    self.shutDownLabel.text = @"关机倒计时";
+//    [self.reservationBtn setImage:[UIImage imageNamed:@"btn_data_reservation_pressed"] forState:UIControlStateHighlighted];
+    self.reservationBtn.selected = true;
 //    [SVProgressHUD showSuccessWithStatus:[NSString stringWithFormat:@"🔙剩余时间秒数为：%d秒%d秒",lastSecond,self.countdown]];
     [self setWorkTimeState];
 }

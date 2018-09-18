@@ -53,6 +53,8 @@
 
 @property (nonatomic,assign) int maxCookTimeRecord;
 
+@property (nonatomic, strong) NSString *cursystemtime;
+
 
 @end
 
@@ -204,7 +206,7 @@
         
     }else{
         //进入【功能键】上的开关机预约选择
-        [self.timePickerView selectRow:2 inComponent:0 animated:NO];
+//        [self.timePickerView selectRow:2 inComponent:0 animated:NO];
 //        [SVProgressHUD showSuccessWithStatus:@"self.moden is nil!"];
         self.topViewScale.constant=1000;
         self.unReservationBt.hidden=YES;
@@ -370,6 +372,11 @@
         if (time >120) {
             [self reciveSuccess];
             [SVProgressHUD showErrorWithStatus:@"最大运行时长为2小时,请重新选择！"];
+            return;
+        }
+        if (time == 0) {
+            [self reciveSuccess];
+            [SVProgressHUD showErrorWithStatus:@"运行时长不能低于1分钟,请重新选择！"];
             return;
         }
         
@@ -541,15 +548,23 @@
                 [SVProgressHUD showErrorWithStatus:@"最大运行时长为2小时！"];
                 [pickerView selectRow:0 inComponent:1 animated:NO];
             }else{
-                [SVProgressHUD showErrorWithStatus:@"最大运行时长为2小时！"];
-                [pickerView selectRow:0 inComponent:1 animated:NO];
+//                [SVProgressHUD showErrorWithStatus:@"最大运行时长为2小时！"];
+//                [pickerView selectRow:0 inComponent:1 animated:NO];
             }
-        }else if(component == 1 && row != 0){
+        }
+        if(component == 1 && row != 0){
                 if (component == 0 && row == 2){
                     [SVProgressHUD showErrorWithStatus:@"最大运行时长为2小时！"];
                     [pickerView selectRow:0 inComponent:1 animated:NO];
                 }
         }
+        if (component == 0 && row == 0) {
+            if (component == 1 && row == 0) {
+                [SVProgressHUD showErrorWithStatus:@"选择的时间不得低于1分钟！"];
+            }
+            
+        }
+        
     }
 //    if (!self.moden) {
 //        if (component == 0 && pickerView[]) {
@@ -656,17 +671,15 @@
         default:
             break;
     }
-    
 }
 
 - (void) receiveNoti:(NSNotification* )noti
 {
-    
     NSDictionary *dict=[noti userInfo];
     NSDictionary *cookerItemsData = dict[@"cookerItem"];
 //    int maxPower = [cookerItemsData[@"curPower"] intValue];             //最大功率、档位
+    NSString *cursystemtime = cookerItemsData[@"cursystemtime"];        //模式切换时间
     int maxcookTime = [cookerItemsData[@"maxcookTime"] intValue]/1000/60;   //最大烹饪时间 【单位：分钟】
-    
     
     if (self.deviceId != [dict[@"isLeft"] intValue]) {
         return;
@@ -694,7 +707,7 @@
     }
     else{
         //判断与上次接收到的maxcookTime数值不同【即：更改倒计时关机时间】
-        
+        maxcookTime = maxcookTime*60;//换成秒计算
         if (maxcookTime != self.maxCookTimeRecord&& self.maxCookTimeRecord != 0) {
             [self.hud hudUpdataTitile:@"设置关机定时成功" hideTime:KDelay success:^{
 //            [SVProgressHUD showSuccessWithStatus:[NSString stringWithFormat:@"设置关机定时成功!当前设置时间为： self.maxCookTimeRecord = %d，maxcookTime = %d",self.maxCookTimeRecord,maxcookTime]];
@@ -706,16 +719,82 @@
         }
 //        NSLog(@"self.maxCookTimeRecord = %d，maxcookTime = %d",self.maxCookTimeRecord,maxcookTime);
 //        [SVProgressHUD showSuccessWithStatus:[NSString stringWithFormat:@"self.maxCookTimeRecord = %d，maxcookTime = %d",self.maxCookTimeRecord,maxcookTime]];
-        self.maxCookTimeRecord = maxcookTime;
         
+        //求得已用时间（秒）
+        int usedSecond = [self getUsedTime:[self.cursystemtime longLongValue]];
+        self.maxCookTimeRecord = maxcookTime - usedSecond;
     }
-    
+    self.cursystemtime = cursystemtime;
 //    [self.hud hudUpdataTitile:tip hideTime:1];
 }
 
+- (int)getUsedTime:(long long)timeStamp maxTime:(int)maxCookTime{
+    
+    long maxtime=0;
+//    timeStamp = timeStamp;       //当前时间戳
+//    maxtime = maxcookTime;
+    //获取当前的时间戳，来自1970年毫秒数
+    NSTimeInterval nowtime = [[NSDate date] timeIntervalSince1970]*1000;
+    long long theTime = [[NSNumber numberWithDouble:nowtime] longLongValue];
+    //        NSString *curTime = [NSString stringWithFormat:@"%llu",theTime];
+    
+    NSTimeInterval value = theTime - timeStamp;
+    int second = (int)value /1000%60;//秒
+    int minute = (int)value /1000/60%60;
+    int house = (int)value /1000/ (24 *3600)%3600;
+    int day = (int)value /1000/ (24 *3600);
+    NSString *str;
+    if (day != 0) {
+        str = [NSString stringWithFormat:@"耗时%d天%d小时%d分%d秒",day,house,minute,second];
+    }else if (day==0 && house !=0) {
+        str = [NSString stringWithFormat:@"耗时%d小时%d分%d秒",house,minute,second];
+    }else if (day==0 && house==0 && minute!=0) {
+        str = [NSString stringWithFormat:@"耗时%d分%d秒",minute,second];
+    }else{
+        str = [NSString stringWithFormat:@"耗时%d秒",second];
+    }
+    //记录存储当前关机耗时
+    int time = house*60*60 + minute*60 + second;
+    //        NSLog(@"记录存储当前关机耗时 time = %ld",time);
+    //        [SVProgressHUD showSuccessWithStatus:[NSString stringWithFormat:@"记录存储当前关机耗时 time = %ld",time]];
+    
+    
+    
+    return time;
+    
+}
 
-
-
+- (int)getUsedTime:(long long)timeStamp{
+    
+    //    timeStamp = timeStamp;       //当前时间戳
+    //获取当前的时间戳，来自1970年毫秒数
+    NSTimeInterval nowtime = [[NSDate date] timeIntervalSince1970]*1000;
+    long long theTime = [[NSNumber numberWithDouble:nowtime] longLongValue];
+    //        NSString *curTime = [NSString stringWithFormat:@"%llu",theTime];
+    
+    NSTimeInterval value = theTime - timeStamp;
+    int second = (int)value /1000%60;//秒
+    int minute = (int)value /1000/60%60;
+    int house = (int)value /1000/ (24 *3600)%3600;
+    int day = (int)value /1000/ (24 *3600);
+    NSString *str;
+    if (day != 0) {
+        str = [NSString stringWithFormat:@"耗时%d天%d小时%d分%d秒",day,house,minute,second];
+    }else if (day==0 && house !=0) {
+        str = [NSString stringWithFormat:@"耗时%d小时%d分%d秒",house,minute,second];
+    }else if (day==0 && house==0 && minute!=0) {
+        str = [NSString stringWithFormat:@"耗时%d分%d秒",minute,second];
+    }else{
+        str = [NSString stringWithFormat:@"耗时%d秒",second];
+    }
+    //记录存储当前关机耗时
+    int time = house*60*60 + minute*60 + second;
+    //        NSLog(@"记录存储当前关机耗时 time = %ld",time);
+    //        [SVProgressHUD showSuccessWithStatus:[NSString stringWithFormat:@"记录存储当前关机耗时 time = %ld",time]];
+    
+    return time;
+    
+}
 
 
 @end
