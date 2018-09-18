@@ -85,6 +85,7 @@
     
     return _modenNameArr;
 }
+
 - (NSArray *)modenNameArrRight
 {
     
@@ -181,7 +182,7 @@
         
     }else{
         
-//        [self.hud addNormHudWithSupView:self.view title:@"正在获取预约数据..."];
+        [self.hud addNormHudWithSupView:self.view title:@"正在获取预约数据..."];
         
         [[RHSocketConnection getInstance] writeData:[GCSokectDataDeal getReservationInfoBytesWithDeviceId:self.deviceId] timeout:-1 tag:7];
         
@@ -278,8 +279,7 @@
     [[RHSocketConnection getInstance] writeData:[GCSokectDataDeal getReservationBytesWithDeviceId:self.deviceId setting:NO moden:self.reservationModen.modenId bootTime:self.reservationModen.date  appointment:self.reservationModen.time stall:-1] timeout:-1 tag:0];
 
     [self performSelector:@selector(unReservationData) withObject:KUnReservationDataTag afterDelay:3];
-
-    
+ 
 }
 
 
@@ -546,10 +546,6 @@
     int isCancel = [totalData[@"isCancel"] intValue];
     NSString *target = totalData[@"target"];
    
-    
-    
-    
-    
     int code=[dict[@"code"] intValue];
     int deviceId = abs(isLeft-1);
     
@@ -597,7 +593,7 @@
     
     
 //    [SVProgressHUD showWithStatus:yuYueDic];
-    NSLog(@"😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊%@",yuYueDic);
+//    NSLog(@"😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊%@",yuYueDic);
     //获取当前的时间戳，来自1970年毫秒数
         NSTimeInterval nowtime = [[NSDate date] timeIntervalSince1970]*1000;
         long long theTime = [[NSNumber numberWithDouble:nowtime] longLongValue];

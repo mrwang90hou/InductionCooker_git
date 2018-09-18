@@ -267,16 +267,16 @@
     [_dict setObject:[NSNumber numberWithLong:-1] forKey:KPreferenceStall];
     
     
-    int moden= self.deviceId==1?self.moden.modenId:self.moden.modenId%100;
+//    int moden = self.deviceId==1?self.moden.modenId:self.moden.modenId%100;
+    
+    int moden = [self getImportModenId:self.deviceId modenId:self.moden.modenId];
     
     
-    GCLog(@"发出预约");
+    GCLog(@"🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚发出预约🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚");
     
-    
-    [[RHSocketConnection getInstance] writeData:[GCSokectDataDeal getReservationBytesWithDeviceId:self.deviceId setting:YES moden:moden bootTime:self.date  appointment:(value_0*60+value_1) stall:-1] timeout:-1 tag:0];
+    [[RHSocketConnection getInstance] writeData:[GCSokectDataDeal getReservationBytesWithDeviceId:abs(self.deviceId-1) setting:YES moden:moden bootTime:self.date  appointment:(value_0*60+value_1) stall:-1] timeout:-1 tag:0];
     
   
-    
     [self performSelector:@selector(setReservation) withObject:nil afterDelay:3];
     
     
@@ -309,7 +309,8 @@
     NSInteger row_1=[self.timePickerView selectedRowInComponent:1];
     int value_1=[[self.minuteArray objectAtIndex:row_1] intValue];
     
-    long time=(value_0*60+value_1)*60000;
+    //    long time=(value_0*60+value_1)*60000;
+    long time=(value_0*60+value_1);
     
     int modenId=moden.modenId<100?moden.modenId:(moden.modenId%100);
     [[RHSocketConnection getInstance] writeData:[GCSokectDataDeal getTimingBytesWithDeviceId:self.deviceId setting:YES moden:modenId timing:time] timeout:-1 tag:0];
@@ -343,6 +344,7 @@
         
         
         if ((self.moden.modenId%100)==7) {
+            
             if (self.isSetting) {
                 return;
             }
@@ -378,6 +380,69 @@
     }
     
 }
+
+
+- (int)getImportModenId:(int)isLeftDevice modenId:(int)modenId0{
+    int modelId;
+    if (isLeftDevice == 1) {
+        switch (modenId0) {
+            case 0:
+                modelId = 4;
+                break;
+            case 1:
+                modelId = 5;
+                break;
+            case 2:
+                modelId = 6;
+                break;
+            case 3:
+                modelId = 7;
+                break;
+            case 4:
+                modelId = 0;
+                break;
+            case 5:
+                modelId = 1;
+                break;
+            case 6:
+                modelId = 2;
+                break;
+            case 7:
+                modelId = 3;
+                break;
+        }
+    }
+    else{
+        //        int moden=button.moden.modenId%100;
+        //改变了 button 的序列位置
+        switch (modenId0) {
+            case 110:
+                modelId = 0;
+                break;
+            case 111:
+                modelId = 1;
+                break;
+            case 112:
+                modelId = 2;
+                break;
+            case 108:
+                modelId = 3;
+                break;
+            case 109:
+                modelId = 4;
+                break;
+            case 107:
+                modelId = 5;
+                break;
+        }
+    }
+    return modelId;
+    
+}
+
+
+
+
 
 - (void) leftButtonClick
 {
@@ -465,7 +530,7 @@
 }
 
 #pragma mark -接收通知
-- (void) receiveNoti:(NSNotification* )noti
+- (void) receiveNoti0:(NSNotification* )noti
 {
     NSDictionary *dict=[noti userInfo][@"data"];
 
@@ -564,6 +629,42 @@
     
 }
 
+
+- (void) receiveNoti:(NSNotification* )noti
+{
+    
+    NSDictionary *dict=[noti userInfo];
+    
+    if (self.deviceId != [dict[@"isLeft"] intValue]) {
+        return;
+    }
+    NSString *tip=@"";
+    BOOL b1 = self.deviceId == 1 && ![dict[@"LYuYue"] isEqualToString:@""];
+    BOOL b2 = self.deviceId == 0 && ![dict[@"RYuYue"] isEqualToString:@""];
+    
+    if (b1||b2) {
+        if (b1) {
+            [GCUser getInstance].device.leftDevice.hasReservation=YES;
+        }
+        if (self.deviceId == 0 && ![dict[@"RYuYue"] isEqualToString:@""]) {
+            [GCUser getInstance].device.rightDevice.hasReservation=YES;
+        }
+        
+        tip=@"预约开机设置成功";
+        GCReservationPreviewViewController *vc=[[GCReservationPreviewViewController alloc] initWithNibName:@"GCReservationPreviewViewController" bundle:nil];
+        
+        vc.reservationModen=[GCReservationModen createModelWithDict:self.dict];
+        
+        [self.navigationController pushViewController:vc animated:YES];
+        [self reciveSuccess];
+        [SVProgressHUD showSuccessWithStatus:tip];
+    }
+    else{
+        
+    }
+    
+    [self.hud hudUpdataTitile:tip hideTime:1];
+}
 
 
 

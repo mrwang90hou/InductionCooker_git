@@ -337,7 +337,7 @@
             modelId = 5;
             break;
     }
-    NSLog(@"😊😊😊😊😊😊😊😊😊😊😊😊modelId = %d😊😊😊😊😊😊😊😊😊😊😊",button.moden.modenId);
+//    NSLog(@"😊😊😊😊😊😊😊😊😊😊😊😊modelId = %d😊😊😊😊😊😊😊😊😊😊😊",button.moden.modenId);
 //    NSData *data=[GCSokectDataDeal getDataWithModen:moden device:1];
     NSData *data=[GCSokectDataDeal getDataWithModen:modelId device:1];
     

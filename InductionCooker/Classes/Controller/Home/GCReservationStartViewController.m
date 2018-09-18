@@ -211,7 +211,7 @@
     
     GCLog(@"🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚发出预约🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚");
     
-    [[RHSocketConnection getInstance] writeData:[GCSokectDataDeal getReservationBytesWithDeviceId:self.deviceId setting:YES moden:moden bootTime:self.date appointment:-1 stall:-1] timeout:-1 tag:0];
+    [[RHSocketConnection getInstance] writeData:[GCSokectDataDeal getReservationBytesWithDeviceId:abs(self.deviceId-1) setting:YES moden:moden bootTime:self.date appointment:-1 stall:-1] timeout:-1 tag:0];
   
     [self performSelector:@selector(setReservation) withObject:nil afterDelay:3];
 }
@@ -276,9 +276,6 @@
 
 
 
-
-
-
 #pragma mark -用户交互方法
 - (void) rightButtonClick
 {
@@ -318,10 +315,9 @@
     {
         GCReservationTimeViewController *vc=[[GCReservationTimeViewController alloc] initWithNibName:@"GCReservationTimeViewController" bundle:nil];
         vc.moden=self.moden;
-        vc.deviceId=self.moden.modenId<100?0:1;
+        vc.deviceId=self.moden.modenId<100?1:0;
 
         vc.date=time;
-        
         
         vc.title=@"设置定时";
         [self.navigationController pushViewController:vc animated:YES];
@@ -337,7 +333,7 @@
 
 #pragma mark -预约通知
 
-- (void) receiveNoti:(NSNotification* )noti
+- (void) receiveNoti0:(NSNotification* )noti
 {
     NSDictionary *dict=[noti userInfo][@"data"];
     
@@ -349,7 +345,6 @@
     
     @try {
         
-
         success=[dict[@"success"] boolValue];
         
         if (dict[@"deviceId"]) {
@@ -391,7 +386,6 @@
                     
                 }
                 
-                
                 GCReservationPreviewViewController *vc=[[GCReservationPreviewViewController alloc] initWithNibName:@"GCReservationPreviewViewController" bundle:nil];
                 
                 vc.reservationModen=[GCReservationModen createModelWithDict:self.dict];
@@ -421,16 +415,12 @@
 }
 
 
-- (void) receiveNoti0:(NSNotification* )noti
+- (void) receiveNoti:(NSNotification* )noti
 {
-    
-    
-    
-    int moden = [self getImportModenId:self.deviceId modenId:self.moden.modenId];
     
     NSDictionary *dict=[noti userInfo];
     
-    if (self.deviceId!=[dict[@"isLeft"] intValue]) {
+    if (self.deviceId != [dict[@"isLeft"] intValue]) {
         return;
     }
     NSString *tip=@"";
@@ -451,11 +441,12 @@
         vc.reservationModen=[GCReservationModen createModelWithDict:self.dict];
         
         [self.navigationController pushViewController:vc animated:YES];
+        [self reciveSuccess];
+        [SVProgressHUD showSuccessWithStatus:tip];
     }
-    
-    [self reciveSuccess];
-    [SVProgressHUD showSuccessWithStatus:tip];
-    [self.hud hudUpdataTitile:tip hideTime:1];
+    else{
+        
+    }
 }
 
 

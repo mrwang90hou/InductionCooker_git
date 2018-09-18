@@ -199,7 +199,6 @@
 		92F0D5D1214FEF6E0085A1A2 /* leftdevice.json in Resources */ = {isa = PBXBuildFile; fileRef = 92F0D5CF214FECD70085A1A2 /* leftdevice.json */; };
 		92F0D5D2214FEF6E0085A1A2 /* rightdeviceOld.json in Resources */ = {isa = PBXBuildFile; fileRef = 92F0D5D0214FECD70085A1A2 /* rightdeviceOld.json */; };
 		92F0D5D3214FEF7E0085A1A2 /* ModenNameOld.plist in Resources */ = {isa = PBXBuildFile; fileRef = 92F0D5CD214FE1880085A1A2 /* ModenNameOld.plist */; };
-		92F0D5D52150053C0085A1A2 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 92F0D5D42150053B0085A1A2 /* README.md */; };
 		C3E959AA2058F9F800EF0A22 /* MyAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3E959A82058F9F800EF0A22 /* MyAlertView.m */; };
 		C3E959AB2058F9F800EF0A22 /* MyAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3E959A92058F9F800EF0A22 /* MyAlertView.xib */; };
 		C3E959AE205903E000EF0A22 /* OneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3E959AD205903E000EF0A22 /* OneViewController.m */; };
@@ -561,7 +560,6 @@
 		92F0D5CD214FE1880085A1A2 /* ModenNameOld.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ModenNameOld.plist; sourceTree = "<group>"; };
 		92F0D5CF214FECD70085A1A2 /* leftdevice.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = leftdevice.json; sourceTree = "<group>"; };
 		92F0D5D0214FECD70085A1A2 /* rightdeviceOld.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = rightdeviceOld.json; sourceTree = "<group>"; };
-		92F0D5D42150053B0085A1A2 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C3E959A72058F9F800EF0A22 /* MyAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAlertView.h; sourceTree = "<group>"; };
 		C3E959A82058F9F800EF0A22 /* MyAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAlertView.m; sourceTree = "<group>"; };
 		C3E959A92058F9F800EF0A22 /* MyAlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyAlertView.xib; sourceTree = "<group>"; };
@@ -859,7 +857,6 @@
 		6C6E957A1EDFA599003A9446 /* InductionCooker */ = {
 			isa = PBXGroup;
 			children = (
-				92F0D5D42150053B0085A1A2 /* README.md */,
 				6C6E95AE1EDFA697003A9446 /* Classes */,
 				6C6E957B1EDFA599003A9446 /* Supporting Files */,
 			);
@@ -1498,7 +1495,6 @@
 				6CEF683A1EE11533002B21A2 /* QRCodeLine@2x.png in Resources */,
 				6CA5D4B61F7D1E3C006A7D78 /* GCPurviewPhoneVerifyViewController.xib in Resources */,
 				6CF0FD4F1EF90B69003DC0B7 /* GCReservationStartViewController.xib in Resources */,
-				92F0D5D52150053C0085A1A2 /* README.md in Resources */,
 				6C289FD71EFB98440090E8A5 /* GCFillinSmsCodeViewController.xib in Resources */,
 				6CEF683C1EE11533002B21A2 /* QRCodeTopLeft@2x.png in Resources */,
 				6C5A022E1EEF9722000E8A8C /* GCAdjustViewController.xib in Resources */,

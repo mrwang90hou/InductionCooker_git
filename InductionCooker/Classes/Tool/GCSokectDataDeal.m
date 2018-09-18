@@ -236,9 +236,8 @@
     //"bootTime":1, //预约开机时间(时间戳)
     //"Appointment":1 //预约工作时间
     
-    bootTime=bootTime*60*1000;
-    
-    time=time<0?time:time*60*1000;
+    //    bootTime=bootTime*60*1000;
+    //    time=time<0?time:time*60*1000;
     
     NSDictionary *dict=[self textAppending];
     
