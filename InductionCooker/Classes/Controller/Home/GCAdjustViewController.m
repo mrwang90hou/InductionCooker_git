@@ -30,6 +30,12 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 
+@property (weak, nonatomic) IBOutlet UILabel *shutDownLabel;
+
+@property (weak, nonatomic) IBOutlet UIButton *reservationBtn;
+
+@property (weak, nonatomic) IBOutlet UIButton *unReservationBtn;
+
 
 @property (weak, nonatomic) IBOutlet UIView *powerView;
 
@@ -43,6 +49,11 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *temperLabel;
 
+@property (weak, nonatomic) IBOutlet UIButton *plusBtn;
+
+@property (weak, nonatomic) IBOutlet UIButton *reduceBtn;
+
+
 @property (nonatomic,strong) NSTimer *timer;
 
 @property (nonatomic,assign) int countdown;
@@ -51,14 +62,24 @@
 
 @property (nonatomic,assign) CGPoint powerLabelOldCenter;
 
+@property (nonatomic,assign) BOOL isClose;
+
+
+
 @end
 
 @implementation GCAdjustViewController
 
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
+    self.isClose = false;
     self.powerLabelOldCenter=self.powerLabel.center;
     [self getData];
     
@@ -69,7 +90,6 @@
   
     
 }
-
 
 - (void)viewDidAppear:(BOOL)animated
 {
@@ -127,9 +147,29 @@
         if (!self.moden.aotuWork||self.moden.modenId%100==7) {
             [self checkPowerOffTimeWithWork:YES];
             [self sendWorkData];
+            [self showTemperatureView:YES];
+            [self.reservationBtn setHidden:false];
+            [self.unReservationBtn setHidden:false];
+            [self.plusBtn setHidden:false];
+            [self.reduceBtn setHidden:false];
         }else{
             self.timeLabel.text=@"Auto";
+            [self.reservationBtn setHidden:true];
+            [self.unReservationBtn setHidden:true];
+            [self.plusBtn setHidden:true];
+            [self.reduceBtn setHidden:true];
+            
+            self.progressView.progress = 1;
+            //    self.progressView.endColor
+//            bar.backgroundColor = self.progressView.startColor;
+            bar.bgCircularColor = self.progressView.startColor;
+            bar.greyProgressColor = self.progressView.startColor;
+            bar.progressTintColor = self.progressView.startColor;
+            bar.progress = 1;
+            
+            
         }
+        
         
     }else{
     
@@ -141,6 +181,7 @@
     }
     
 }
+
 - (void) addObserver
 {
     GCLog(@"GCAdjustViewController addObserver");
@@ -149,8 +190,19 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveWorkTime:) name:KNotiWorkTime object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveTimingNoti:) name:KNotiTiming object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noti) name:@"开机预约成功" object:nil];
     
 }
+
+- (void)noti{
+    
+    self.isClose = false;
+//    self.timeLabel.text = @"00:00";
+    self.shutDownLabel.text = @"关机倒计时";
+    
+}
+
+
 
 - (void) removeObserver
 {
@@ -297,13 +349,16 @@
         
        [self showTemperatureView:NO];
         self.powerLabel.text=self.moden.aotuWork?@"Auto":@"";
+//        self.timeLabel.text=self.moden.aotuWork?@"Auto":@"";
+        
         
     }else{
         [self showTemperatureView:YES];
+        
     }
 
     
-   
+    
     if (bar) {
         [bar removeFromSuperview];
     }
@@ -316,7 +371,7 @@
     
     bar.backgroundColor=[UIColor clearColor];
     
-   
+    
     NSMutableDictionary *mDict=[NSMutableDictionary dictionary];
 
     for (int i=0 ;i<self.moden.stalls.count;i++) {
@@ -379,7 +434,6 @@
 }
 
 
-
 - (void) updateViewWithModen:(GCModen *)moden
 {
     
@@ -405,13 +459,35 @@
 
 - (void) setWorkTimeState
 {
-    self.progressView.progress=(float)(self.maxTime-self.countdown)/self.maxTime;
+    self.progressView.progress=1-(float)(self.maxTime-self.countdown)/self.maxTime;
+    
+//    int minute =self.countdown/(60*1000)%60+1;
+    
+//    int hour=self.countdown/(60*60*1000);
+    
+//    int second2 = lastSecond %60;//秒
+//    int minute2 = lastSecond /60%60;//分钟
+//    int hours = lastSecond / (24 *3600)%3600;
+//    int day2 = lastSecond / (24 *3600);
+//    int minute;
+//    if (second2 >0) {
+//        minute = minute2+1;
+//    }else{
+//        minute = minute2;
+//    }
+//    int hour;
+//    if (minute2 >0) {
+//        hour = hours+1;
+//    }else{
+//        hour = hours;
+//    }
     
     
-    int minute =self.countdown/(60*1000)%60+1;
-    
-    int hour=self.countdown/(60*60*1000);
-    
+
+//
+    int minute =self.countdown/60%60+1;
+//    int hour=self.countdown/(24 *3600)%3600+1;
+    int hour=self.countdown/(60*60);
     if (minute==60) {
         hour++;
         minute=0;
@@ -421,9 +497,20 @@
     
     NSString *hourStr=hour>=10?[NSString stringWithFormat:@"%d",hour]:[NSString stringWithFormat:@"0%d",hour];
     
-    self.timeLabel.text=[NSString stringWithFormat:@"%@:%@",hourStr,minuteStr];
+    
+    if (!self.moden.aotuWork||self.moden.modenId%100==7) {
+        self.timeLabel.text=[NSString stringWithFormat:@"%@:%@",hourStr,minuteStr];
+//        self.shutDownLabel.hidden = true;
+//        self.shutDownLabel.center = self.progressView.center;
+    }else{
+        self.timeLabel.text=@"Auto";
+//        self.shutDownLabel.center = CGPointMake(self.progressView.width/2, self.progressView.height/2);
+//        self.shutDownLabel.hidden = true;
+    }
+    
+//    self.timeLabel.text=[NSString stringWithFormat:@"%@:%@",hourStr,minuteStr];
+    
 }
-
 
 - (void) updataTemperatureAndPowerView{
     
@@ -434,6 +521,9 @@
     NSString *str=self.temperatureDict[a];
     
     self.temperLabel.text=str;
+    if (self.moden.modenId == 111 && [str isEqualToString:@"180℃"]) {
+        self.temperLabel.text = @"160℃";
+    }
     
     
 }
@@ -467,7 +557,7 @@
     vc.deviceId=self.deviceId;
     
     vc.title=@"定时时间";
-    
+//    [SVProgressHUD showSuccessWithStatus:@"跳转至：GCReservationTimeViewController"];
     [[self getSupViewController].navigationController pushViewController:vc animated:YES];
     
 }
@@ -478,12 +568,64 @@
     if (self.moden.aotuWork&&self.moden.modenId%100!=7) {
         return;
     }
+    [self makeSure];
+//    [SVProgressHUD showSuccessWithStatus:[NSString stringWithFormat:@"%d  \n   This is AotuWork!",self.deviceId]];
     
 //    int modenId=self.moden.modenId<100?self.moden.modenId:(self.moden.modenId%100);
-    int modenId = [self getImportModenId:self.deviceId modenId:self.moden.modenId];
-     [[RHSocketConnection getInstance] writeData:[GCSokectDataDeal getTimingBytesWithDeviceId:self.deviceId setting:NO moden:modenId timing:-1] timeout:-1 tag:0];
+//    int modenId = [self getImportModenId:self.deviceId modenId:self.moden.modenId];
+//    GCLog(@"👻👻👻👻👻👻👻👻👻👻👻👻👻👻👻取消关机倒计时:  %@👻👻👻👻👻👻👻👻👻👻👻👻👻👻👻",[GCSokectDataDeal getTimingBytesWithDeviceId:abs(1-self.deviceId) setting:NO moden:modenId timing:-1]);
+//     [[RHSocketConnection getInstance] writeData:[GCSokectDataDeal getTimingBytesWithDeviceId:abs(1-self.deviceId) setting:NO moden:modenId timing:-1] timeout:-1 tag:0];
+    
     
 }
+//二次确认
+-(void)makeSure
+{
+    SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"提示" andMessage:@"是否取消定时？"];
+    
+    [alertView addButtonWithTitle:@"取消"
+                             type:SIAlertViewButtonTypeDefault
+                          handler:^(SIAlertView *alertView) {
+                              
+                              [alertView dismissAnimated:NO];
+                              
+                          }];
+    
+    [alertView addButtonWithTitle:@"确定"
+                             type:SIAlertViewButtonTypeDefault
+                          handler:^(SIAlertView *alertView) {
+                              
+                              [alertView dismissAnimated:NO];
+                              [self sureClose];
+                          }];
+    
+    [alertView show];
+}
+
+-(void)sureClose
+{
+    //    int modenId=self.moden.modenId<100?self.moden.modenId:(self.moden.modenId%100);
+    int modenId = [self getImportModenId:self.deviceId modenId:self.moden.modenId];
+    GCLog(@"👻👻👻👻👻👻👻👻👻👻👻👻👻👻👻取消关机倒计时:  %@👻👻👻👻👻👻👻👻👻👻👻👻👻👻👻",[GCSokectDataDeal getTimingBytesWithDeviceId:abs(1-self.deviceId) setting:NO moden:modenId timing:-1]);
+    [[RHSocketConnection getInstance] writeData:[GCSokectDataDeal getTimingBytesWithDeviceId:abs(1-self.deviceId) setting:NO moden:modenId timing:-1] timeout:-1 tag:0];
+    //如何判断取消关机倒计时？
+    
+    self.isClose = true;
+    self.timeLabel.text = @"00:00";
+    self.shutDownLabel.text = @"定时已关闭";
+    self.progressView.progress = 1;
+//    self.progressView.endColor
+    bar.backgroundColor = self.progressView.backgroundColor;
+    bar.bgCircularColor = self.progressView.backgroundColor;
+    bar.progress = 1;
+    
+}
+
+
+
+
+
+
 
 
 - (IBAction)reduceButtonClick:(id)sender {
@@ -559,9 +701,6 @@
         [self updataTemperatureAndPowerView];
     }
     
-    
-    
-
 }
 
 - (void) delaySynchronize
@@ -626,7 +765,7 @@
     
     NSDictionary *dict=[noti userInfo][@"data"];
     
-    GCLog(@"👻👻👻👻👻👻👻👻👻👻👻👻👻👻👻关机倒计时:  %@👻👻👻👻👻👻👻👻👻👻👻👻👻👻👻",dict);
+//    GCLog(@"👻👻👻👻👻👻👻👻👻👻👻👻👻👻👻关机倒计时:  %@👻👻👻👻👻👻👻👻👻👻👻👻👻👻👻",dict);
     int deviceId=0;
     int moden=0;
     double time=0;
@@ -660,6 +799,15 @@
 //关机预约通知方法
 - (void) receiveWorkTime:(NSNotification *)noti
 {
+    BOOL bl = !self.moden.aotuWork||self.moden.modenId%100==7;
+    if (!bl) {
+        return;
+    }
+    if (self.isClose) {
+        self.timeLabel.text = @"00:00";
+        self.shutDownLabel.text = @"定时已关闭";
+        return;
+    }
     
    NSDictionary *dict=[noti userInfo];
     
@@ -680,15 +828,15 @@
     //    int isCancel = [totalData[@"isCancel"] intValue];
     //    NSString *target = totalData[@"target"];
     
-    GCLog(@"👻👻👻👻👻👻👻👻👻👻👻👻👻👻👻关机倒计时:  👻👻👻👻👻👻👻👻👻👻👻👻👻👻👻");
+//    GCLog(@"👻👻👻👻👻👻👻👻👻👻👻👻👻👻👻关机倒计时:  👻👻👻👻👻👻👻👻👻👻👻👻👻👻👻");
     
     int deviceId=0;
     int moden=0;
     long long recordTime = 0;
-    int maxtime=0;
+    long maxtime=0;
     
    // NSString *s=dict[@"deviceId"];
-    
+    int lastSecond = 0;
     @try {
         
         deviceId = isLeft;
@@ -701,7 +849,7 @@
 //        moden=[dict[@"moden"] intValue];
         //记录存储当前关机耗时
 //        time=[dict[@"time"] longLongValue];
-        maxtime=[dict[@"stoptime"] intValue];
+//        maxtime=[dict[@"stoptime"] intValue];
         
         //获取当前的时间戳，来自1970年毫秒数
         NSTimeInterval nowtime = [[NSDate date] timeIntervalSince1970]*1000;
@@ -723,26 +871,21 @@
         }else{
             str = [NSString stringWithFormat:@"耗时%d秒",second];
         }
-        //    [SVProgressHUD showWithStatus:str];
-        //    NSLog(@"second = %d",second);
-        //    NSLog(@"minute = %d",minute);
-        //    NSLog(@"house = %d",house);
-        //    NSLog(@"day = %d",day);
-        //
-        
         //记录存储当前关机耗时
         long time = house*60*60 + minute*60 + second;
-
-        [SVProgressHUD showSuccessWithStatus:[NSString stringWithFormat:@"time = %d",time]];
-//        curTime =
-//
-//        int time = workTimeHour*60+workTimeMin;
-//        double date = (startUpTimeHour - house)*60 + (startUpTimeMin - minute);
-//
-//
-//
+//        NSLog(@"记录存储当前关机耗时 time = %ld",time);
+//        [SVProgressHUD showSuccessWithStatus:[NSString stringWithFormat:@"记录存储当前关机耗时 time = %ld",time]];
+        lastSecond = maxtime - time;
+        
+        int second2 = lastSecond %60;//秒
+        int minute2 = lastSecond /60%60;//分钟
+        int house2 = lastSecond / (24 *3600)%3600;
+        int day2 = lastSecond / (24 *3600);
         
         
+//        [SVProgressHUD showSuccessWithStatus:[NSString stringWithFormat:@"剩余关机秒数 = %ld",maxtime - time]];
+        
+ 
         
         
 //        deviceId=[dict[@"deviceId"] intValue];
@@ -754,27 +897,27 @@
         return;
     }
     
-    int modenId=self.deviceId==1?self.moden.modenId:self.moden.modenId%100;
-    
+//    int modenId=self.deviceId==1?self.moden.modenId:self.moden.modenId%100;
+    int modenId = [self getImportModenId:self.deviceId modenId:self.moden.modenId];
     if (self.deviceId!=deviceId||modenId!=moden) {
+        //如果设备不匹配，则返回🔙
         return;
     }
     
-    self.maxTime=maxtime;
+    self.maxTime = maxcookTime;
     
-    self.countdown=self.maxTime-(int)time;
+    //    self.countdown=self.maxTime-(int)time;
+//    self.countdown=self.maxTime - lastSecond;
+    self.countdown = lastSecond;
     
+//    [SVProgressHUD showSuccessWithStatus:[NSString stringWithFormat:@"🔙剩余时间秒数为：%d秒%d秒",lastSecond,self.countdown]];
     [self setWorkTimeState];
-
 }
 
 
 - (void) receiveTimingNoti:(NSNotification* )noti
 {
-    
-    
     NSDictionary *dict=[noti userInfo][@"data"];
-    
 //    [0]    (null)    @"deviceId" : @"0"
 //    [1]    (null)    @"worktime" : (long)0
 //    [2]    (null)    @"stoptime" : (long)0

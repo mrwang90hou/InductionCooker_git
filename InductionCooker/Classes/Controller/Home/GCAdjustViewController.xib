@@ -13,11 +13,16 @@
             <connections>
                 <outlet property="lineView" destination="0n2-dh-P9e" id="RWv-LV-RQ1"/>
                 <outlet property="nameLabel" destination="COe-Aa-zY9" id="AjH-fB-7yq"/>
+                <outlet property="plusBtn" destination="EFJ-LG-2g3" id="e9u-WA-5mW"/>
                 <outlet property="powerLabel" destination="TuC-dk-8lv" id="4tE-5t-3f2"/>
                 <outlet property="powerView" destination="xLZ-XZ-MPo" id="wmL-4h-lUs"/>
                 <outlet property="progressView" destination="MBZ-X1-Us8" id="y8F-Ra-n9P"/>
+                <outlet property="reduceBtn" destination="u3K-gw-5xW" id="MHf-S2-HgM"/>
+                <outlet property="reservationBtn" destination="afT-VT-8Wt" id="VOC-s9-Wrt"/>
+                <outlet property="shutDownLabel" destination="KEc-tC-VSC" id="aKL-tK-J0r"/>
                 <outlet property="temperLabel" destination="ZnU-zf-izL" id="Afe-qj-QSo"/>
                 <outlet property="timeLabel" destination="0pY-S5-bA7" id="gi6-j8-3g4"/>
+                <outlet property="unReservationBtn" destination="jdc-cN-yuJ" id="EHn-8v-r0h"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

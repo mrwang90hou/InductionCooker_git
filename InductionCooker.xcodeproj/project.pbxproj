@@ -188,6 +188,7 @@
 		6CFE820E1EF3B95100557C09 /* GCReservationModenView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CFE820D1EF3B95100557C09 /* GCReservationModenView.m */; };
 		6CFE82101EF3B95D00557C09 /* GCReservationModenView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6CFE820F1EF3B95D00557C09 /* GCReservationModenView.xib */; };
 		6CFE82131EF3C0FE00557C09 /* GCReservationProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CFE82121EF3C0FE00557C09 /* GCReservationProgressView.m */; };
+		929FBD262151395900768CB5 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 929FBD252151395900768CB5 /* README.md */; };
 		92F0D5C5214FD1E80085A1A2 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 92F0D5B9214FD1E80085A1A2 /* LICENSE */; };
 		92F0D5C6214FD1E80085A1A2 /* SVRadialGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F0D5BB214FD1E80085A1A2 /* SVRadialGradientLayer.m */; };
 		92F0D5C7214FD1E80085A1A2 /* SVProgressAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F0D5BE214FD1E80085A1A2 /* SVProgressAnimatedView.m */; };
@@ -545,6 +546,7 @@
 		6CFE820F1EF3B95D00557C09 /* GCReservationModenView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GCReservationModenView.xib; sourceTree = "<group>"; };
 		6CFE82111EF3C0FE00557C09 /* GCReservationProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCReservationProgressView.h; sourceTree = "<group>"; };
 		6CFE82121EF3C0FE00557C09 /* GCReservationProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCReservationProgressView.m; sourceTree = "<group>"; };
+		929FBD252151395900768CB5 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		92F0D5B9214FD1E80085A1A2 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		92F0D5BB214FD1E80085A1A2 /* SVRadialGradientLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVRadialGradientLayer.m; sourceTree = "<group>"; };
 		92F0D5BC214FD1E80085A1A2 /* SVIndefiniteAnimatedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVIndefiniteAnimatedView.h; sourceTree = "<group>"; };
@@ -857,6 +859,7 @@
 		6C6E957A1EDFA599003A9446 /* InductionCooker */ = {
 			isa = PBXGroup;
 			children = (
+				929FBD252151395900768CB5 /* README.md */,
 				6C6E95AE1EDFA697003A9446 /* Classes */,
 				6C6E957B1EDFA599003A9446 /* Supporting Files */,
 			);
@@ -1495,6 +1498,7 @@
 				6CEF683A1EE11533002B21A2 /* QRCodeLine@2x.png in Resources */,
 				6CA5D4B61F7D1E3C006A7D78 /* GCPurviewPhoneVerifyViewController.xib in Resources */,
 				6CF0FD4F1EF90B69003DC0B7 /* GCReservationStartViewController.xib in Resources */,
+				929FBD262151395900768CB5 /* README.md in Resources */,
 				6C289FD71EFB98440090E8A5 /* GCFillinSmsCodeViewController.xib in Resources */,
 				6CEF683C1EE11533002B21A2 /* QRCodeTopLeft@2x.png in Resources */,
 				6C5A022E1EEF9722000E8A8C /* GCAdjustViewController.xib in Resources */,

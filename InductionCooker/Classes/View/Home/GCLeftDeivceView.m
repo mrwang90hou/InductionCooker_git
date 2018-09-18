@@ -301,7 +301,6 @@
 - (IBAction)unReservationButtonClick:(id)sender {
     
     if ([_delegate respondsToSelector:@selector(leftUnreservationButtonClick)]) {
-        
         [_delegate leftUnreservationButtonClick];
     }
     

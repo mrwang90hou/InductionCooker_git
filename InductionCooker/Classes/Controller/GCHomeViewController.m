@@ -509,7 +509,8 @@
         
 //        [SVProgressHUD showWithStatus:[NSString stringWithFormat:@"vc.deviceId = %d",vc.deviceId]];
 //        [SVProgressHUD showWithStatus:[NSString stringWithFormat:@"vc.reservationModen.deviceId = %d",vc.reservationModen.deviceId]];
-        
+//        [SVProgressHUD showSuccessWithStatus:@"跳转至：GCReservationPreviewViewController"];
+
         [self.navigationController pushViewController:vc animated:YES];
         
         
@@ -531,7 +532,6 @@
 
 - (IBAction)unreservation{
     
-    
     GCSubDevice *subDevice=self.segmentControl.selectIndex==0?[GCUser getInstance].device.leftDevice:[GCUser getInstance].device.rightDevice;
     
     if (!subDevice.hasReservation) {
@@ -552,18 +552,78 @@
         MyAlertView *alertView=[[MyAlertView alloc] initWithTitle:@"提示" message:@"请点击\"预约\"按钮设置预约程序" otherButtonTitles:@[@"确定"] listener:nil];
         [alertView show];
         
-        
         return;
     }
     
+    //
+//    [self makeSure];
     GCReservationPreviewViewController *vc=[[GCReservationPreviewViewController alloc] initWithNibName:@"GCReservationPreviewViewController" bundle:nil];
-    
+
     vc.deviceId=(int)self.segmentControl.selectIndex;
-    
+
     [self.navigationController pushViewController:vc animated:YES];
+   
+}
+//二次确认
+-(void)makeSure
+{
+    SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"提示" andMessage:@"是否取消预约？"];
+    
+    [alertView addButtonWithTitle:@"取消"
+                             type:SIAlertViewButtonTypeDefault
+                          handler:^(SIAlertView *alertView) {
+                              
+                              [alertView dismissAnimated:NO];
+                              
+                          }];
+    
+    [alertView addButtonWithTitle:@"确定"
+                             type:SIAlertViewButtonTypeDefault
+                          handler:^(SIAlertView *alertView) {
+                              
+                              [alertView dismissAnimated:NO];
+                              [self sureClose];
+                          }];
+    
+    [alertView show];
+}
+
+-(void)sureClose
+{
+//    [self.hud addNormHudWithSupView:self.view title:@"正在取消预约时间"];
+//    [self.hud addNormHudWithSupView:self.view title:@"正在取消预约时间"];
+//    self.segmentControl.selectIndex
+    
+    
+    
+    
     
     
 }
+    
+   /*
+    [[RHSocketConnection getInstance] writeData:[GCSokectDataDeal getReservationBytesWithDeviceId:self.deviceId setting:NO moden:self.reservationModen.modenId bootTime:self.reservationModen.date appointment:self.reservationModen.time stall:-1] timeout:-1 tag:0];
+    [self performSelector:@selector(unReservationData) withObject:KUnReservationDataTag afterDelay:3];
+    
+}
+- (void) unReservationData
+{
+    if (self.resendCount==5) {
+        [self reciveSuccess];
+    }
+    self.resendCount++;
+    [[RHSocketConnection getInstance] writeData:[GCSokectDataDeal getReservationBytesWithDeviceId:self.deviceId setting:NO moden:self.reservationModen.modenId bootTime:self.reservationModen.date  appointment:self.reservationModen.time stall:-1] timeout:-1 tag:0];
+    [self performSelector:@selector(unReservationData) withObject:KUnReservationDataTag afterDelay:3];
+}
+- (void)reciveSuccess
+{
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    self.resendCount=0;
+    
+}
+*/
+
+
 
 - (IBAction)openModenViewButtonClick:(id)sender {
     
@@ -761,11 +821,11 @@
                              target = 123450;
                              type = 1;
         */
-        int isLeft = [totalData[@"isLeft"] intValue];
-        int power = [totalData[@"isOpen"] intValue];
-        int moden = [cookerItemsData[@"curMode"] intValue];  //当前模式
-        int stalls=[cookerItemsData[@"curPower"] intValue];  //当前档位
-        int showStallsMode=[cookerItemsData[@"showStallsMode"] intValue];  //当前显示模式类型           摄氏度：1       功率数：2       AUTO:3
+//        int isLeft = [totalData[@"isLeft"] intValue];
+//        int power = [totalData[@"isOpen"] intValue];
+//        int moden = [cookerItemsData[@"curMode"] intValue];  //当前模式
+//        int stalls=[cookerItemsData[@"curPower"] intValue];  //当前档位
+//        int showStallsMode=[cookerItemsData[@"showStallsMode"] intValue];  //当前显示模式类型           摄氏度：1       功率数：2       AUTO:3
         
 //        NSLog(@"cookerData[@curError] = %@",cookerData[@"curError"]);
         //【1】状态查询       （复杂、待完善）

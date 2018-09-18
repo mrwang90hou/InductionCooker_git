@@ -417,7 +417,6 @@
   
     [self.hud addNormHudWithSupView:self.view title:@"正在取消预约时间"];
     
-    
     [[RHSocketConnection getInstance] writeData:[GCSokectDataDeal getReservationBytesWithDeviceId:self.deviceId setting:NO moden:self.reservationModen.modenId bootTime:self.reservationModen.date appointment:self.reservationModen.time stall:-1] timeout:-1 tag:0];
     
     [self performSelector:@selector(unReservationData) withObject:KUnReservationDataTag afterDelay:3];

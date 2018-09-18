@@ -664,7 +664,7 @@
     
     NSDictionary *dict=[noti userInfo];
     NSDictionary *cookerItemsData = dict[@"cookerItem"];
-    int maxPower = [cookerItemsData[@"curPower"] intValue];             //最大功率、档位
+//    int maxPower = [cookerItemsData[@"curPower"] intValue];             //最大功率、档位
     int maxcookTime = [cookerItemsData[@"maxcookTime"] intValue]/1000/60;   //最大烹饪时间 【单位：分钟】
     
     
@@ -674,8 +674,8 @@
     NSString *tip=@"";
     BOOL b1 = self.deviceId == 1 && ![dict[@"LYuYue"] isEqualToString:@""];
     BOOL b2 = self.deviceId == 0 && ![dict[@"RYuYue"] isEqualToString:@""];
-    
-    if (b1||b2) {
+    BOOL b3 = self.moden?1:0;
+    if ((b1||b2) && b3 == 1) {
         if (b1) {
             [GCUser getInstance].device.leftDevice.hasReservation=YES;
         }
@@ -696,12 +696,13 @@
         //判断与上次接收到的maxcookTime数值不同【即：更改倒计时关机时间】
         
         if (maxcookTime != self.maxCookTimeRecord&& self.maxCookTimeRecord != 0) {
-//            [self.hud hudUpdataTitile:@"设置关机定时成功" hideTime:KDelay success:^{
-            [SVProgressHUD showSuccessWithStatus:[NSString stringWithFormat:@"设置关机定时成功!当前设置时间为： self.maxCookTimeRecord = %d，maxcookTime = %d",self.maxCookTimeRecord,maxcookTime]];
+            [self.hud hudUpdataTitile:@"设置关机定时成功" hideTime:KDelay success:^{
+//            [SVProgressHUD showSuccessWithStatus:[NSString stringWithFormat:@"设置关机定时成功!当前设置时间为： self.maxCookTimeRecord = %d，maxcookTime = %d",self.maxCookTimeRecord,maxcookTime]];
 //            tip=[NSString stringWithFormat:@"设置关机定时成功!当前设置时间为： self.maxCookTimeRecord = %d，maxcookTime = %d",self.maxCookTimeRecord,maxcookTime];
                 [self reciveSuccess];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"开机预约成功" object:nil userInfo:dict];
                 [self.navigationController popViewControllerAnimated:YES];
-//            }];
+            }];
         }
 //        NSLog(@"self.maxCookTimeRecord = %d，maxcookTime = %d",self.maxCookTimeRecord,maxcookTime);
 //        [SVProgressHUD showSuccessWithStatus:[NSString stringWithFormat:@"self.maxCookTimeRecord = %d，maxcookTime = %d",self.maxCookTimeRecord,maxcookTime]];
