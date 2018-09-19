@@ -106,7 +106,7 @@
     [CATransitionHelper  addTransitionWithLayer:self.smsLoginView.layer animationType:kCATransitionPush subtype:kCATransitionFromLeft duration:KDuration];
     [CATransitionHelper  addTransitionWithLayer:self.pwdLoginView.layer animationType:kCATransitionPush subtype:kCATransitionFromLeft duration:KDuration];
 
-     self.title=@"手机快捷登录";
+    self.title=@"手机快捷登录";
     self.pwdLoginView.hidden=YES;
     self.smsLoginView.hidden=NO;
     
