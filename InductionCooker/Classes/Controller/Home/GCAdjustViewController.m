@@ -16,7 +16,6 @@
 #import "UIView+NTES.h"
 #import "GCSokectDataDeal.h"
 #import "MQHudTool.h"
-
 @interface GCAdjustViewController ()
 {
     CircularProgressBar *bar;
@@ -64,7 +63,6 @@
 @property (nonatomic,assign) CGPoint powerLabelOldCenter;
 
 @property (nonatomic,assign) BOOL isClose;
-
 
 
 @end
@@ -280,7 +278,7 @@
 
 
 - (int)getImportModenId:(int)isLeftDevice modenId:(int)modenId0{
-    int modelId;
+    int modelId = 0;
     if (isLeftDevice == 1) {
         switch (modenId0) {
             case 0:
@@ -461,10 +459,9 @@
 - (void) setWorkTimeState
 {
     self.progressView.progress=1-(float)(self.maxTime-self.countdown)/self.maxTime;
-    if (self.progressView.progress != 0) {
-        
-    }
-    
+//    if (self.progressView.progress != 0) {
+//    }
+//
     
 //    [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%lf",1-(float)(self.maxTime-self.countdown)/self.maxTime]];
 //    int minute =self.countdown/(60*1000)%60+1;
@@ -498,7 +495,7 @@
     
     NSString *hourStr=hour>=10?[NSString stringWithFormat:@"%d",hour]:[NSString stringWithFormat:@"0%d",hour];
     
-    
+//    [SVProgressHUD showSuccessWithStatus:[NSString stringWithFormat:@"%@:%@",hourStr,minuteStr]];
     if (!self.moden.aotuWork||self.moden.modenId%100==7) {
         self.timeLabel.text=[NSString stringWithFormat:@"%@:%@",hourStr,minuteStr];
 //        self.shutDownLabel.hidden = true;
@@ -842,18 +839,17 @@
     [self setWorkTimeState];
     
 }
-
-//关机预约通知方法
+//
+////关机预约通知方法
 - (void) receiveWorkTime:(NSNotification *)noti
 {
     BOOL bl = !self.moden.aotuWork||self.moden.modenId%100==7;
     if (!bl) {
         return;
     }
-    
-   NSDictionary *dict=[noti userInfo];
-    
-    NSDictionary *totalData = dict;
+
+    NSDictionary *totalData=[noti userInfo];
+//    NSDictionary *totalData = dict;
     NSDictionary *cookerItemsData = totalData[@"cookerItem"];
     //    NSString *leftYuYue = totalData[@"LYuYue"];
     //    NSString *rightYuYue = totalData[@"RYuYue"];
@@ -869,35 +865,35 @@
     //    int isOpen = [totalData[@"isOpen"] intValue];
     int isCancel = [totalData[@"isCancel"] intValue];
     //    NSString *target = totalData[@"target"];
-    
-//    GCLog(@"👻👻👻👻👻👻👻👻👻👻👻👻👻👻👻关机倒计时:  👻👻👻👻👻👻👻👻👻👻👻👻👻👻👻");
-    
+
+    GCLog(@"👻👻👻👻👻👻👻👻👻👻👻👻👻👻👻关机倒计时:  👻👻👻👻👻👻👻👻👻👻👻👻👻👻👻");
+
     int deviceId=0;
     int moden=0;
     long long recordTime = 0;
-    long maxtime=0;
-    
+    int maxtime=0;
+
    // NSString *s=dict[@"deviceId"];
     int lastSecond = 0;
     @try {
-        
+
         deviceId = isLeft;
         moden = curMode;
         recordTime = [cursystemtime longLongValue];       //当前时间戳
         maxtime = maxcookTime;
-        
+
 //        GCLog(@"deviceId = %d\n moden = %d \n time = %llf \n maxtime = %d",deviceId,moden,time,maxtime);
-        
+
 //        moden=[dict[@"moden"] intValue];
         //记录存储当前关机耗时
 //        time=[dict[@"time"] longLongValue];
 //        maxtime=[dict[@"stoptime"] intValue];
-        
+
         //获取当前的时间戳，来自1970年毫秒数
         NSTimeInterval nowtime = [[NSDate date] timeIntervalSince1970]*1000;
         long long theTime = [[NSNumber numberWithDouble:nowtime] longLongValue];
 //        NSString *curTime = [NSString stringWithFormat:@"%llu",theTime];
-        
+//        [SVProgressHUD showInfoWithStatus:[NSString stringWithFormat:@"recordTime = %lldtheTime = %lld",recordTime,theTime]];
         NSTimeInterval value = theTime - recordTime;
         int second = (int)value /1000%60;//秒
         int minute = (int)value /1000/60%60;
@@ -913,39 +909,36 @@
         }else{
             str = [NSString stringWithFormat:@"耗时%d秒",second];
         }
+//        NSLog(@"记录存储当前关机耗时 str = %@",str);
         //记录存储当前关机耗时
-        long time = house*60*60 + minute*60 + second;
+        int time = house*60*60 + minute*60 + second;
 //        NSLog(@"记录存储当前关机耗时 time = %ld",time);
 //        [SVProgressHUD showSuccessWithStatus:[NSString stringWithFormat:@"记录存储当前关机耗时 time = %ld",time]];
         lastSecond = maxtime - time;
-        
-        int second2 = lastSecond %60;//秒
-        int minute2 = lastSecond /60%60;//分钟
-        int house2 = lastSecond / (24 *3600)%3600;
-        int day2 = lastSecond / (24 *3600);
-        
-        
+
+//        int second2 = lastSecond %60;//秒
+//        int minute2 = lastSecond /60%60;//分钟
+//        int house2 = lastSecond / (24 *3600)%3600;
+//        int day2 = lastSecond / (24 *3600);
+
 //        [SVProgressHUD showSuccessWithStatus:[NSString stringWithFormat:@"剩余关机秒数 = %ld",maxtime - time]];
-        
- 
-        
-        
+
 //        deviceId=[dict[@"deviceId"] intValue];
 //        moden=[dict[@"moden"] intValue];
 //        time=[dict[@"time"] doubleValue];
 //        maxtime=[dict[@"stoptime"] intValue];
-        
+
     } @catch (NSException *exception) {
         return;
     }
-    
+
 //    int modenId=self.deviceId==1?self.moden.modenId:self.moden.modenId%100;
     int modenId = [self getImportModenId:self.deviceId modenId:self.moden.modenId];
     if (self.deviceId!=deviceId||modenId!=moden) {
         //如果设备不匹配，则返回🔙
         return;
     }
-    
+
     self.maxTime = maxcookTime;
     [self.reservationBtn setImage:[UIImage imageNamed:@"btn_data_reservation_normal"] forState:UIControlStateNormal];
     [self.reservationBtn setImage:[UIImage imageNamed:@"btn_data_reservation_normal"] forState:UIControlStateSelected];
@@ -958,16 +951,15 @@
         self.timeLabel.text = @"00:00";
         self.shutDownLabel.text = @"定时已关闭";
         self.progressView.progress = 1;
-        self.reservationBtn.selected = false;
+        self.reservationBtn.selected = true;
         return;
     }
     self.shutDownLabel.text = @"关机倒计时";
 //    [self.reservationBtn setImage:[UIImage imageNamed:@"btn_data_reservation_pressed"] forState:UIControlStateHighlighted];
     self.reservationBtn.selected = true;
-//    [SVProgressHUD showSuccessWithStatus:[NSString stringWithFormat:@"🔙剩余时间秒数为：%d秒%d秒",lastSecond,self.countdown]];
+//    [SVProgressHUD showSuccessWithStatus:[NSString stringWithFormat:@"🔙剩余时间秒数 为：%d秒%d秒",lastSecond,self.countdown]];
     [self setWorkTimeState];
 }
-
 
 - (void) receiveTimingNoti:(NSNotification* )noti
 {
@@ -1026,7 +1018,6 @@
     
     
 }
-
 
 
 @end

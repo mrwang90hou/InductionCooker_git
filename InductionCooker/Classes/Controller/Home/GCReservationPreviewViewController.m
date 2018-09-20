@@ -416,7 +416,10 @@
     
   
     [self.hud addNormHudWithSupView:self.view title:@"正在取消预约时间"];
-    
+    NSData *jsonData = [GCSokectDataDeal getReservationBytesWithDeviceId:self.deviceId setting:NO moden:self.reservationModen.modenId bootTime:self.reservationModen.date appointment:self.reservationModen.time stall:-1];
+//    NSData *jsonData = [NSData dataWithContentsOfFile:path options:NSDataReadingMappedIfSafe error:nil];
+    NSMutableDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:nil];
+    NSLog(@"dic = %@",dic);
     [[RHSocketConnection getInstance] writeData:[GCSokectDataDeal getReservationBytesWithDeviceId:self.deviceId setting:NO moden:self.reservationModen.modenId bootTime:self.reservationModen.date appointment:self.reservationModen.time stall:-1] timeout:-1 tag:0];
     
     [self performSelector:@selector(unReservationData) withObject:KUnReservationDataTag afterDelay:3];
@@ -529,20 +532,20 @@
     NSDictionary *dict=[noti userInfo];
     NSDictionary *totalData = dict;
     NSDictionary *cookerItemsData = totalData[@"cookerItem"];
-    NSString *leftYuYue = totalData[@"LYuYue"];
-    NSString *rightYuYue = totalData[@"RYuYue"];
-    NSString *curError = cookerItemsData[@"curError"];                  //错误码
-    int curMode = [cookerItemsData[@"curMode"] intValue];               //当前模式      -1代表无任何模式
+//    NSString *leftYuYue = totalData[@"LYuYue"];
+//    NSString *rightYuYue = totalData[@"RYuYue"];
+//    NSString *curError = cookerItemsData[@"curError"];                  //错误码
+//    int curMode = [cookerItemsData[@"curMode"] intValue];               //当前模式      -1代表无任何模式
     int curPower = [cookerItemsData[@"curPower"] intValue];             //当前档位、功率
-    NSString *cursystemtime = cookerItemsData[@"cursystemtime"];        //模式切换时间
-    int maxPower = [cookerItemsData[@"curPower"] intValue];             //最大功率、档位
-    int maxcookTime = [cookerItemsData[@"maxcookTime"] intValue]/1000;   //最大烹饪时间 【单位：分钟】
-    int showStallsMode = [cookerItemsData[@"showStallsMode"] intValue];  //当前显示模式类型       已开机： -1     显示定时和自动AUTO ：0    摄氏度：1       功率数：2       都是自动AUTO:3
-    NSString *idName = totalData[@"id"];
+//    NSString *cursystemtime = cookerItemsData[@"cursystemtime"];        //模式切换时间
+//    int maxPower = [cookerItemsData[@"curPower"] intValue];             //最大功率、档位
+//    int maxcookTime = [cookerItemsData[@"maxcookTime"] intValue]/1000;   //最大烹饪时间 【单位：分钟】
+//    int showStallsMode = [cookerItemsData[@"showStallsMode"] intValue];  //当前显示模式类型       已开机： -1     显示定时和自动AUTO ：0    摄氏度：1       功率数：2       都是自动AUTO:3
+//    NSString *idName = totalData[@"id"];
     int isLeft = [totalData[@"isLeft"] intValue];
-    int isOpen = [totalData[@"isOpen"] intValue];
-    int isCancel = [totalData[@"isCancel"] intValue];
-    NSString *target = totalData[@"target"];
+//    int isOpen = [totalData[@"isOpen"] intValue];
+//    int isCancel = [totalData[@"isCancel"] intValue];
+//    NSString *target = totalData[@"target"];
    
     int code=[dict[@"code"] intValue];
     int deviceId = abs(isLeft-1);

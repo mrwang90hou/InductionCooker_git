@@ -192,6 +192,12 @@
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
     self.resendCount=0;
     self.isSetting=NO;
+    
+    
+//    NSMutableArray *postResult = [[NSMutableArray alloc]init];
+//    self.moden;
+//    self.deviceId;
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"预约完成！" object:nil userInfo:self.re];
 }
 
 - (void) setReservation
@@ -440,7 +446,6 @@
         
         tip=@"预约开机设置成功";
         GCReservationPreviewViewController *vc=[[GCReservationPreviewViewController alloc] initWithNibName:@"GCReservationPreviewViewController" bundle:nil];
-        
         vc.reservationModen=[GCReservationModen createModelWithDict:self.dict];
         
         [self.navigationController pushViewController:vc animated:YES];

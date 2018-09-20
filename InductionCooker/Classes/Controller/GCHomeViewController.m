@@ -31,7 +31,7 @@
 #import "WifiConnectView.h"
 #import "GCDeviceListViewController.h"
 #import "MyAlertView.h"
-
+#import "GCReservationModen.h"
 @interface GCHomeViewController ()<GCSegmentedControlDelegate,GCAdjustViewControllerDelegate,GCLeftDeivceViewDelegate,GCRightDeivceViewDelegate,GCDeviceListViewControllerDelegate>
 {
     GCAdjustViewController* modenVc;
@@ -71,6 +71,10 @@
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topViewMarginTop;
 
+//@property (nonatomic,strong) NSMutableArray *reservationModen;
+
+@property (nonatomic,strong) GCReservationModen *reservationModen;
+@property (nonatomic,assign) NSInteger deviceId;
 @end
 
 @implementation GCHomeViewController
@@ -145,6 +149,8 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(conectionStatus) name:@"conectionStatus" object:nil];
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(conectionStatus:) name:@"conectionStatus" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getReservationModenNoti:) name:@"取消预约！" object:nil];
 }
 
 - (void) getData{
@@ -548,7 +554,6 @@
 //
 //        [alertView show];
 
-        
         MyAlertView *alertView=[[MyAlertView alloc] initWithTitle:@"提示" message:@"请点击\"预约\"按钮设置预约程序" otherButtonTitles:@[@"确定"] listener:nil];
         [alertView show];
         
@@ -564,6 +569,7 @@
     [self.navigationController pushViewController:vc animated:YES];
    
 }
+
 //二次确认
 -(void)makeSure
 {
@@ -582,27 +588,29 @@
                           handler:^(SIAlertView *alertView) {
                               
                               [alertView dismissAnimated:NO];
-                              [self sureClose];
+                              [self listening];
+//                              [self sureClose];
                           }];
     
     [alertView show];
 }
 
+-(void)listening{
+//    [NSNotificationCenter defaultCenter] postNotificationName:@"取消预约！" object:];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getReservationModenNoti:) name:@"取消预约！" object:nil];
+}
+/*
 -(void)sureClose
 {
+    
+    
+    
+    [self.hud addNormHudWithSupView:self.view title:@"正在取消预约时间"];
 //    [self.hud addNormHudWithSupView:self.view title:@"正在取消预约时间"];
-//    [self.hud addNormHudWithSupView:self.view title:@"正在取消预约时间"];
-//    self.segmentControl.selectIndex
+    NSInteger deviceId = self.segmentControl.selectIndex;
+    GCReservationModen *reservationModen = self.segmentControl.selectIndex==0?self.reservationModen[0]:self.reservationModen[1];
     
-    
-    
-    
-    
-    
-}
-    
-   /*
-    [[RHSocketConnection getInstance] writeData:[GCSokectDataDeal getReservationBytesWithDeviceId:self.deviceId setting:NO moden:self.reservationModen.modenId bootTime:self.reservationModen.date appointment:self.reservationModen.time stall:-1] timeout:-1 tag:0];
+    [[RHSocketConnection getInstance] writeData:[GCSokectDataDeal getReservationBytesWithDeviceId:deviceId setting:NO moden:self.reservationModen.modenId bootTime:self.reservationModen.date appointment:self.reservationModen.time stall:-1] timeout:-1 tag:0];
     [self performSelector:@selector(unReservationData) withObject:KUnReservationDataTag afterDelay:3];
     
 }
@@ -622,7 +630,6 @@
     
 }
 */
-
 
 
 - (IBAction)openModenViewButtonClick:(id)sender {
@@ -783,11 +790,12 @@
 - (void) receiveNoti:(NSNotification *)noti
 {
     //NSDictionary *dict=[noti userInfo];
-    
+    [self getReservationModenNoti:[noti userInfo]];
     //从soap 信息中解析出CusotmerDetail 对象
     @try
     {
         //        NSDictionary *data=[noti userInfo][@"data"];
+        
         NSDictionary *totalData = [noti userInfo];
         NSDictionary *cookerItemsData = totalData[@"cookerItem"];
         //    NSString *leftYuYue = totalData[@"LYuYue"];
@@ -860,6 +868,15 @@
         
         //【4】定时通知名称
         //        [[NSNotificationCenter defaultCenter] postNotificationName:KNotiTiming object:nil userInfo:result];
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -1156,18 +1173,18 @@
     NSDictionary *cookerItemsData = totalData[@"cookerItem"];
     NSString *leftYuYue = totalData[@"LYuYue"];
     NSString *rightYuYue = totalData[@"RYuYue"];
-        NSString *curError = cookerItemsData[@"curError"];                  //错误码
+//        NSString *curError = cookerItemsData[@"curError"];                  //错误码
         int curMode = [cookerItemsData[@"curMode"] intValue];               //当前模式      -1代表无任何模式
         int curPower = [cookerItemsData[@"curPower"] intValue];             //当前档位、功率
-        NSString *cursystemtime = cookerItemsData[@"cursystemtime"];        //模式切换时间
-        int maxPower = [cookerItemsData[@"curPower"] intValue];             //最大功率、档位
-        int maxcookTime = [cookerItemsData[@"maxcookTime"] intValue]/1000;   //最大烹饪时间 【单位：分钟】
+//        NSString *cursystemtime = cookerItemsData[@"cursystemtime"];        //模式切换时间
+//        int maxPower = [cookerItemsData[@"curPower"] intValue];             //最大功率、档位
+//        int maxcookTime = [cookerItemsData[@"maxcookTime"] intValue]/1000;   //最大烹饪时间 【单位：分钟】
         int showStallsMode = [cookerItemsData[@"showStallsMode"] intValue];  //当前显示模式类型       已开机： -1     显示定时和自动AUTO ：0    摄氏度：1       功率数：2       都是自动AUTO:3
-    NSString *idName = totalData[@"id"];
+//    NSString *idName = totalData[@"id"];
     int isLeft = [totalData[@"isLeft"] intValue];
     int isOpen = [totalData[@"isOpen"] intValue];
-    int isCancel = [totalData[@"isCancel"] intValue];
-    NSString *target = totalData[@"target"];
+//    int isCancel = [totalData[@"isCancel"] intValue];
+//    NSString *target = totalData[@"target"];
     
     
     //判断是否有预定
@@ -1757,6 +1774,153 @@
     
 }
 
+
+
+//获取预约信息的通知
+- (void)getReservationModenNoti:(NSDictionary*)dict
+{
+//    NSDictionary *dict=[noti userInfo];
+    NSDictionary *totalData = dict;
+    NSDictionary *cookerItemsData = totalData[@"cookerItem"];
+    //    NSString *leftYuYue = totalData[@"LYuYue"];
+    //    NSString *rightYuYue = totalData[@"RYuYue"];
+    //    NSString *curError = cookerItemsData[@"curError"];                  //错误码
+    //    int curMode = [cookerItemsData[@"curMode"] intValue];               //当前模式      -1代表无任何模式
+    int curPower = [cookerItemsData[@"curPower"] intValue];             //当前档位、功率
+    //    NSString *cursystemtime = cookerItemsData[@"cursystemtime"];        //模式切换时间
+    //    int maxPower = [cookerItemsData[@"curPower"] intValue];             //最大功率、档位
+    //    int maxcookTime = [cookerItemsData[@"maxcookTime"] intValue]/1000;   //最大烹饪时间 【单位：分钟】
+    //    int showStallsMode = [cookerItemsData[@"showStallsMode"] intValue];  //当前显示模式类型       已开机： -1     显示定时和自动AUTO ：0    摄氏度：1       功率数：2       都是自动AUTO:3
+    //    NSString *idName = totalData[@"id"];
+    int isLeft = [totalData[@"isLeft"] intValue];
+    //    int isOpen = [totalData[@"isOpen"] intValue];
+    //    int isCancel = [totalData[@"isCancel"] intValue];
+    //    NSString *target = totalData[@"target"];
+    
+    //    int deviceId = abs(isLeft-1);
+    int deviceId = isLeft;
+    
+    //    if (dict[@"deviceId"]) {
+    //        deviceId=[dict[@"deviceId"] intValue];
+    //    }else{
+    //        return;
+    //    }
+    //如果火炉不一致
+    self.deviceId = labs(self.segmentControl.selectIndex-1);
+    if (self.deviceId!=deviceId) {
+        return;
+    }
+    GCLog(@"获取预约时间: %@",dict);
+    
+    //    [self reciveSuccess];
+    //
+    //    [self.hud hide];
+    
+    
+    NSData *jsonData1 = [totalData[@"LYuYue"] dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *err1;
+    NSDictionary *leftYuYueDic = [NSJSONSerialization JSONObjectWithData:jsonData1
+                                                                 options:NSJSONReadingMutableContainers
+                                                                   error:&err1];
+    
+    NSData *jsonData2 = [totalData[@"RYuYue"] dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *err2;
+    NSDictionary *rightYuYueDic = [NSJSONSerialization JSONObjectWithData:jsonData2
+                                                                  options:NSJSONReadingMutableContainers
+                                                                    error:&err2];
+    //    NSDictionary *leftYuYueDic = totalData[@"LYuYue"];
+    //    NSDictionary *rightYuYueDic = totalData[@"RYuYue"];
+    NSDictionary *yuYueDic = [NSDictionary new];
+    if (!self.deviceId) {
+        yuYueDic = leftYuYueDic;
+    }else{
+        yuYueDic = rightYuYueDic;
+    }
+    //取得记录的时间戳
+    long long recordTime = [yuYueDic[@"time"] longLongValue];
+    int startUpTimeHour = [yuYueDic[@"hour"] intValue];
+    int startUpTimeMin = [yuYueDic[@"min"] intValue];
+    int workTimeHour = [yuYueDic[@"wHour"] intValue];;
+    int workTimeMin = [yuYueDic[@"wMin"] intValue];;
+    
+    
+    //    [SVProgressHUD showWithStatus:yuYueDic];
+    //    NSLog(@"😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊%@",yuYueDic);
+    //获取当前的时间戳，来自1970年毫秒数
+    NSTimeInterval nowtime = [[NSDate date] timeIntervalSince1970]*1000;
+    long long theTime = [[NSNumber numberWithDouble:nowtime] longLongValue];
+    NSString *curTime = [NSString stringWithFormat:@"%llu",theTime];
+    
+    NSTimeInterval value = theTime - recordTime;
+    int second = (int)value /1000%60;//秒
+    int minute = (int)value /1000/60%60;
+    int house = (int)value /1000/ (24 *3600)%3600;
+    int day = (int)value /1000/ (24 *3600);
+    NSString *str;
+    if (day != 0) {
+        str = [NSString stringWithFormat:@"耗时%d天%d小时%d分%d秒",day,house,minute,second];
+    }else if (day==0 && house !=0) {
+        str = [NSString stringWithFormat:@"耗时%d小时%d分%d秒",house,minute,second];
+    }else if (day==0 && house==0 && minute!=0) {
+        str = [NSString stringWithFormat:@"耗时%d分%d秒",minute,second];
+    }else{
+        str = [NSString stringWithFormat:@"耗时%d秒",second];
+    }
+    //    [SVProgressHUD showWithStatus:str];
+    //    NSLog(@"second = %d",second);
+    //    NSLog(@"minute = %d",minute);
+    //    NSLog(@"house = %d",house);
+    //    NSLog(@"day = %d",day);
+    //
+    
+    int time = workTimeHour*60+workTimeMin;
+    
+    
+    double date = (startUpTimeHour - house)*60 + (startUpTimeMin - minute);
+    
+    //    NSLog(@"data = %lf",date);
+    //    NSLog(@"time = %d",time);
+    
+    //    NSString *dataStr=dict[@"bootTime"];
+    //    double date=[dataStr integerValue]/60000.0;
+    //    int time=[dict[@"appointment"] intValue]/60000;
+    
+    
+    //    int moden=[dict[@"moden"] intValue];
+    //    int stall=[dict[@"stall"] intValue];
+    int moden = [yuYueDic[@"mode"] intValue];
+    int stall = curPower;
+    
+    self.reservationModen=[[GCReservationModen alloc] init];
+    self.reservationModen.deviceId = (int)self.deviceId;
+    self.reservationModen.modenId=moden;
+    self.reservationModen.date=date;
+    self.reservationModen.time=time;
+    
+    [self getData];
+    
+    if ([yuYueDic[@"left"] intValue] == 1) {
+        
+        //        [self setLabelWithReservationDate:date minute:self.reservationModen.time modenName:self.modenNameArr[moden] stall:stall];
+    }else{
+        
+        //        [self setLabelWithReservationDate:date minute:self.reservationModen.time modenName:self.modenNameArrRight[moden] stall:stall];
+    }
+    
+    NSLog(@"moden = %d",moden);
+    
+    NSLog(@"stall = %d",stall);
+    
+    
+    if(date<0.10)
+    {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
+}
+
+
+
+
 //
 //
 //private void GetError(String err) {
@@ -1860,7 +2024,6 @@
     
     
 }
-
 
 - (int)getImportModenId:(int)isLeftDevice modenId:(int)modenId0{
     int modelId;

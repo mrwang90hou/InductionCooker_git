@@ -326,6 +326,7 @@
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
     self.resendCount=0;
     self.isSetting=NO;
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"预约完成！" object:nil];
 }
 
 

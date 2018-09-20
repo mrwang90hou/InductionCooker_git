@@ -42,7 +42,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 //    self.tableView.scrollEnabled = false;
-//    [self.tableView setEditing:<#(BOOL)#>]
     [self addObserver];
     
     [self getData];
@@ -107,8 +106,25 @@
 
 - (void) createUI{
     
+//    [MQBarButtonItemTool rightBarButttonItemWithViewController:self title:@"删除"];
+   
     
+//    [[GCDataBasicManager shareManager] deleteOneDataFromTable:KErrorTableName model:self.dataSoucre[0]];
 }
+- (void) rightButtonClick
+{
+//    GCNotificationCellMd *model = self.dataSoucre[0];
+    if (self.dataSoucre.count>1) {
+        GCNotificationCellMd *model = self.dataSoucre[0];
+        [[GCDataBasicManager shareManager] deleteOneDataFromTable:KErrorTableName model:model];
+        [SVProgressHUD showInfoWithStatus:@"删除成功！"];
+    }
+    [SVProgressHUD showErrorWithStatus:@"删除失败"];
+}
+
+
+
+
 
 - (void) addObserver{
     
@@ -207,6 +223,14 @@
 //                                 [NSIndexPath indexPathForRow:1 inSection:0],
 //                                 [NSIndexPath indexPathForRow:2 inSection:0],
 //                                 nil];
+    //删除库内存储！
+//    if (self.dataSoucre.count>1) {
+        GCNotificationCellMd *model = self.dataSoucre[_indexPath.row];
+        [[GCDataBasicManager shareManager] deleteOneDataFromTable:KErrorTableName model:model];
+//        [SVProgressHUD showInfoWithStatus:@"删除成功！"];
+//    }else{
+//        [SVProgressHUD showErrorWithStatus:@"删除失败"];
+//    }
     [self.tableView beginUpdates];
 //    [self.tableView deleteRowsAtIndexPaths:deleteIndexPaths withRowAnimation:UITableViewRowAnimationTop];
 //    [self.tableView deleteRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationFade];
@@ -244,6 +268,8 @@
 //    } failure:^(MQError *error) {
 //        [self.hud hudUpdataTitile:@"删除失败" hideTime:1.2];
 //    }];
+    
+    [SVProgressHUD showInfoWithStatus:@"删除成功！"];
 }
 
 
@@ -260,13 +286,11 @@
     GCNotificationCell *cell=[GCNotificationCell cellWithTableView:tableView];
     cell.cellModel = self.dataSoucre[indexPath.row];
 //    cell.cellModel.text
-    
 //    [SVProgressHUD showErrorWithStatus:self.dataSoucre[indexPath.row]];
 //    for () {
 //        <#statements#>
 //    }
 //    NSLog(@"self.dataSoucre = %@",cell.cellModel.text);
-    
 //    cell.selectionStyle=UITableViewCellSelectionStyleNone;
     NSString *error = cell.cellModel.text;
     
@@ -298,9 +322,6 @@
     
     
     [self.tableView endUpdates];
-    
-    
-     
     
 }
 
