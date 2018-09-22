@@ -252,7 +252,6 @@
     }else{
 //        NSLog(@"[GCUser getInstance].device.rightDevice.selModen.aotuWork = %d",[GCUser getInstance].device.rightDevice.selModen.aotuWork);
         [GCUser getInstance].device.rightDevice.selModen.aotuWork? [self setRightButtonTitle:@"Auto"]: [self setRightButtonTitle:title];
-        
        // [self setRightButtonTitle:title];
     }
     

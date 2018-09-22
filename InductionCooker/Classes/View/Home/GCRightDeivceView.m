@@ -371,7 +371,9 @@
         button.selected=YES;
         
         self.selectButton=button;
-        
+        //模式状态更新 adjustView 弹出
+        //点击功能键自动弹出功能操作面板
+        [self stallViewShow:YES moden:[GCUser getInstance].device.leftDevice.selModen];
         if ([_delegate respondsToSelector:@selector(rightModenButtonClick:)]) {
             
              [_delegate rightModenButtonClick:button];

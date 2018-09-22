@@ -49,6 +49,9 @@
 
 @property (nonatomic, weak) GCSegmentedControl *segmentControl;
 
+@property (nonatomic,assign) NSInteger recordSegmentControlSelect;
+
+
 @property (nonatomic,weak) WifiConnectView *wifiConnectView;
 
 @property (nonatomic,weak) UILabel *deviceNameLabel;
@@ -118,6 +121,7 @@
     [self.leftView reservationStateChange:[GCUser getInstance].device.leftDevice.hasReservation];
     
     [self.rightView reservationStateChange:[GCUser getInstance].device.rightDevice.hasReservation];
+    self.recordSegmentControlSelect = self.segmentControl.selectIndex;
     
 }
 
@@ -150,7 +154,9 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(conectionStatus) name:@"conectionStatus" object:nil];
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(conectionStatus:) name:@"conectionStatus" object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getReservationModenNoti:) name:@"取消预约！" object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getReservationModenNoti:) name:@"取消预约！" object:nil];
+    
+    
 }
 
 - (void) getData{
@@ -214,8 +220,9 @@
         
     }];
     self.deviceNameLabel.text=@"";
-    self.deviceNameLabel.textColor=[UIColor blackColor];
-    
+//    self.deviceNameLabel.text=@"未连接设备";
+//    self.deviceNameLabel.textColor=[UIColor blackColor];
+    self.deviceNameLabel.textColor = [UIColor grayColor];
    
 
     GCRightDeivceView *rightView=[GCRightDeivceView loadViewFromXib];
@@ -255,6 +262,7 @@
     
     if ([GCUser getInstance].device.deviceId == nil) {
         self.wifiConnectView.hidden = YES;
+        self.deviceNameLabel.text = @"未连接设备";
         [self conectionStatus];
     }else
         self.wifiConnectView.hidden = NO;
@@ -267,6 +275,7 @@
     int code = [GCUser getInstance].device.code;
     if ([GCUser getInstance].device.deviceId == nil) {
         self.wifiConnectView.hidden = YES;
+        self.deviceNameLabel.text = @"未连接设备";
         code = -1;
     }else
         self.wifiConnectView.hidden = NO;
@@ -282,7 +291,7 @@
         self.rightView.isConection = YES;
     }
     //监听连接状态，进行弹窗提示！
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(wifiConnectViewHiddenChange:) name:UITextFieldTextDidChangeNotification object:self.wifiConnectView];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(wifiConnectViewHiddenChange:) name:UITextFieldTextDidChangeNotification object:self.wifiConnectView];
     
 }
 
@@ -299,6 +308,7 @@
         [SVProgressHUD showSuccessWithStatus:@"连接成功！"];
         [SVProgressHUD dismissWithDelay:1];
     }
+    
 }
 
 
@@ -309,6 +319,7 @@
     int code = [GCUser getInstance].device.code;
     if ([GCUser getInstance].device.deviceId == nil) {
         self.wifiConnectView.hidden = YES;
+        self.deviceNameLabel.text = @"未连接设备";
         code = -1;
     }else
         self.wifiConnectView.hidden = NO;
@@ -435,25 +446,24 @@
         float duration=0.2;
         
         
-        if (value==0) {
+        if (value ==0 && self.recordSegmentControlSelect == 1) {
             
-      
             [CATransitionHelper addTransitionWithLayer:self.leftView.layer animationType:kCATransitionPush subtype:kCATransitionFromLeft duration:duration];
             [CATransitionHelper addTransitionWithLayer:self.rightView.layer animationType:kCATransitionPush subtype:kCATransitionFromLeft duration:duration];
             
             self.rightView.hidden=YES;
             self.leftView.hidden=NO;
-        
+            self.recordSegmentControlSelect = self.segmentControl.selectIndex;
             
-        }else{
+        }
+        if (value == 1 && self.recordSegmentControlSelect == 0){
             
            
             [CATransitionHelper addTransitionWithLayer:self.leftView.layer animationType:kCATransitionPush subtype:kCATransitionFromRight duration:duration];
             [CATransitionHelper addTransitionWithLayer:self.rightView.layer animationType:kCATransitionPush subtype:kCATransitionFromRight duration:duration];
             self.leftView.hidden=YES;
             self.rightView.hidden=NO;
-            
-
+            self.recordSegmentControlSelect = self.segmentControl.selectIndex;
         }
   //  });
     
@@ -636,7 +646,7 @@
     
     //  GCModen *mod=[GCUser getInstance].device.leftDevice.selModen;
     
-    GCModen *moden=self.segmentControl.selectIndex==0?[GCUser getInstance].device.leftDevice.selModen:[GCUser getInstance].device.rightDevice.selModen;
+//    GCModen *moden=self.segmentControl.selectIndex==0?[GCUser getInstance].device.leftDevice.selModen:[GCUser getInstance].device.rightDevice.selModen;
     
   
 }
@@ -790,7 +800,7 @@
 - (void) receiveNoti:(NSNotification *)noti
 {
     //NSDictionary *dict=[noti userInfo];
-    [self getReservationModenNoti:[noti userInfo]];
+//    [self getReservationModenNoti:[noti userInfo]];
     //从soap 信息中解析出CusotmerDetail 对象
     @try
     {
@@ -891,6 +901,7 @@
 
 - (void) receiveNotiDeivceDisconnect
 {
+//    self.deviceNameLabel.text = @"未连接设备";
     
     [self.leftView powerState:NO hasReservation:NO monden:-1];
     
@@ -901,6 +912,12 @@
     [self.segmentControl updateItemWithIndex:1 title:@"     "];
     
     self.wifiConnectView.hidden = true;
+    //host 处【解除绑定】则在 APP 端本地缓存中 删除该设备
+    [[GCUser getInstance].deviceList removeObject:[GCUser getInstance].device.deviceId];
+    [GCUser getInstance].device.deviceId = nil;
+    
+    [self conectionStatus];
+//    self.leftView up
 }
 
 - (void) selectDeiveChange
@@ -911,7 +928,11 @@
     }else
         self.wifiConnectView.hidden = NO;
     
-    self.deviceNameLabel.text=[GCUser getInstance].device.deviceId;
+    if ([GCUser getInstance].device.deviceId) {
+        self.deviceNameLabel.text=[GCUser getInstance].device.deviceId;
+    }else{
+       self.deviceNameLabel.text=@"未连接设备";
+    }
     [self.leftView powerState:NO hasReservation:NO monden:-1];
     
     [self.rightView powerState:NO hasReservation:NO monden:-1];
@@ -1336,8 +1357,6 @@
 //    int isCancel = [totalData[@"isCancel"] intValue];
 //    NSString *target = totalData[@"target"];
     
-    
-    
     int deviceId = 0;
     
     int moden=0;
@@ -1503,17 +1522,26 @@
         [self.segmentControl updateItemWithIndex:deviceId title:[GCAgreementHelper getPowerWhithDeivce:deviceId moden:moden stalls:stall]];
 //    }
     
+    
     if (deviceId==1&&power==0) {
 //        [SVProgressHUD showErrorWithStatus:@"left segmentControl"];
+//        self.deviceNameLabel.text = @"未连接设备";
         [self.segmentControl updateItemWithIndex:1 title:@"     "];
         [GCUser getInstance].device.leftDevice.selModen=nil;
-        
     }
     if(deviceId==0&&power==0)
     {
 //        [SVProgressHUD showErrorWithStatus:@"right segmentControl"];
         [self.segmentControl updateItemWithIndex:0 title:@"     "];
         [GCUser getInstance].device.rightDevice.selModen=nil;
+    }
+    int code = [GCUser getInstance].device.code;
+    if (code == -1) {
+        
+        self.deviceNameLabel.text = @"未连接设备";
+        [self.segmentControl updateItemWithIndex:0 title:@"     "];
+        [self.segmentControl updateItemWithIndex:1 title:@"     "];
+        
     }
 }
 
@@ -1657,7 +1685,6 @@
     
     
 }
-
 
 - (void) deviceErrorWithDict:(NSDictionary *)dict
 {
@@ -1917,9 +1944,6 @@
         [self.navigationController popToRootViewControllerAnimated:YES];
     }
 }
-
-
-
 
 //
 //

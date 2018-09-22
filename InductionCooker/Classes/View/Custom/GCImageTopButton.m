@@ -134,8 +134,6 @@
         
     }else{
 
-        
-        
         [GCDiscoverView showWithTip:@"请先连接服务器,再进行操作!" cancelClick:^{
            
             [[RHSocketConnection getInstance] connectWithHost:KIP port:KPort];

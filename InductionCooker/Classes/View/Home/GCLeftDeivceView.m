@@ -72,7 +72,7 @@
 
 @property (nonatomic,assign) BOOL powerState;
 
-
+@property (nonatomic,strong) GCModen *model;
 
 
 
@@ -104,15 +104,21 @@
         self.poweBt.userInteractionEnabled = YES;
         self.reservationBt.userInteractionEnabled = YES;
         self.disReservatonBt.userInteractionEnabled = YES;
+        for (GCModenButton *btn in self.buttons) {
+            btn.userInteractionEnabled = YES;
+        }
     }else
     {
         [self.poweBt setImage:[UIImage imageNamed:@"btn_openkey_disabled"] forState:UIControlStateNormal];
         [self.reservationBt setImage:[UIImage imageNamed:@"btn_reservation_disabled"] forState:UIControlStateNormal];
         [self.disReservatonBt setImage:[UIImage imageNamed:@"btn_cancel_disabled"] forState:UIControlStateNormal];
         
-        self.poweBt.userInteractionEnabled = NO;
-        self.reservationBt.userInteractionEnabled = NO;
-        self.disReservatonBt.userInteractionEnabled = NO;
+//        self.poweBt.userInteractionEnabled = NO;
+//        self.reservationBt.userInteractionEnabled = NO;
+//        self.disReservatonBt.userInteractionEnabled = NO;
+        for (GCModenButton *btn in self.buttons) {
+            btn.userInteractionEnabled = NO;
+        }
     }
 }
 
@@ -228,12 +234,14 @@
     
 }
 
-
+//功能试图显示及模式更新同步
 - (void) stallViewShow:(BOOL)isShow moden:(GCModen *)model{
 
+//    self.model = model;
     if (isShow) {
         
         if (self.subVc.view.hidden) {
+            
             [self.subVc updateViewWithModen:model];
             [self.subVc showAdjustView:YES];
             //上升动画时间
@@ -244,29 +252,22 @@
         
         if (!self.subVc.view.hidden) {
             [self.subVc showAdjustView:NO];
-            [CATransitionHelper addTransitionWithLayer:self.subVc.view.layer animationType:kCATransitionPush subtype:kCATransitionFromBottom duration:0.4];
+//            [CATransitionHelper addTransitionWithLayer:self.subVc.view.layer animationType:kCATransitionPush subtype:kCATransitionFromBottom duration:0.4];
         }
       
     }
-
-    
     if (self.powerState) {
         self.bottomView.hidden=!self.subVc.view.hidden;
     }else{
         self.bottomView.hidden=YES;
     }
-    
-    
-
 }
 
 
 #pragma mark -用户交互方法
 - (IBAction)powerButtonClick:(id)sender {
     
-    
     GCImageTopButton *bt=sender;
-    
     
     if (bt.selected) {
         //0   1 表示关机
@@ -282,33 +283,33 @@
         [[RHSocketConnection getInstance] writeData:[GCSokectDataDeal getRootBytesWithDeviceId:0 status:0] timeout:-1 tag:KTagPowerOn ReceiveBlock:^(NSData *data, long tag) {
 
         }];
-        
-        
     }
 
     
 }
 
 - (IBAction)reservationButtonClick:(id)sender {
-    
-    if ([_delegate respondsToSelector:@selector(leftReservationButtonClick)]) {
-        
-        [_delegate leftReservationButtonClick];
+    if (_isConection){
+        if ([_delegate respondsToSelector:@selector(leftReservationButtonClick)]) {
+            
+            [_delegate leftReservationButtonClick];
+        }
     }
-    
 }
 
 - (IBAction)unReservationButtonClick:(id)sender {
-    
-    if ([_delegate respondsToSelector:@selector(leftUnreservationButtonClick)]) {
-        [_delegate leftUnreservationButtonClick];
+    if (_isConection){
+        if ([_delegate respondsToSelector:@selector(leftUnreservationButtonClick)]) {
+            [_delegate leftUnreservationButtonClick];
+        }
     }
-    
 }
 
 - (IBAction)showStallViewButtonClick:(id)sender {
     
     [self stallViewShow:YES moden:[GCUser getInstance].device.leftDevice.selModen];
+//    self.model = [GCUser getInstance].device.leftDevice.selModen;
+//    [self stallViewShow:YES moden:self.model];
     
 }
 
@@ -322,7 +323,7 @@
         return;
     }
     if(button.moden.modenId==[GCUser getInstance].device.leftDevice.selModen.modenId) {
-        NSLog(@"_delegate!_delegate!_delegate!_delegate!_delegate!_delegate!_delegate!_delegate!");
+//        NSLog(@"_delegate!_delegate!_delegate!_delegate!_delegate!_delegate!_delegate!_delegate!");
         if ([_delegate respondsToSelector:@selector(leftModenButtonClick:)]) {
             [_delegate leftModenButtonClick:button];
         }
@@ -334,10 +335,8 @@
 ////            modelId = 0;
 //        }
 //    }
-    
-    
-    NSLog(@"button.moden = %@",button.moden);
-    NSLog(@"button.moden.modenId = %d",button.moden.modenId);
+//    NSLog(@"button.moden = %@",button.moden);
+//    NSLog(@"button.moden.modenId = %d",button.moden.modenId);
     //改变了 button 的序列位置
     int modelId = 0 ;
     switch (button.moden.modenId) {
@@ -373,7 +372,8 @@
     NSData *data=[GCSokectDataDeal getDataWithModen:modelId device:0];
     
     [[RHSocketConnection getInstance] writeData: data timeout:-1 tag:-1];
-
+    //点击功能键自动弹出功能操作面板
+//    [self stallViewShow:YES moden:[GCUser getInstance].device.leftDevice.selModen];
     
 }
 
@@ -425,17 +425,22 @@
         button.selected=YES;
         
         self.selectButton=button;
-        
+            //模式状态更新 adjustView 弹出
+            //点击功能键自动弹出功能操作面板
+            [self stallViewShow:YES moden:[GCUser getInstance].device.leftDevice.selModen];
+//        [self setNeedsLayout];
+//        [self layoutIfNeeded];
         if ([_delegate respondsToSelector:@selector(leftModenButtonClick:)]) {
             
-           
             [_delegate leftModenButtonClick:button];
             
         }
-
-        
         return button.moden;
     }
+//    //模式状态更新 adjustView 弹出
+//    //点击功能键自动弹出功能操作面板
+//    [self stallViewShow:YES moden:[GCUser getInstance].device.leftDevice.selModen];
+    
     
     return nil;
     
@@ -457,7 +462,6 @@
             self.selectButton.moden.currentStall=-1;
         }
     }
-    
     
     if (state!=self.powerState) {
         
@@ -488,6 +492,16 @@
     self.reservationBt.tipImageView.hidden=!has;
    
 }
+//- (void) powerState:(BOOL)state hasReservation:(BOOL)has monden:(int) moden{
+//
+//    
+//
+//
+//}
+
+
+
+
 
 - (void)reservationStateChange:(int)state
 {

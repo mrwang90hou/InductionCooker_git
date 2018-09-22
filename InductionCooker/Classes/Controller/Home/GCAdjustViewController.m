@@ -141,34 +141,30 @@
     self.view.hidden=!show;
     
     if (show) {
-        
+//        if (!self.moden.aotuWork||self.moden.modenId%100==7) {
+//            [self checkPowerOffTimeWithWork:YES];
+//            [self sendWorkData];
+//            [self showTemperatureView:YES];
+//            [self.reservationBtn setHidden:false];
+//            [self.unReservationBtn setHidden:false];
+//            [self.plusBtn setHidden:false];
+//            [self.reduceBtn setHidden:false];
+//        }else{
+//            self.timeLabel.text=@"Auto";
+//            [self.reservationBtn setHidden:true];
+//            [self.unReservationBtn setHidden:true];
+//            [self.plusBtn setHidden:true];
+//            [self.reduceBtn setHidden:true];
+//
+//            self.progressView.progress = 1;
+//            //    self.progressView.endColor
+////            bar.backgroundColor = self.progressView.startColor;
+//            bar.bgCircularColor = self.progressView.startColor;
+//            bar.greyProgressColor = self.progressView.startColor;
+//            bar.progressTintColor = self.progressView.startColor;
+//            bar.progress = 1;
+//        }
         [self addObserver];
-        if (!self.moden.aotuWork||self.moden.modenId%100==7) {
-            [self checkPowerOffTimeWithWork:YES];
-            [self sendWorkData];
-            [self showTemperatureView:YES];
-            [self.reservationBtn setHidden:false];
-            [self.unReservationBtn setHidden:false];
-            [self.plusBtn setHidden:false];
-            [self.reduceBtn setHidden:false];
-        }else{
-            self.timeLabel.text=@"Auto";
-            [self.reservationBtn setHidden:true];
-            [self.unReservationBtn setHidden:true];
-            [self.plusBtn setHidden:true];
-            [self.reduceBtn setHidden:true];
-            
-            self.progressView.progress = 1;
-            //    self.progressView.endColor
-//            bar.backgroundColor = self.progressView.startColor;
-            bar.bgCircularColor = self.progressView.startColor;
-            bar.greyProgressColor = self.progressView.startColor;
-            bar.progressTintColor = self.progressView.startColor;
-            bar.progress = 1;
-            
-            
-        }
-        
         
     }else{
     
@@ -341,23 +337,18 @@
 
 - (void) createUI{
     
-    
+//    [SVProgressHUD showInfoWithStatus:[NSString stringWithFormat:@"%d",self.moden.aotuWork]];
     self.nameLabel.text=self.moden.type;
-
     if (!self.moden.showTemperature||self.moden.aotuWork) {
         
        [self showTemperatureView:NO];
         self.powerLabel.text=self.moden.aotuWork?@"Auto":@"";
-//        self.timeLabel.text=self.moden.aotuWork?@"Auto":@"";
-        
+//        [SVProgressHUD showInfoWithStatus:self.powerLabel.text];
         
     }else{
         [self showTemperatureView:YES];
         
     }
-
-    
-    
     if (bar) {
         [bar removeFromSuperview];
     }
@@ -423,11 +414,10 @@
     
     
     if (self.moden.stalls.count>0) {
-        
         bar.progress=[self.moden.stalls[self.progress] intValue]/2600.0;
-        
         [self updataTemperatureAndPowerView];
     }
+    
 
     
 }
@@ -435,16 +425,39 @@
 
 - (void) updateViewWithModen:(GCModen *)moden
 {
-    
+    if (!moden.aotuWork||moden.modenId%100==7) {
+        [self checkPowerOffTimeWithWork:YES];
+        [self sendWorkData];
+        [self showTemperatureView:YES];
+        [self.reservationBtn setHidden:false];
+        [self.unReservationBtn setHidden:false];
+        [self.plusBtn setHidden:false];
+        [self.reduceBtn setHidden:false];
+//        [SVProgressHUD showInfoWithStatus:@"NOT AUTO"];
+    }else{
+        self.timeLabel.text=@"Auto";
+        [self.reservationBtn setHidden:true];
+        [self.unReservationBtn setHidden:true];
+        [self.plusBtn setHidden:true];
+        [self.reduceBtn setHidden:true];
+//        [SVProgressHUD showInfoWithStatus:@"AUTO"];
+        self.progressView.progress = 1;
+        //    self.progressView.endColor
+        //            bar.backgroundColor = self.progressView.startColor;
+        bar.bgCircularColor = self.progressView.startColor;
+        bar.greyProgressColor = self.progressView.startColor;
+        bar.progressTintColor = self.progressView.startColor;
+        bar.progress = 1;
+    }
     self.moden=moden;
-    
+//    NSLog(@"🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂%@",moden);
     [self getData];
-    
     [self createUI];
 }
 
 - (void) showTemperatureView:(BOOL) show
 {
+//    [SVProgressHUD showInfoWithStatus:@"NOT showTemperatureView"];
     self.lineView.hidden=!show;
     self.temperLabel.hidden=!show;
     
@@ -462,7 +475,6 @@
 //    if (self.progressView.progress != 0) {
 //    }
 //
-    
 //    [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%lf",1-(float)(self.maxTime-self.countdown)/self.maxTime]];
 //    int minute =self.countdown/(60*1000)%60+1;
 //    int hour=self.countdown/(60*60*1000);
@@ -522,7 +534,13 @@
     if (self.moden.modenId == 111 && [str isEqualToString:@"180℃"]) {
         self.temperLabel.text = @"160℃";
     }
-    
+    if (self.moden.modenId == 108) {
+        [SVProgressHUD showInfoWithStatus:[NSString stringWithFormat:@"self.powerLabel.text = %@,self.moden.aotuWork = %d",self.powerLabel.text,self.moden.aotuWork]];
+//        self.powerLabel.text = @"Auto";
+//        bar.progress = 0;
+//        bar.
+    }
+//    [SVProgressHUD showInfoWithStatus:[NSString stringWithFormat:@"档位发生变化！%@",self.temperLabel.text]];
     
 }
 
@@ -761,7 +779,6 @@
     
     NSDictionary *dict=[noti userInfo];
     
-
     int deviceId=[dict[@"deviceId"] intValue];
     int stalls=[dict[@"stalls"] intValue];
     int mod=[dict[@"moden"] intValue];
@@ -769,21 +786,12 @@
     int modId=mod+deviceId*100;
     
     if (modId==self.moden.modenId) {
-        
         if (stalls<0||stalls>=self.moden.stalls.count) {
-            
             return;
-            
         }
-        
-        
       //  self.progress=stalls;
-        
         self.moden.currentStall=stalls;
-        
-      
         [self updateUI];
-       
         //延迟
         [NSObject cancelPreviousPerformRequestsWithTarget:self]; //这个是取消当前run loop 里面所有未执行的 延迟方法(Selector Sources)
         // [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(onClickOverlay:) object:nil];// @selector 和 object 都和 延迟一致 就是 指定取消 未执行的一条或者多条的延迟方法.

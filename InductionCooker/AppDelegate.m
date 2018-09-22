@@ -16,8 +16,10 @@
 #import "GCDAsyncSocket.h"
 #import "SIAlertView.h"
 #import "GCDataBasicManager.h"
-
+#import "GCBinddinViewController.h"
+#import "GCLoginViewController.h"
 #import "NSDictionary+Category.h"
+#import "QRCodeReaderViewController.h"
 //#import "JRSwizzle.h"
 @interface AppDelegate ()
 
@@ -198,7 +200,7 @@
                     [[NSNotificationCenter defaultCenter] postNotificationName:KNotiSelectDeviceChange object:nil];
                     
                     [self conectService];
-                    [SVProgressHUD showSuccessWithStatus:@"获取设备成功！"];
+//                    [SVProgressHUD showSuccessWithStatus:@"获取设备成功！"];
                 } failure:^(MQError *error) {
                     SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"" andMessage:@"获取当前选中电磁炉失败,请重试!"];
                     [alertView addButtonWithTitle:@"确定"
@@ -220,6 +222,8 @@
                 if (show) {
                     [GCDiscoverView showWithTip:@"您未绑定和一电磁炉产品,请先绑定产品,再进行操作!"];
 //                    [SVProgressHUD showErrorWithStatus:@"您未绑定和一电磁炉产品,请先绑定产品,再进行操作!"];
+                    //跳转到绑定设备页面
+                    [self turnToQRCodeReader];
                 }
                 
                
@@ -233,9 +237,44 @@
             
         }];
     }
-    
-
 }
+- (void)turnToQRCodeReader{
+    
+    UITabBarController *tab = (UITabBarController *)_window.rootViewController;
+    UINavigationController *nav = tab.viewControllers[tab.selectedIndex];
+    //                            MessageViewController *vc = [[MessageViewController alloc] init];
+    //                            vc.hidesBottomBarWhenPushed = YES;
+    if([GCUser getInstance].userId)
+    {
+        if ([QRCodeReader supportsMetadataObjectTypes:@[AVMetadataObjectTypeQRCode]]) {
+            static QRCodeReaderViewController *reader = nil;
+            static dispatch_once_t onceToken;
+            
+            dispatch_once(&onceToken, ^{
+                reader = [QRCodeReaderViewController new];
+            });
+//            reader.delegate = self;
+            
+            [reader setCompletionWithBlock:^(NSString *resultAsString) {
+                
+            }];
+            
+            reader.title=@"添加电磁炉";
+            [nav pushViewController:reader animated:YES];
+        }
+        else {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您的手机设备不支持二维码扫描功能,请更换设备操作!" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+            [alert show];
+        }
+    }else{
+        
+        GCLoginViewController *vc=[[GCLoginViewController alloc] initWithNibName:@"GCLoginViewController" bundle:nil];
+        [nav pushViewController:vc animated:YES];
+        //                        [self.navigationController pushViewController:vc animated:YES];
+        
+    }
+}
+
 
 
 - (void) conectService

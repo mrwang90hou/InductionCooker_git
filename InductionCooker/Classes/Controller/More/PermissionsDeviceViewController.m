@@ -56,8 +56,8 @@
 //    self.tableView.tableHeaderView.tintColor = [UIColor grayColor];
     [MQBarButtonItemTool leftBarButttonItemWithViewController:self title:@"返回"];
 //    [MQBarButtonItemTool rightBarButttonItemWithViewController:self title:@"编辑"];
-    self.editButtonItem.title = @"编辑";
-    self.navigationItem.rightBarButtonItem = self.editButtonItem;
+//    self.editButtonItem.title = @"编辑";
+//    self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated {
