@@ -404,6 +404,9 @@
 
     [self setValueForUI];
 
+    [self.reservationBtn setImage:[UIImage imageNamed:@"btn_data_reservation_normal"] forState:UIControlStateNormal];
+    [self.reservationBtn setImage:[UIImage imageNamed:@"btn_data_reservation_pressed"] forState:UIControlStateSelected];
+    [self.reservationBtn setImage:[UIImage imageNamed:@"btn_data_reservation_pressed"] forState:UIControlStateHighlighted];
 }
 
 
@@ -955,9 +958,6 @@
     }
 
     self.maxTime = maxcookTime;
-    [self.reservationBtn setImage:[UIImage imageNamed:@"btn_data_reservation_normal"] forState:UIControlStateNormal];
-    [self.reservationBtn setImage:[UIImage imageNamed:@"btn_data_reservation_normal"] forState:UIControlStateSelected];
-    [self.reservationBtn setImage:[UIImage imageNamed:@"btn_data_reservation_pressed"] forState:UIControlStateHighlighted];
     //    self.countdown=self.maxTime-(int)time;
 //    self.countdown=self.maxTime - lastSecond;
     self.countdown = lastSecond;
@@ -966,14 +966,16 @@
         self.timeLabel.text = @"00:00";
         self.shutDownLabel.text = @"定时已关闭";
         self.progressView.progress = 1;
-        self.reservationBtn.selected = true;
+        self.reservationBtn.selected = false;
+//        [self.reservationBtn setImage:[UIImage imageNamed:@"btn_reservation_pressed"] forState:UIControlStateNormal];
         return;
     }
+//    [self.reservationBtn setImage:[UIImage imageNamed:@"btn_cancel_normal"] forState:UIControlStateNormal];
     self.shutDownLabel.text = @"关机倒计时";
 //    [self.reservationBtn setImage:[UIImage imageNamed:@"btn_data_reservation_pressed"] forState:UIControlStateHighlighted];
     self.reservationBtn.selected = true;
 //    [SVProgressHUD showSuccessWithStatus:[NSString stringWithFormat:@"🔙剩余时间秒数 为：%d秒%d秒",lastSecond,self.countdown]];
-    [self setWorkTimeState];
+    [self setWorkTimeState];    
 }
 
 - (void) receiveTimingNoti:(NSNotification* )noti

@@ -32,6 +32,9 @@
 #import "GCDeviceListViewController.h"
 #import "MyAlertView.h"
 #import "GCReservationModen.h"
+#import "QRCodeReaderViewController.h"
+#import "AppDelegate.h"
+
 @interface GCHomeViewController ()<GCSegmentedControlDelegate,GCAdjustViewControllerDelegate,GCLeftDeivceViewDelegate,GCRightDeivceViewDelegate,GCDeviceListViewControllerDelegate>
 {
     GCAdjustViewController* modenVc;
@@ -144,6 +147,8 @@
     
     //电磁炉未连接服务器
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveNotiDeivceDisconnect) name:KNotiDeviceDisconnectFormServe object:nil];
+    //电磁炉解除对移动端设备的绑定
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveNotiOneDeivceDeleted) name:KNotiOneDeivceDeletedFormHostApp object:nil];
     
     //选中的设备切换
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectDeiveChange) name:KNotiSelectDeviceChange object:nil];
@@ -156,7 +161,7 @@
     
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getReservationModenNoti:) name:@"取消预约！" object:nil];
     
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(trunToQRCode) name:@"trunToQRCode" object:nil];
 }
 
 - (void) getData{
@@ -272,26 +277,41 @@
 -(void)conectionStatus
 {
 //    NSLog(@"conectionStatus!!!");
+//    [SVProgressHUD showInfoWithStatus:@"conectionStatus"];
     int code = [GCUser getInstance].device.code;
+//    AppDelegate *app=(AppDelegate *)[UIApplication sharedApplication].delegate;
+//    [app getDeviceListWithShowTip:YES];
+//    [SVProgressHUD showInfoWithStatus:[GCUser getInstance].device.deviceId];
     if ([GCUser getInstance].device.deviceId == nil) {
         self.wifiConnectView.hidden = YES;
         self.deviceNameLabel.text = @"未连接设备";
+        [self.segmentControl updateItemWithIndex:0 title:@"     "];
+        [self.segmentControl updateItemWithIndex:1 title:@"     "];
+        [SVProgressHUD showInfoWithStatus:@"未连接设备"];
         code = -1;
-    }else
+    }else{
         self.wifiConnectView.hidden = NO;
-    
+        self.deviceNameLabel.text = [GCUser getInstance].device.deviceId;
+        [SVProgressHUD showInfoWithStatus:[GCUser getInstance].device.deviceId];
+        code = 0;
+    }
     if (code == -1) {
         [self.wifiConnectView setWifiConnectLabelTitleWithIndex:0];
         self.leftView.isConection = NO;
         self.rightView.isConection = NO;
+        [SVProgressHUD showInfoWithStatus:@"未连接设备"];
     }else
     {
         [self.wifiConnectView setWifiConnectLabelTitleWithIndex:1];
         self.leftView.isConection = YES;
         self.rightView.isConection = YES;
+        [SVProgressHUD showInfoWithStatus:[GCUser getInstance].device.deviceId];
+        self.wifiConnectView.hidden = NO;
+        self.deviceNameLabel.text = [GCUser getInstance].device.deviceId;
+
     }
     //监听连接状态，进行弹窗提示！
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(wifiConnectViewHiddenChange:) name:UITextFieldTextDidChangeNotification object:self.wifiConnectView];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(wifiConnectViewHiddenChange:) name:UITextFieldTextDidChangeNotification object:self.wifiConnectView];
     
 }
 
@@ -310,7 +330,6 @@
     }
     
 }
-
 
 
 -(void)conectionStatus:(NSNotification *)noti
@@ -908,17 +927,36 @@
     [self.rightView powerState:NO hasReservation:NO monden:-1];
     
     [self.segmentControl updateItemWithIndex:0 title:@"     "];
-    
     [self.segmentControl updateItemWithIndex:1 title:@"     "];
-    
+    self.deviceNameLabel.text=@"未连接设备";
     self.wifiConnectView.hidden = true;
     //host 处【解除绑定】则在 APP 端本地缓存中 删除该设备
-    [[GCUser getInstance].deviceList removeObject:[GCUser getInstance].device.deviceId];
-    [GCUser getInstance].device.deviceId = nil;
-    
-    [self conectionStatus];
+//    [[GCUser getInstance].deviceList removeObject:[GCUser getInstance].device];
+//    [GCUser getInstance].device.deviceId = nil;
+//    [SVProgressHUD showInfoWithStatus:[NSString stringWithFormat:@"[GCUser getInstance].deviceList.count = %lu",(unsigned long)[GCUser getInstance].deviceList.count]];
+//    [self conectionStatus];
 //    self.leftView up
+    self.leftView.isConection = NO;
+    self.rightView.isConection = NO;
+    
 }
+- (void)receiveNotiOneDeivceDeleted{
+    [self.leftView powerState:NO hasReservation:NO monden:-1];
+    
+    [self.rightView powerState:NO hasReservation:NO monden:-1];
+    
+    [self.segmentControl updateItemWithIndex:0 title:@"     "];
+    [self.segmentControl updateItemWithIndex:1 title:@"     "];
+    self.deviceNameLabel.text=@"未连接设备";
+    self.wifiConnectView.hidden = true;
+    //host 处【解除绑定】则在 APP 端本地缓存中 删除该设备
+    [[GCUser getInstance].deviceList removeObject:[GCUser getInstance].device];
+    [GCUser getInstance].device.deviceId = nil;
+    //    [SVProgressHUD showInfoWithStatus:[NSString stringWithFormat:@"[GCUser getInstance].deviceList.count = %lu",(unsigned long)[GCUser getInstance].deviceList.count]];
+    [self conectionStatus];
+}
+
+
 
 - (void) selectDeiveChange
 {
@@ -928,7 +966,7 @@
     }else
         self.wifiConnectView.hidden = NO;
     
-    if ([GCUser getInstance].device.deviceId) {
+    if ([GCUser getInstance].device.deviceId && [GCUser getInstance].device.code == 1) {
         self.deviceNameLabel.text=[GCUser getInstance].device.deviceId;
     }else{
        self.deviceNameLabel.text=@"未连接设备";
@@ -1535,14 +1573,12 @@
         [self.segmentControl updateItemWithIndex:0 title:@"     "];
         [GCUser getInstance].device.rightDevice.selModen=nil;
     }
-    int code = [GCUser getInstance].device.code;
-    if (code == -1) {
-        
-        self.deviceNameLabel.text = @"未连接设备";
-        [self.segmentControl updateItemWithIndex:0 title:@"     "];
-        [self.segmentControl updateItemWithIndex:1 title:@"     "];
-        
-    }
+//    int code = [GCUser getInstance].device.code;
+//    if (code == -1) {
+//        self.deviceNameLabel.text = @"未连接设备";
+//        [self.segmentControl updateItemWithIndex:0 title:@"     "];
+//        [self.segmentControl updateItemWithIndex:1 title:@"     "];
+//    }
 }
 
 
@@ -2105,6 +2141,62 @@
     }
     return modelId;
     
+}
+
+
+#pragma mark -【跳转扫码登录】交互方法
+- (void) trunToQRCode
+{
+    
+    SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"提示" andMessage:@"当前产品列表为空!您尚未绑定和一电磁炉产品，请先绑定产品，请选择是否跳转到绑定设备页面?"];
+    [alertView addButtonWithTitle:@"取消"
+                             type:SIAlertViewButtonTypeDefault
+                          handler:^(SIAlertView *alertView) {
+                              [alertView dismissAnimated:NO];
+                          }];
+    
+    [alertView addButtonWithTitle:@"确定"
+                             type:SIAlertViewButtonTypeDestructive
+                          handler:^(SIAlertView *alertView) {
+                              
+                              [alertView dismissAnimated:NO];
+                              
+                              //                              [MQSaveLoadTool preferenceRemoveValueForKey:KPreferenceUserInfo];
+                              
+                              //                              [[RHSocketConnection getInstance] disconnect];
+                              
+                              //跳转到绑定设备页面
+                              [self turnToQRCodeReader];
+                              
+                          }];
+    
+    [alertView show];
+    
+}
+
+- (void)turnToQRCodeReader{
+    
+    if ([QRCodeReader supportsMetadataObjectTypes:@[AVMetadataObjectTypeQRCode]]) {
+        static QRCodeReaderViewController *reader = nil;
+        static dispatch_once_t onceToken;
+        
+        dispatch_once(&onceToken, ^{
+            reader = [QRCodeReaderViewController new];
+        });
+        //            reader.delegate = self;
+        
+        [reader setCompletionWithBlock:^(NSString *resultAsString) {
+            
+        }];
+        
+        reader.title=@"添加电磁炉";
+        
+        [self.navigationController pushViewController:reader animated:YES];
+    }
+    else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您的手机设备不支持二维码扫描功能,请更换设备操作!" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        [alert show];
+    }
 }
 
 

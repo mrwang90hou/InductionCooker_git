@@ -116,6 +116,9 @@ typedef NS_ENUM(NSInteger, DeviceLinkState) {
  */
 #define KNotiDeviceDisconnectFormServe          @"KNotiDeviceDisconnectFormServe"
 
+
+#define KNotiOneDeivceDeletedFormHostApp        @"KNotiOneDeivceDeletedFormHostApp"
+
 /**
  获取设备成功
  

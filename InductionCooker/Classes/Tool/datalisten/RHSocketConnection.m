@@ -39,6 +39,8 @@
 
 @property (nonatomic,assign) int writeCount;
 
+@property (nonatomic,assign) int returnGetNumber;
+
 //
 
 
@@ -106,6 +108,7 @@ static  RHSocketConnection *tool;
         _writeCount=0;
         _isDeviceDisconnect=YES;
         self.connected = 0;
+        self.returnGetNumber = 0;
 //        [self debugView];
         NSArray *array=[NSArray arrayWithObjects:@"111",@"222", nil];
         self.nounStatus = [array mutableCopy];
@@ -234,14 +237,13 @@ static  RHSocketConnection *tool;
         }
         
         if (self.connectCount<KMaxConnectCount) {
-            
+//            [SVProgressHUD showInfoWithStatus:@"KMaxConnectCount"];
             [self connectWithHost:KIP port:KPort];
         }else{
             [self hideHud];
             self.connectCount=0;
         }
     }
-    
     return isSuccess;
 }
 
@@ -264,6 +266,7 @@ static  RHSocketConnection *tool;
 
 - (void)readDataWithTimeout:(NSTimeInterval)timeout tag:(long)tag
 {
+    [SVProgressHUD showErrorWithStatus:@"readDataWithTimeout"];
     [_asyncSocket readDataWithTimeout:timeout tag:tag];
 }
 
@@ -316,9 +319,7 @@ static  RHSocketConnection *tool;
     NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&error];
 //    GCLog(@"socket发出数据%@   超时时间:%f",weatherDic,timeout);
     
-    
      [_asyncSocket writeData:data withTimeout:timeout tag:tag];
-    
     
 //    int code=[weatherDic[KSokectOrder][@"code"] intValue];
 //
@@ -374,7 +375,6 @@ static  RHSocketConnection *tool;
     }else{
         return;
     }
-    
     
     if (self.connectCount>=KMaxConnectCount) {
         
@@ -458,6 +458,12 @@ static  RHSocketConnection *tool;
     //继续读取sokect
     // 超时设置为负数，表示不会使用超时
     [sock readDataWithTimeout:-1 tag:tag];
+//    [sock readDataWithTimeout:0.1 tag:tag];
+    
+    
+//    if (!data) {
+//        [SVProgressHUD showErrorWithStatus:@"!data"];
+//    }
     
     NSDictionary *result=[NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
     RHSocketLog(@"[RHSocketConnection] didReadData （result）%@",result);
@@ -481,14 +487,25 @@ static  RHSocketConnection *tool;
 //        
 //    }
 //    NSStringEncoding enc =CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingISOLatin1);
-//    
+//
 //    NSString *s1= [NSString stringWithCString:data encoding:enc];
-    
 #pragma mark -bug🙅‍♂️🙅‍♂️🙅‍♂️🙅‍♂️🙅‍♂️
     if (result==nil) {
         NSLog(@"❌❌❌❌❌❌❌❌❌❌❌❌result is nil ❌❌❌❌❌❌❌❌❌❌❌❌");
+        self.returnGetNumber++;
+        
+        if (self.returnGetNumber == 6) {
+            if (self.isDeviceDisconnect) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:KNotiDeviceDisconnectFormServe object:nil];
+                [GCDiscoverView showWithTip:@"电磁炉未连接服务器,您将无法控制电磁炉,请检查电磁炉状态!"];
+            }
+            self.isDeviceDisconnect=NO;
+        }
+        
+        
         return;
     }
+    self.returnGetNumber = 0;
     //新的连接状态判断的方法（取消 code 数值的判断！）
     if ([[result allKeys] containsObject:KSokectOrder]) {
         RHSocketLog(@"[RHSocketConnection] didReadData （result）%@",result);
@@ -519,14 +536,12 @@ static  RHSocketConnection *tool;
                         [GCDiscoverView showWithTip:@"电磁炉未连接服务器,您将无法控制电磁炉,请检查电磁炉状态!"];
                     }
                     self.isDeviceDisconnect=NO;
-                    
                 }
                     break;
                 case -3:
                     {
                         if (self.isDeviceDisconnect) {
-                            [[NSNotificationCenter defaultCenter] postNotificationName:KNotiDeviceDisconnectFormServe object:nil];
-                            
+                            [[NSNotificationCenter defaultCenter] postNotificationName:KNotiOneDeivceDeletedFormHostApp object:nil];
                             [GCDiscoverView showWithTip:@"电磁炉已解除与您手机的绑定状态,您将无法控制电磁炉,请检查绑定状态!"];
                         }
                         self.isDeviceDisconnect=NO;

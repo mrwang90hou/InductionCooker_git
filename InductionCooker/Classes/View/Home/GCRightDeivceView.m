@@ -106,15 +106,21 @@
         self.poweBt.userInteractionEnabled = YES;
         self.reservationBt.userInteractionEnabled = YES;
         self.disReservatonBt.userInteractionEnabled = YES;
+        for (GCModenButton *btn in self.buttons) {
+            btn.userInteractionEnabled = YES;
+        }
     }else
     {
         [self.poweBt setImage:[UIImage imageNamed:@"btn_openkey_disabled"] forState:UIControlStateNormal];
         [self.reservationBt setImage:[UIImage imageNamed:@"btn_reservation_disabled"] forState:UIControlStateNormal];
         [self.disReservatonBt setImage:[UIImage imageNamed:@"btn_cancel_disabled"] forState:UIControlStateNormal];
         
-        self.poweBt.userInteractionEnabled = NO;
-        self.reservationBt.userInteractionEnabled = NO;
-        self.disReservatonBt.userInteractionEnabled = NO;
+//        self.poweBt.userInteractionEnabled = NO;
+//        self.reservationBt.userInteractionEnabled = NO;
+//        self.disReservatonBt.userInteractionEnabled = NO;
+        for (GCModenButton *btn in self.buttons) {
+            btn.userInteractionEnabled = NO;
+        }
     }
 }
 
@@ -180,8 +186,8 @@
         
         if (self.subVc.view.hidden) {
             
-            [self.subVc showAdjustView:YES];
             [self.subVc updateViewWithModen:model];
+            [self.subVc showAdjustView:YES];
             [CATransitionHelper addTransitionWithLayer:self.subVc.view.layer animationType:kCATransitionPush subtype:kCATransitionFromTop duration:0.4];
             
         }

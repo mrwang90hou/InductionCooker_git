@@ -252,7 +252,7 @@
         
         if (!self.subVc.view.hidden) {
             [self.subVc showAdjustView:NO];
-//            [CATransitionHelper addTransitionWithLayer:self.subVc.view.layer animationType:kCATransitionPush subtype:kCATransitionFromBottom duration:0.4];
+            [CATransitionHelper addTransitionWithLayer:self.subVc.view.layer animationType:kCATransitionPush subtype:kCATransitionFromBottom duration:0.4];
         }
       
     }

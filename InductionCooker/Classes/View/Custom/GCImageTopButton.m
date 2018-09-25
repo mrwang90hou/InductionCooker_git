@@ -14,7 +14,7 @@
 #import "RHSocketConnection.h"
 #import "GCLoginViewController.h"
 #import "AppDelegate.h"
-
+#import "QRCodeReaderViewController.h"
 
 @interface GCImageTopButton ()
 
@@ -108,12 +108,17 @@
     
     if ([GCUser getInstance].device.deviceId==nil)
     {
-        [GCDiscoverView showWithTip:@"当前产品列表为空!" cancelClick:^{
-            
-            AppDelegate *app=(AppDelegate *)[UIApplication sharedApplication].delegate;
-            [app getDeviceListWithShowTip:YES];
-            
-        }];
+//        [GCDiscoverView showWithTip:@"当前产品列表为空!" cancelClick:^{
+//
+//            AppDelegate *app=(AppDelegate *)[UIApplication sharedApplication].delegate;
+//            [app getDeviceListWithShowTip:YES];
+//
+//        }];
+        
+//        [self trunToQRCode];
+        
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"trunToQRCode" object:nil];
         
         return ;
     }
@@ -146,7 +151,6 @@
     
 }
 
-
 - (void) intoLogin
 {
     
@@ -161,8 +165,6 @@
     
     
 }
-
-
 
 
 
