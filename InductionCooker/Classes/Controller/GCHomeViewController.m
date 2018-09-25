@@ -287,25 +287,25 @@
         self.deviceNameLabel.text = @"未连接设备";
         [self.segmentControl updateItemWithIndex:0 title:@"     "];
         [self.segmentControl updateItemWithIndex:1 title:@"     "];
-        [SVProgressHUD showInfoWithStatus:@"未连接设备"];
+//        [SVProgressHUD showInfoWithStatus:@"未连接设备"];
         code = -1;
     }else{
         self.wifiConnectView.hidden = NO;
         self.deviceNameLabel.text = [GCUser getInstance].device.deviceId;
-        [SVProgressHUD showInfoWithStatus:[GCUser getInstance].device.deviceId];
+//        [SVProgressHUD showInfoWithStatus:[GCUser getInstance].device.deviceId];
         code = 0;
     }
     if (code == -1) {
         [self.wifiConnectView setWifiConnectLabelTitleWithIndex:0];
         self.leftView.isConection = NO;
         self.rightView.isConection = NO;
-        [SVProgressHUD showInfoWithStatus:@"未连接设备"];
+//        [SVProgressHUD showInfoWithStatus:@"未连接设备"];
     }else
     {
         [self.wifiConnectView setWifiConnectLabelTitleWithIndex:1];
         self.leftView.isConection = YES;
         self.rightView.isConection = YES;
-        [SVProgressHUD showInfoWithStatus:[GCUser getInstance].device.deviceId];
+//        [SVProgressHUD showInfoWithStatus:[GCUser getInstance].device.deviceId];
         self.wifiConnectView.hidden = NO;
         self.deviceNameLabel.text = [GCUser getInstance].device.deviceId;
 
@@ -330,7 +330,6 @@
     }
     
 }
-
 
 -(void)conectionStatus:(NSNotification *)noti
 {
@@ -940,6 +939,7 @@
     self.rightView.isConection = NO;
     
 }
+
 - (void)receiveNotiOneDeivceDeleted{
     [self.leftView powerState:NO hasReservation:NO monden:-1];
     

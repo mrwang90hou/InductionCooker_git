@@ -42,16 +42,12 @@
 @property (nonatomic,assign) int returnGetNumber;
 
 //
-
-
 @property (nonatomic,weak) UITextView *textView;
 
 //////////
 @property (nonatomic,strong) NSMutableArray *nounStatus;
 @property (nonatomic,assign) BOOL connected;
 //@property (nonatomic, assign, getter=true) BOOL bl;
-
-
 
 @end
 
@@ -116,7 +112,6 @@ static  RHSocketConnection *tool;
     return self;
 }
 
-
 - (void) debugView
 {
     
@@ -170,8 +165,6 @@ static  RHSocketConnection *tool;
     self.textView.text=@"";
 }
 
-
-
 - (void)connectWithCount:(int)count result:(void (^)(BOOL))block
 {
     BOOL isSuccess=false;
@@ -197,7 +190,6 @@ static  RHSocketConnection *tool;
     _asyncSocket.delegate = nil;
     _asyncSocket = nil;
 }
-
 
 // 建立socket连接
 - (BOOL)connectWithHost:(NSString *)hostName port:(int)port
@@ -247,7 +239,6 @@ static  RHSocketConnection *tool;
     return isSuccess;
 }
 
-
 - (void)disconnect
 {
     [_asyncSocket disconnect];
@@ -257,7 +248,6 @@ static  RHSocketConnection *tool;
     
     
 }
-
 
 - (BOOL)isConnected
 {
@@ -289,12 +279,10 @@ static  RHSocketConnection *tool;
 }
 
 
-
-
 - (void)writeData:(NSData *)data timeout:(NSTimeInterval)timeout tag:(long)tag ReceiveBlock:(ReceiveBlock)block
 {
     NSDictionary *d=[NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-    GCLog(@"输出数据 （writeData2） %@", d);
+//    GCLog(@"输出数据 （writeData2） %@", d);
     
     NSDictionary *dict=@{
                          KDataKey:data,
@@ -319,8 +307,30 @@ static  RHSocketConnection *tool;
     NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&error];
 //    GCLog(@"socket发出数据%@   超时时间:%f",weatherDic,timeout);
     
+    
+    self.returnGetNumber++;
+    
+//    [SVProgressHUD showInfoWithStatus:[NSString stringWithFormat:@"self.returnGetNumber = %d",self.returnGetNumber]];
+    
+    
+    
+    
      [_asyncSocket writeData:data withTimeout:timeout tag:tag];
     
+    dispatch_async(dispatch_get_main_queue(),^{
+        NSLog(@"❌❌❌❌❌❌❌❌❌❌❌❌❌❌self.returnGetNumber = %d❌❌❌❌❌❌❌❌❌❌❌❌❌",self.returnGetNumber);
+        if (self.returnGetNumber == 20) {
+            if (self.isDeviceDisconnect) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:KNotiDeviceDisconnectFormServe object:nil];
+                [GCDiscoverView showWithTip:@"电磁炉未连接服务器,您将无法控制电磁炉,请检查电磁炉状态!"];
+            }
+            self.isDeviceDisconnect=NO;
+        }
+    });
+   
+//    if (error) {
+//        [SVProgressHUD showInfoWithStatus:error];
+//    }
 //    int code=[weatherDic[KSokectOrder][@"code"] intValue];
 //
 //
@@ -457,8 +467,8 @@ static  RHSocketConnection *tool;
     
     //继续读取sokect
     // 超时设置为负数，表示不会使用超时
-    [sock readDataWithTimeout:-1 tag:tag];
-//    [sock readDataWithTimeout:0.1 tag:tag];
+//    [sock readDataWithTimeout:-1 tag:tag];
+    [sock readDataWithTimeout:2 tag:tag];
     
     
 //    if (!data) {
@@ -492,15 +502,16 @@ static  RHSocketConnection *tool;
 #pragma mark -bug🙅‍♂️🙅‍♂️🙅‍♂️🙅‍♂️🙅‍♂️
     if (result==nil) {
         NSLog(@"❌❌❌❌❌❌❌❌❌❌❌❌result is nil ❌❌❌❌❌❌❌❌❌❌❌❌");
-        self.returnGetNumber++;
         
-        if (self.returnGetNumber == 6) {
-            if (self.isDeviceDisconnect) {
-                [[NSNotificationCenter defaultCenter] postNotificationName:KNotiDeviceDisconnectFormServe object:nil];
-                [GCDiscoverView showWithTip:@"电磁炉未连接服务器,您将无法控制电磁炉,请检查电磁炉状态!"];
-            }
-            self.isDeviceDisconnect=NO;
-        }
+//        self.returnGetNumber++;
+//
+//        if (self.returnGetNumber == 6) {
+//            if (self.isDeviceDisconnect) {
+//                [[NSNotificationCenter defaultCenter] postNotificationName:KNotiDeviceDisconnectFormServe object:nil];
+//                [GCDiscoverView showWithTip:@"电磁炉未连接服务器,您将无法控制电磁炉,请检查电磁炉状态!"];
+//            }
+//            self.isDeviceDisconnect=NO;
+//        }
         
         
         return;
@@ -657,6 +668,11 @@ static  RHSocketConnection *tool;
      
      
      */
+    
+    
+    
+    self.returnGetNumber = 0;
+    
     if (_delegate && [_delegate respondsToSelector:@selector(didReceiveData:tag:)]) {
         [_delegate didReceiveData:data tag:tag];
     }
@@ -674,7 +690,6 @@ static  RHSocketConnection *tool;
     // 超时设置为负数，表示不会使用超时
     [sock readDataWithTimeout:-1 tag:tag];
 }
-
 
 #pragma mark -数据处理
 - (NSData *) calibrateWithData:(NSData *)data
@@ -736,10 +751,6 @@ static  RHSocketConnection *tool;
 
 }
 
-
-
-
-
 #pragma mark -ui操作
 - (void) hideHud{
     
@@ -747,12 +758,10 @@ static  RHSocketConnection *tool;
     self.hud=nil;
 }
 
-
 #pragma mark -保持心跳
 - (void) keepHeartbeat
 {
     self.heartBeatThread = [[MyThread alloc] init];
-    
     
     __weak typeof(self) ws = self;
     
@@ -796,6 +805,7 @@ static  RHSocketConnection *tool;
     
     [self.heartBeatThread run];
 
+    
 }
 
 - (void) stopHeartBeat
@@ -828,7 +838,6 @@ static  RHSocketConnection *tool;
 
 }
 
-
 #pragma mark -获取设备状态
 - (void) getDeviceState
 {
@@ -842,17 +851,36 @@ static  RHSocketConnection *tool;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
+//    作者：FGNeverMore
+//    链接：https://www.jianshu.com/p/1636d35c34f0
+//    來源：简书
+//    简书著作权归作者所有，任何形式的转载都请联系作者获得授权并注明出处。
+//- (void)connect { /** * LQ~ 由于很可能同时多次进行socket连接,在这里使用线程锁,确保只进行一次连接 */
+//    @synchronized (self.linkLock){
+//        if (LINKSTATE_LINKING != self.linkState)
+//        {
+//            // 把当前状态改为链接建立中,这里我们让所有的回调执行都发生在主线程的queue里，当然我们可以传一个专用的
+//            queue self.asyncSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
+//            NSError *error = nil;
+//            /*LQ~ 连接服务器 */
+//            //CONNECT_TIMEOUT是一个宏定义,定义超时的时间,我用的是30秒
+//            if (![self.asyncSocket connectToHost:self.host onPort:self.port withTimeout:CONNECT_TIMEOUT error:&error]) {
+//                /*LQ~ 如果socktet连接失败,返回NO,记录连接为LINKSTATE_UNLINK */
+//                self.linkState = LINKSTATE_UNLINK;
+//
+//            }
+//            if (error != nil) {
+//                //当有错误的时候抛出异常错误信息
+//                @throw [NSException exceptionWithName:@"GCDAsyncSocket" reason:[error localizedDescription] userInfo:nil];
+//
+//            } //当socktet连接成功的时候,记录连接的状态,连接中
+//            self.linkState = LINKSTATE_LINKING;
+//
+//        }
+//
+//    }
+//
+//}
 
 
 @end

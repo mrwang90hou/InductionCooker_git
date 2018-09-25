@@ -273,21 +273,21 @@
 }
 
 - (IBAction)reservationButtonClick:(id)sender {
-    
-    if ([_delegate respondsToSelector:@selector(rightReservationButtonClick)]) {
-        
-        [_delegate rightReservationButtonClick];
+    if (_isConection){
+        if ([_delegate respondsToSelector:@selector(rightReservationButtonClick)]) {
+            
+            [_delegate rightReservationButtonClick];
+        }
     }
-    
 }
 
 - (IBAction)unReservationButtonClick:(id)sender {
-    
-    if ([_delegate respondsToSelector:@selector(rightUnreservationButtonClick)]) {
-        
-        [_delegate rightUnreservationButtonClick];
+    if (_isConection){
+        if ([_delegate respondsToSelector:@selector(rightUnreservationButtonClick)]) {
+            
+            [_delegate rightUnreservationButtonClick];
+        }
     }
-    
 }
 
 - (IBAction)showStallViewButtonClick:(id)sender {
