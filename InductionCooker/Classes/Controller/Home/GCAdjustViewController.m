@@ -347,7 +347,6 @@
         
     }else{
         [self showTemperatureView:YES];
-        
     }
     if (bar) {
         [bar removeFromSuperview];
@@ -360,7 +359,6 @@
     bar.greyProgressColor=UIColorFromRGB(0xcccccc);
     
     bar.backgroundColor=[UIColor clearColor];
-    
     
     NSMutableDictionary *mDict=[NSMutableDictionary dictionary];
 
@@ -376,21 +374,23 @@
                 NSDictionary *defaultStall = [self.moden.defaultStalls firstObject];
                 
                 if ([[defaultStall allValues][0] intValue]==[a intValue]) {
-                    
                     self.progress=i;
                     self.moden.currentStall=i;
                 }
-                
-                
             }
 
-            
         }else{
             self.progress=self.moden.currentStall;
         }
-        
-        
-        
+        if (self.moden.modenId == 108) {
+//        [SVProgressHUD showInfoWithStatus:[NSString stringWithFormat:@"self.moden.currentStall = %@,self.moden.aotuWork = %@",a,str]];
+            //        [SVProgressHUD showInfoWithStatus:[NSString stringWithFormat:@"self.powerLabel.text = %@,self.moden.aotuWork = %d",self.powerLabel.text,self.moden.aotuWork]];
+//            self.powerLabel.text = @"Auto";
+//            bar.progress = 0;
+            //        bar.
+//            return;
+            str = @"";
+        }
         [mDict setObject:str forKey:str];
         
     }
@@ -402,9 +402,7 @@
     [bar strokeChart];
     [self.powerView addSubview:bar];
 
-    
     [self setValueForUI];
-
 
 }
 
@@ -524,6 +522,15 @@
 
 - (void) updataTemperatureAndPowerView{
     
+    if (self.moden.modenId == 108) {
+//        [SVProgressHUD showInfoWithStatus:[NSString stringWithFormat:@"self.powerLabel.text = %@,self.moden.aotuWork = %d",self.powerLabel.text,self.moden.aotuWork]];
+        self.powerLabel.text = @"Auto";
+        bar.progress = 0;
+        //        bar.
+        return;
+    }
+    
+    
     self.powerLabel.text=[NSString stringWithFormat:@"%@W",self.moden.stalls[self.moden.currentStall]];
     
     NSString *a=[NSString stringWithFormat:@"%@",self.moden.stalls[self.moden.currentStall]];
@@ -534,12 +541,12 @@
     if (self.moden.modenId == 111 && [str isEqualToString:@"180℃"]) {
         self.temperLabel.text = @"160℃";
     }
-    if (self.moden.modenId == 108) {
-        [SVProgressHUD showInfoWithStatus:[NSString stringWithFormat:@"self.powerLabel.text = %@,self.moden.aotuWork = %d",self.powerLabel.text,self.moden.aotuWork]];
+//    if (self.moden.modenId == 108) {
+//        [SVProgressHUD showInfoWithStatus:[NSString stringWithFormat:@"self.powerLabel.text = %@,self.moden.aotuWork = %d",self.powerLabel.text,self.moden.aotuWork]];
 //        self.powerLabel.text = @"Auto";
 //        bar.progress = 0;
 //        bar.
-    }
+//    }
 //    [SVProgressHUD showInfoWithStatus:[NSString stringWithFormat:@"档位发生变化！%@",self.temperLabel.text]];
     
 }

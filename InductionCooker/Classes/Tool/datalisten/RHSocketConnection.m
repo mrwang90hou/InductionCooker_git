@@ -270,7 +270,7 @@ static  RHSocketConnection *tool;
 - (void)writeData:(NSData *)data timeout:(NSTimeInterval)timeout tag:(long)tag
 {
     NSDictionary *d=[NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-    GCLog(@"输出数据  （writeData1）%@", d);
+//    GCLog(@"输出数据  （writeData1）%@", d);
     
     NSDictionary *dict=@{
                          KDataKey:data,
