@@ -114,12 +114,21 @@
 - (void) rightButtonClick
 {
 //    GCNotificationCellMd *model = self.dataSoucre[0];
-    if (self.dataSoucre.count>1) {
+//    if (self.dataSoucre.count>1) {
         GCNotificationCellMd *model = self.dataSoucre[0];
+    NSLog(@"model.msgId = %d ",model.msgId);
+    NSLog(@"model.notiState = %d ",model.notiState);
+    NSLog(@"model.date = %@ ",model.date);
+    NSLog(@"model.text = %@ ",model.text);
+    
+    
+    
+    
         [[GCDataBasicManager shareManager] deleteOneDataFromTable:KErrorTableName model:model];
-        [SVProgressHUD showInfoWithStatus:@"删除成功！"];
-    }
-    [SVProgressHUD showErrorWithStatus:@"删除失败"];
+//        [SVProgressHUD showInfoWithStatus:@"删除成功！"];
+//    }else{
+//        [SVProgressHUD showErrorWithStatus:@"删除失败"];
+//    }
 }
 
 
@@ -269,7 +278,7 @@
 //        [self.hud hudUpdataTitile:@"删除失败" hideTime:1.2];
 //    }];
     
-    [SVProgressHUD showInfoWithStatus:@"删除成功！"];
+//    [SVProgressHUD showInfoWithStatus:@"删除成功！"];
 }
 
 

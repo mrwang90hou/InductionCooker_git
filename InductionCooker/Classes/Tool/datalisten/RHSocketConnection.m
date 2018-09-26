@@ -467,8 +467,8 @@ static  RHSocketConnection *tool;
     
     //继续读取sokect
     // 超时设置为负数，表示不会使用超时
-//    [sock readDataWithTimeout:-1 tag:tag];
-    [sock readDataWithTimeout:2 tag:tag];
+    [sock readDataWithTimeout:-1 tag:tag];
+//    [sock readDataWithTimeout:2 tag:tag];
     
     
 //    if (!data) {

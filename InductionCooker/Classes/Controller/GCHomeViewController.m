@@ -2148,7 +2148,8 @@
 - (void) trunToQRCode
 {
     
-    SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"提示" andMessage:@"当前产品列表为空!您尚未绑定和一电磁炉产品，请先绑定产品，请选择是否跳转到绑定设备页面?"];
+//    SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"提示" andMessage:@"当前产品列表为空!您尚未绑定和一电磁炉产品，请先绑定产品，请选择是否跳转到绑定设备页面?"];
+    SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"提示" andMessage:@"无绑定设备\n是否跳转绑定设备页?"];
     [alertView addButtonWithTitle:@"取消"
                              type:SIAlertViewButtonTypeDefault
                           handler:^(SIAlertView *alertView) {

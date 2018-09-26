@@ -108,9 +108,12 @@
 
 -(BOOL)deleteOneDataFromTable:(NSString *)tableName model:(GCNotificationCellMd *)model{
     
-    NSString *sqlStr = [NSString stringWithFormat:@"delete from %@ where date = ? ;",tableName];
-    
-    return [self.database executeUpdate:sqlStr,model.date];
+    NSString *sqlStr = [NSString stringWithFormat:@"delete from %@ where id = ? ;",tableName];
+//    [SVProgressHUD showInfoWithStatus:[NSString stringWithFormat:@" sqlStr = %@  model.msgId == %d",sqlStr,model.msgId]];
+//    NSString *sqlStr2 = [NSString stringWithFormat:@"delete from %@ where msgId = ?;",tableName];
+//    return [self.database executeUpdate:sqlStr,model.date];
+//    return [self.database executeUpdate:sqlStr,[NSString stringWithFormat:@"%d",model.msgId]];
+    return [self.database executeUpdate:sqlStr,[NSString stringWithFormat:@"%d",model.msgId]];
 }
 
 -(BOOL)deleteAllDataFromTable:(NSString *)tableName{
