@@ -543,10 +543,6 @@ static NSInteger status;
     button.selected=!button.selected;
     
     self.selButton=button;
-    
-    
-    
-    
 }
 
 
